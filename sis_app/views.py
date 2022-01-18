@@ -13,11 +13,26 @@ import random
 import string
 from django.core.mail import send_mail
 
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
 
 
 # def hello_world(request):
 #     return render(request, 'sis_app/hello_world.html')
     
+def LogInScreen(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = authenticate(request, username = username, password = password)
+        if user is not None: #If log-in credentials are correct
+            login(request, user)
+            return redirect('/studentList')
+    context = {}
+    return render(request, 'sis_app/LogIn.html', context)
 
 def StudentList(request):
     students = Student.objects.all()
@@ -90,7 +105,7 @@ def GenerateAccount(request, id):
                     'CAMELEAN ACADEMY SIS username and pass',
                     "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON FIRST LOG-IN".format(username, password),
                     None,
-                    ['elijahjustincallantalol@gmail.com'],#this is the recipient(change this to email of student later)
+                    ['jlmanings@gmail.com'],#this is the recipient(change this to email of student later)
                     fail_silently=False,
                 )
 
