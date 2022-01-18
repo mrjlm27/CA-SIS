@@ -21,7 +21,8 @@ from django.contrib.auth.decorators import login_required
 
 # def hello_world(request):
 #     return render(request, 'sis_app/hello_world.html')
-    
+# def Home(request):
+
 def LogInScreen(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -62,7 +63,9 @@ def studentForm(request,id=0):
             form = StudentForm(request.POST,instance=student)
         if form.is_valid():
             form.save()
-        return redirect('/studentList')
+        return redirect('sis_app:log_in')
+    context = {'form':form_class}
+    return render(request, 'sis_app/Student_Form.html', context)
 
 def RegistrationList(request, pk = 0):
     if request.user.is_superuser:
