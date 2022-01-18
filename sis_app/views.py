@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -21,7 +22,10 @@ from django.contrib.auth.decorators import login_required
 
 # def hello_world(request):
 #     return render(request, 'sis_app/hello_world.html')
-# def Home(request):
+def Home(request):
+    context={}
+    return render(request,'sis_app/home.html',context) 
+
 
 def LogInScreen(request):
     if request.method == 'POST':
@@ -31,9 +35,28 @@ def LogInScreen(request):
         user = authenticate(request, username = username, password = password)
         if user is not None: #If log-in credentials are correct
             login(request, user)
-            return redirect('/studentList')
+            return redirect('/home')
     context = {}
     return render(request, 'sis_app/LogIn.html', context)
+
+def EditAccountCred(request):
+    # user = User.objects.get(username=request.username, password=request.password)
+    # if request.user.is_authenticated():
+    if request.method == 'POST':
+        old_u = request.user.username
+        old_p = request.user.password
+        user = User.objects.get(username=old_u,password=old_p)
+        new_username = request.POST.get('username')
+        new_password = request.POST.get('password')
+        # user.set_username(new_username)
+        user.username = new_username
+        user.set_password(new_password)
+        user.save()
+        return redirect('sis_app:log_in')
+    context={}
+    return render(request, 'sis_app/Account_Edit.html', context)
+
+
 
 def StudentList(request):
     students = Student.objects.all()
