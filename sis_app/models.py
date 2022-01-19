@@ -1,4 +1,5 @@
 from email.policy import default
+from time import timezone
 from django.db import models
 import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -24,22 +25,63 @@ class Account(models.Model):
 class Student(Account):
     student_firstname = models.CharField(max_length=128)#
     student_lastname = models.CharField(max_length=128)#
-    student_middlename = models.CharField(max_length=128, default="middlename")
-    student_nickname = models.CharField(max_length=128, default="nickname")
-    student_grade_level = models.CharField(max_length=128, blank=True)#
+    student_middlename = models.CharField(max_length=128)
+    student_nickname = models.CharField(max_length=128)
+    student_birthday = models.DateField()
+
+    grade_levels = [
+        ('Nursery','Nursery'),
+        ('Kinder 1','Kinder 1'),
+        ('Kinder 2', 'Kinder 2')
+    ]
+    student_grade_level = models.CharField(max_length=128, choices=grade_levels, default='Nursery')#
     status =[
     ('Not Enrolled','Not Enrolled'),
     ('Enrolled', 'Enrolled'),
     ]#
     enrollment_status = models.CharField(max_length=20, choices=status,default='Not Enrolled')#
     student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year])#
-    student_telno = models.CharField(max_length=128, default="None")
-    student_address = models.CharField(max_length=300, null = False, default="cityx")
-    student_religion = models.CharField(max_length=128, null = True, default="None")
-    student_nationality = models.CharField(max_length=128, default="No nationality")
-    student_hobbies = models.TextField(default = "None")
-    student_likes = models.TextField(default = "None")
-    student_dislikes = models.TextField(default = "None")
+    student_address = models.CharField(max_length=300)
+    student_religion = models.CharField(max_length=128)
+    student_nationality = models.CharField(max_length=128)
+    student_hobbies = models.TextField(max_length=500)
+    student_likes = models.TextField(max_length=500)
+    student_dislikes = models.TextField(max_length=500)
+    student_shm = models.TextField(max_length=500)
+    student_allergies = models.TextField(max_length=500)
+    student_sd = models.TextField(max_length=500)
+    student_oconsiderations = models.TextField(max_length=500)
+    student_guardianemail = models.EmailField(max_length = 254)
+    student_f_firstname = models.CharField(max_length=128)
+    student_f_lastname = models.CharField(max_length=128)
+    student_f_middlename = models.CharField(max_length=128)
+    student_f_telno = models.CharField(max_length=128)
+    student_f_address = models.CharField(max_length=300)
+    student_f_occupation = models.CharField(max_length=128)
+    student_f_employer = models.CharField(max_length=128)
+    student_f_oaddress = models.CharField(max_length=300)
+    student_f_otelno = models.CharField(max_length=128)
+    student_f_natureofbusiness = models.CharField(max_length=128)
+    student_m_firstname = models.CharField(max_length=128)
+    student_m_lastname = models.CharField(max_length=128)
+    student_m_middlename = models.CharField(max_length=128)
+    student_m_telno = models.CharField(max_length=128)
+    student_m_address = models.CharField(max_length=300)
+    student_m_occupation = models.CharField(max_length=128)
+    student_m_employer = models.CharField(max_length=128)
+    student_m_oaddress = models.CharField(max_length=300)
+    student_m_otelno = models.CharField(max_length=128)
+    student_m_natureofbusiness = models.CharField(max_length=128)
+    student_sibling_name = models.CharField(max_length=300)
+    student_sibling_gender = models.CharField(max_length=128)
+    student_sibling_age = models.IntegerField()
+    student_sibling_school=models.CharField(max_length=300)
+    student_medexp = models.BooleanField(default = False)
+    student_rules = models.BooleanField(default = False)
+    student_accuracy = models.BooleanField(default = False)
+    student_signedname = models.CharField(max_length=300)
+    student_signdate = models.DateField(default=datetime.date.today())
+
     
 
 
