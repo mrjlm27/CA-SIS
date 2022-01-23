@@ -40,7 +40,7 @@ class Student(Account):
     student_hobbies = models.TextField(default = "None")
     student_likes = models.TextField(default = "None")
     student_dislikes = models.TextField(default = "None")
-    
+    payment_plan = models.CharField(max_length=128, default="Annually")
 
 
 def year_choices():
@@ -48,3 +48,14 @@ def year_choices():
 
 class Teacher(Account):
     t_name = models.CharField(max_length=128)
+
+# class Payments(Student):
+#     payment_s_account_id = models.ForeignKey(Student)
+#     payment_date = models.DateField()
+#     payment_amount = models.IntegerField(max=128)
+
+class Payments(Student):
+    payment_s_account_id = models.OneToOneField(Student, on_delete=models.CASCADE,
+        primary_key=True,)
+    paymentdate_date = models.DateField()
+    payment_amount = models.IntegerField()
