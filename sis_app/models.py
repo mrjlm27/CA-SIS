@@ -48,3 +48,9 @@ def year_choices():
 
 class Teacher(Account):
     t_name = models.CharField(max_length=128)
+
+
+class Payment(Student):
+    payment_s_account_id = models.ForeignKey(Student)
+    paymentdate_date = models.DateField()
+    payment_amount = models.IntegerField()
