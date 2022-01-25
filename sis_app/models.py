@@ -40,7 +40,12 @@ class Student(Account):
     student_hobbies = models.TextField(default = "None")
     student_likes = models.TextField(default = "None")
     student_dislikes = models.TextField(default = "None")
-    payment_plan = models.CharField(max_length=128, default="Annually")
+    payment =[
+        ('Annually','Annually'),
+        ('Bi-Annually','Bi-Annually'),
+        ('Quarterly','Quarterly'),
+    ]
+    payment_plan = models.CharField(max_length=20, choices=payment,default="Annually")
 
 
 def year_choices():
