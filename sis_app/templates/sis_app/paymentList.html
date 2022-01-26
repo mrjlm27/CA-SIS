@@ -1,0 +1,52 @@
+{% load static %}
+
+{%block content %}
+
+{% block styles %}
+
+{% endblock %}
+
+<h1 class="pageHeading">Payments</h1>
+
+<div class="form-container">
+    <form method="get" style=>
+        {{myPFilter.form}}
+        <button class="buttonDesignPositive" type="submit">Search</button>
+    </form>
+</div>
+
+<div class="table-container">
+    <table class = "table table-borderless">
+        <thead class= "border-bottom font-weight-bold">
+            <tr>
+                <th>Payment Account ID</th>
+                <th>Student First Name</th>
+                <th>Student Last Name</th>
+                <th>Date of Payment</th>
+                <th>Amount of Payment</th>
+                <th>Enrollment Plan</th>
+                <th>Outstanding Balance</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payment in paymentList %}
+            <tr>
+                <td data-heading="Payment Account ID">{{payment.payment_s_account_id}}</td>
+                <td data-heading="Student First Name">{{payment.getstudentfirstname}}</td>
+                <td data-heading="Student Last Name">{{payment.getstudentlastname}}</td>
+                <td data-heading="Date of Payment">{{payment.paymentdate_date}}</td>
+                <td data-heading="Amount of Payment">{{payment.payment_amount}}</td>
+                <td data-heading="Enrollment Plan">{{payment.getenrollmentplan}}</td>
+                <td data-heading="Outstanding Balance">{{payment.outstandingbalance}}</td>
+                <td data-heading="Outstanding Balance">{{payment.test}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    
+    </table>
+</div>
+<a class="buttonDesignNegative" href="{% url 'sis_app:payment_form' %}">Encode a Payment</a>
+
+
+{% endblock content %}

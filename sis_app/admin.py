@@ -13,3 +13,4 @@ from .models import *
 # admin.site.register(Account)
 admin.site.register(Student)
 admin.site.register(Teacher)
+admin.site.register(Payment)

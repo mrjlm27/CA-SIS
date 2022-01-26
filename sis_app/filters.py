@@ -8,3 +8,11 @@ class StudentFilter(django_filters.FilterSet):
         fields = {
             'student_lastname': ['icontains'],
         }
+
+
+
+
+
+class PaymentFilter(django_filters.FilterSet):
+    payment_s_account_id__student_lastname = django_filters.CharFilter(label='Student Last Name')
+    
