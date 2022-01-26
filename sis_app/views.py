@@ -1,3 +1,4 @@
+from re import X
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -118,11 +119,30 @@ def paymentForm(request,id=0):
     else:
         if id == 0:
             form = PaymentForm(request.POST)
+            # x = request.POST.get(payment_s_account_id)
+            # print(x)
         else:
             payment = Payment.objects.get(pk=id)
+            # print(payment.outstandingbalance)
             form = PaymentForm(request.POST,instance=payment)
         if form.is_valid():
             form.save()
+            s_id = form.cleaned_data['payment_s_account_id']
+            payments = Payment.objects.filter(payment_s_account_id = s_id)
+            min = 100000
+            for i in payments:
+                # print(i.outstandingbalance)
+                if i.outstandingbalance < min:
+                    min = i.outstandingbalance
+            print(min)
+            test = Payment.objects.get(outstandingbalance = 50000)
+            if min != 100000:
+                test2 = Payment.objects.get(outstandingbalance = min, payment_s_account_id = s_id)
+                payment_amount = form.cleaned_data['payment_amount']
+                test.outstandingbalance = test2.outstandingbalance - payment_amount
+                test.save()
+            
+            
         return redirect('/paymentList')
 
 def paymentList(request):

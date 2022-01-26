@@ -60,6 +60,8 @@ class Payment(models.Model):
     payment_s_account_id = models.ForeignKey(Student, on_delete=models.CASCADE, null = False)
     paymentdate_date = models.DateField(null = False)
     payment_amount = models.IntegerField(null = False)
+    outstandingbalance = models.IntegerField(default = 50000)
+    tuitionfee = models.IntegerField(default = 50000)
 
     def getenrollmentplan(self):
         return self.payment_s_account_id.enrollment_plan
@@ -70,21 +72,21 @@ class Payment(models.Model):
     def getstudentlastname(self):
         return self.payment_s_account_id.student_lastname
     
-    def outstandingbalance(self):
-        annual = 37999
-        biannual = 38998
-        quarterly = 41663
-        if self.payment_s_account_id.enrollment_plan == 'Annually':
-            outstanding_balance = annual - self.payment_amount
-            outstanding_balance = outstanding_balance
-            return outstanding_balance 
-        elif self.payment_s_account_id.enrollment_plan == 'Bi-Annually':
-            return  biannual - self.payment_amount
-        else:
-            return  quarterly - self.payment_amount
+    # def outstandingbalance(self):
+    #     annual = 37999
+    #     biannual = 38998
+    #     quarterly = 41663
+    #     if self.payment_s_account_id.enrollment_plan == 'Annually':
+    #         outstanding_balance = annual - self.payment_amount
+    #         outstanding_balance = outstanding_balance
+    #         return outstanding_balance 
+    #     elif self.payment_s_account_id.enrollment_plan == 'Bi-Annually':
+    #         return  biannual - self.payment_amount
+    #     else:
+    #         return  quarterly - self.payment_amount
     
-    def test(self):
-        return Payment.objects.values_list('payment_s_account_id','payment_amount')
+    # def test(self):
+    #     return Payment.objects.values_list('payment_s_account_id','payment_amount')
 
 
 
