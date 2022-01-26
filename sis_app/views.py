@@ -104,12 +104,11 @@ def GenerateAccount(request, id):
         return render(request,"sis_app/no_access.html")##change this to redirect to loginpage
     # Create your views here.
 
-def StudentEnrollment(request):
+def EnrollmentStatusAndPaymentPlan(request):
     students = Student.objects.all()
 
-    myFilter = StudentFilter(request.GET, queryset=students)
-    students = myFilter.qs
+    myFilter2 = EnrollmentStatusAndPaymentPlanFilter(request.GET, queryset=students)
+    students = myFilter2.qs
 
-
-    context = {'studentList' : students, 'myFilter': myFilter}
-    return render(request,"sis_app/Student_Enrollment.html", context)
+    context = {'studentList' : students, 'myFilter2': myFilter2}
+    return render(request,"sis_app/Student_Enrollment.html", context)   

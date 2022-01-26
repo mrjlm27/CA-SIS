@@ -45,7 +45,7 @@ class Student(Account):
         ('Bi-Annually','Bi-Annually'),
         ('Quarterly','Quarterly'),
     ]
-    payment_plan = models.CharField(max_length=20, choices=payment,default="Annually")
+    student_payment_plan = models.CharField(max_length=20, choices=payment,default="Annually")
 
 
 def year_choices():
