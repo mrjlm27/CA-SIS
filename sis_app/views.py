@@ -117,13 +117,13 @@ def paymentForm(request,id=0):
             form = PaymentForm(instance=payment)
         return render(request,"sis_app/Payment_Form.html",{'form':form})
     else:
+        annual = 37999
+        biannual = 38998
+        quarterly = 41663
         if id == 0:
             form = PaymentForm(request.POST)
-            # x = request.POST.get(payment_s_account_id)
-            # print(x)
         else:
             payment = Payment.objects.get(pk=id)
-            # print(payment.outstandingbalance)
             form = PaymentForm(request.POST,instance=payment)
         if form.is_valid():
             form.save()
@@ -131,11 +131,10 @@ def paymentForm(request,id=0):
             payments = Payment.objects.filter(payment_s_account_id = s_id)
             min = 100000
             for i in payments:
-                # print(i.outstandingbalance)
                 if i.outstandingbalance < min:
                     min = i.outstandingbalance
-            print(min)
-            test = Payment.objects.get(outstandingbalance = 50000)
+            print(min)    
+            test = Payment.objects.get(outstandingbalance = annual)
             if min != 100000:
                 test2 = Payment.objects.get(outstandingbalance = min, payment_s_account_id = s_id)
                 payment_amount = form.cleaned_data['payment_amount']
