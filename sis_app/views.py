@@ -144,3 +144,49 @@ def GenerateAccount(request, id):
     else:
         return render(request,"sis_app/no_access.html")##change this to redirect to loginpage
     # Create your views here.
+
+
+def paymentForm(request,id=0):
+    model = Payment
+    form_class = PaymentForm
+    if request.method == "GET":
+        if id == 0: 
+            form = PaymentForm()
+        else:
+            payment = Payment.objects.get(pk=id)
+            form = PaymentForm(instance=payment)
+        return render(request,"sis_app/Payment_Form.html",{'form':form})
+    else:
+        annual = 37999
+        biannual = 38998
+        quarterly = 41663
+        if id == 0:
+            form = PaymentForm(request.POST)
+        else:
+            payment = Payment.objects.get(pk=id)
+            form = PaymentForm(request.POST,instance=payment)
+        if form.is_valid():
+            form.save()
+            s_id = form.cleaned_data['payment_s_account_id']
+            payments = Payment.objects.filter(payment_s_account_id = s_id)
+            min = 100000
+            for i in payments:
+                if i.outstandingbalance < min:
+                    min = i.outstandingbalance
+            test = Payment.objects.get(outstandingbalance = annual)
+            if min != 100000:
+                test2 = Payment.objects.get(outstandingbalance = min, payment_s_account_id = s_id)
+                payment_amount = form.cleaned_data['payment_amount']
+                test.outstandingbalance = test2.outstandingbalance - payment_amount
+                test.save()
+            
+        return redirect('/paymentList')
+
+def paymentList(request):
+    payments = Payment.objects.all()
+
+    myPFilter = PaymentFilter(request.GET, queryset=payments)
+    payments = myPFilter.qs
+
+    context = {'paymentList' : payments, 'myPFilter': myPFilter}
+    return render(request,"sis_app/paymentList.html", context)

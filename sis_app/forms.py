@@ -21,7 +21,7 @@ class StudentForm(forms.ModelForm):
         'student_m_otelno','student_m_natureofbusiness',
         'student_sibling_name','student_sibling_gender','student_sibling_age','student_sibling_school',
         'student_medexp','student_rules','student_accuracy',
-        'student_signedname','student_signdate',
+        'student_signedname','student_signdate', 'student_enrollment_plan'
         )
         labels = {
             'student_firstname': 'First Name',
@@ -70,7 +70,8 @@ class StudentForm(forms.ModelForm):
             'student_rules':'I hereby been informed of the rules and regulations of Camelean Academy policies as well as it’s primary functions and obligations and I hereby agree to abide by them.The school reserves the right to terminate any enrollee due to bad behavior as well as parents who do not meet school requirements and have unharmonious relationship with school employees',
             'student_accuracy':'I hereby declare that all the information stated above are accurate and complete',
             'student_signedname':'Name',
-            'student_signdate':'Date Today'
+            'student_signdate':'Date Today',
+            'student_enrollment_plan':'Enrollment Plan'
         }
 
         widgets = {
@@ -111,4 +112,19 @@ class LogInForm(forms.ModelForm):
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'password': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class PaymentForm(forms.ModelForm):
+    class Meta:
+        model=Payment
+        fields = ('payment_s_account_id','paymentdate_date','payment_amount')
+        labels = {
+            'payment_s_account_id': 'Select Student',
+            'paymentdate_date': 'Date of Payment',
+            'payment_amount': 'Amount of Payment',
+        }
+
+        widgets = {
+            'paymentdate_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
+            'payment_amount': forms.NumberInput(attrs={'class': 'form-control'}),
         }

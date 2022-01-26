@@ -81,7 +81,12 @@ class Student(Account):
     student_accuracy = models.BooleanField(default = False)
     student_signedname = models.CharField(max_length=300, default=None)
     student_signdate = models.DateField(default=datetime.date.today())
-
+    enrollment_plan_choices =[
+    ('Annually','Annually'),
+    ('Bi-Annually', 'Bi-Annually'),
+    ('Quarterly', 'Quarterly'),
+    ]
+    student_enrollment_plan = models.CharField(max_length=20, choices=enrollment_plan_choices,default='Annually')
     
 
 
@@ -90,3 +95,35 @@ def year_choices():
 
 class Teacher(Account):
     t_name = models.CharField(max_length=128)
+
+class Payment(models.Model):
+    payment_s_account_id = models.ForeignKey(Student, on_delete=models.CASCADE, null = False)
+    paymentdate_date = models.DateField(null = False)
+    payment_amount = models.IntegerField(null = False)
+    annual = 37999
+    biannual = 38998
+    quarterly = 41663
+    outstandingbalance = models.IntegerField(default = annual)
+    tuitionfee = models.IntegerField(default = 50000)
+
+    def getenrollmentplan(self):
+        return self.payment_s_account_id.student_enrollment_plan
+
+    def getstudentfirstname(self):
+        return self.payment_s_account_id.student_firstname
+
+    def getstudentlastname(self):
+        return self.payment_s_account_id.student_lastname
+    
+    # def getoutstandingbalance(self):
+    #     annual = 37999
+    #     biannual = 38998
+    #     quarterly = 41663
+    #     if self.payment_s_account_id.enrollment_plan == 'Annually': 
+    #         return annual
+    #     elif self.payment_s_account_id.enrollment_plan == 'Bi-Annually':
+    #         return  biannual
+    #     else:
+    #         return  quarterly
+    
+

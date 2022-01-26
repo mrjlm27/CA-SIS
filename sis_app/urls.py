@@ -13,4 +13,6 @@ urlpatterns=[
     path('studentForm',views.studentForm, name="student_form"),
     path('RegistrationList',views.RegistrationList, name="registration_list"),
     path('GenerateAccount/<int:id>',views.GenerateAccount, name="generate_account"),
+    path('paymentForm',views.paymentForm, name="payment_form"),
+    path('paymentList',views.paymentList, name="payment_list"),
 ]
