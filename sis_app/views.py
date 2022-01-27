@@ -145,6 +145,14 @@ def GenerateAccount(request, id):
         return render(request,"sis_app/no_access.html")##change this to redirect to loginpage
     # Create your views here.
 
+def updateEnrollmentStatus(request, id):
+    test = Student.objects.get(pk = id)
+    if test.enrollment_status == "Not Enrolled":
+        test.enrollment_status = "Enrolled"
+        test.save()
+    elif test.enrollment_status == "Enrolled":
+        test.enrollment_status = "Not Enrolled"
+        test.save()
 
 def paymentForm(request,id=0):
     model = Payment
@@ -179,14 +187,34 @@ def paymentForm(request,id=0):
                 payment_amount = form.cleaned_data['payment_amount']
                 test.outstandingbalance = test2.outstandingbalance - payment_amount
                 test.save()
-            
+
+            updateEnrollmentStatus(request, s_id.id)
+
         return redirect('/paymentList')
 
 def paymentList(request):
+
     payments = Payment.objects.all()
 
     myPFilter = PaymentFilter(request.GET, queryset=payments)
     payments = myPFilter.qs
 
+    print(payments)
+
+    # Payment.objects.filter(getstudentenrollmentstatus="Not Enrolled").update(getstudentenrollmentstatus = "Enrolled")
+    
+
     context = {'paymentList' : payments, 'myPFilter': myPFilter}
     return render(request,"sis_app/paymentList.html", context)
+
+def resetBAEnrollmentStatus(request):
+    Student.objects.filter(student_enrollment_plan = "Bi-Annually").update(enrollment_status = "Not Enrolled")
+    return redirect('/paymentList')
+
+def resetQEnrollmentStatus(request):
+    Student.objects.filter(student_enrollment_plan = "Quarterly").update(enrollment_status = "Not Enrolled")
+    return redirect('/paymentList')
+
+def resetALLEnrollmentStatus(request):
+    Student.objects.all().update(enrollment_status = "Not Enrolled")
+    return redirect('/paymentList')

@@ -115,6 +115,9 @@ class Payment(models.Model):
     def getstudentlastname(self):
         return self.payment_s_account_id.student_lastname
     
+    def getstudentenrollmentstatus(self):
+        return self.payment_s_account_id.enrollment_status
+
     # def getoutstandingbalance(self):
     #     annual = 37999
     #     biannual = 38998

@@ -15,4 +15,7 @@ urlpatterns=[
     path('GenerateAccount/<int:id>',views.GenerateAccount, name="generate_account"),
     path('paymentForm',views.paymentForm, name="payment_form"),
     path('paymentList',views.paymentList, name="payment_list"),
+    path('resetBiAnnually',views.resetBAEnrollmentStatus, name="reset_BA"),
+    path('resetQuarterly',views.resetQEnrollmentStatus, name="reset_Q"),
+    path('resetAll',views.resetALLEnrollmentStatus, name="reset_ALL"),
 ]

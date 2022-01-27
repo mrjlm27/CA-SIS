@@ -55,6 +55,7 @@
                 <th>Amount of Payment</th>
                 <th>Enrollment Type</th>
                 <th>Outstanding Balance</th>
+                <th>Enrollment Status</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -69,6 +70,7 @@
                 <td data-heading="Amount of Payment">{{payment.payment_amount}}</td>
                 <td data-heading="Enrollment Type">{{payment.getenrollmentplan}}</td>
                 <td data-heading="Outstanding Balance">{{payment.outstandingbalance}}</td>
+                <td data-heading="Enrollment Status">{{payment.getstudentenrollmentstatus}}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -76,6 +78,9 @@
     </table>
 </div>
 <a class="buttonDesignNegative" href="{% url 'sis_app:payment_form' %}">Encode a Payment</a>
+<a class="buttonDesignNegative" href="{% url 'sis_app:reset_BA' %}">reset Bi-Annual Payments</a>
+<a class="buttonDesignNegative" href="{% url 'sis_app:reset_Q' %}">reset Quarterly Payments</a>
+<a class="buttonDesignNegative" href="{% url 'sis_app:reset_ALL' %}">reset ALL Payments</a>
 
 
 
