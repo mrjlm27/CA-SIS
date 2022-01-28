@@ -218,3 +218,12 @@ def resetQEnrollmentStatus(request):
 def resetALLEnrollmentStatus(request):
     Student.objects.all().update(enrollment_status = "Not Enrolled")
     return redirect('/paymentList')
+
+def EnrollmentStatusAndPaymentPlan(request):
+    students = Student.objects.all()
+
+    myFilter2 = EnrollmentStatusAndPaymentPlanFilter(request.GET, queryset=students)
+    students = myFilter2.qs
+
+    context = {'studentList' : students, 'myFilter2': myFilter2}
+    return render(request,"sis_app/Student_Enrollment.html", context)   

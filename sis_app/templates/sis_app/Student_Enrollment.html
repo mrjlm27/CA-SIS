@@ -1,0 +1,47 @@
+{% load static %}
+
+{%block content %}
+
+{% block styles %}
+
+{% endblock %}
+
+<h1 class="pageHeading">Enrollment Report</h1>
+
+<div class="form-container">
+    <form method="get" style=>
+        {{myFilter2.form}}
+        <button class="buttonDesignPositive" type="submit">Search</button>
+    </form>
+</div>
+
+<div class="table-container">
+    <table class = "table table-borderless">
+        <thead class= "border-bottom font-weight-bold">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Enrollment Status</th>
+                <th>Payment Plan</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in studentList %}
+            <tr>
+                <td data-heading="First Name">{{student.student_firstname}}</td>
+                <td data-heading="Last Name">{{student.student_lastname}}</td>
+                <td data-heading="Enrollment Status">{{student.enrollment_status}}</td>
+                <td data-heading="Payment Plan">{{student.student_enrollment_plan}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    
+    </table>
+</div>
+
+{% comment %} <a class="buttonDesignNegative" href="{% url 'sis_app:student_enrollment_form' %}">Update</a> {% endcomment %}
+
+{% endblock content %}

@@ -18,4 +18,6 @@ urlpatterns=[
     path('resetBiAnnually',views.resetBAEnrollmentStatus, name="reset_BA"),
     path('resetQuarterly',views.resetQEnrollmentStatus, name="reset_Q"),
     path('resetAll',views.resetALLEnrollmentStatus, name="reset_ALL"),
+    path('studentEnrollment',views.EnrollmentStatusAndPaymentPlan, name="student_enrollment"),
+
 ]
