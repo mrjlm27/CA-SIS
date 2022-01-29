@@ -165,9 +165,11 @@ def paymentForm(request,id=0):
             form = PaymentForm(instance=payment)
         return render(request,"sis_app/Payment_Form.html",{'form':form})
     else:
+        #Values for Varying Student Enrollment Plan
         annual = 37999
         biannual = 38998
         quarterly = 41663
+
         if id == 0:
             form = PaymentForm(request.POST)
         else:
@@ -175,18 +177,35 @@ def paymentForm(request,id=0):
             form = PaymentForm(request.POST,instance=payment)
         if form.is_valid():
             form.save()
+
             s_id = form.cleaned_data['payment_s_account_id']
             payments = Payment.objects.filter(payment_s_account_id = s_id)
+            paymentstudentid = Payment.objects.filter(payment_s_account_id = s_id).latest('payment_s_account_id')
+            studentID = paymentstudentid.getstudentid()
+            studentIDobject = Student.objects.get(pk = studentID)
+            test = studentIDobject.student_enrollment_plan
+            PaymentOutstandingBalance = Payment.objects.get(outstandingbalance = 0)
+
+            #Update the Initial Outstanding Balance of the student based on the student's enrollment plan
+            if test == "Annually":
+                Payment.objects.filter(outstandingbalance = 0).update(outstandingbalance = annual)
+            elif test == "Bi-Annually":
+                Payment.objects.filter(outstandingbalance = 0).update(outstandingbalance = biannual)
+            else:
+                Payment.objects.filter(outstandingbalance = 0).update(outstandingbalance = quarterly)
+
+            #Get the lowest value for the outstanding balance (The most recently updated outstanding balance based on payments made)
             min = 100000
             for i in payments:
                 if i.outstandingbalance < min:
                     min = i.outstandingbalance
-            test = Payment.objects.get(outstandingbalance = annual)
+
+            #Subtract payment amount field from the most recent outstanding balance
             if min != 100000:
                 test2 = Payment.objects.get(outstandingbalance = min, payment_s_account_id = s_id)
                 payment_amount = form.cleaned_data['payment_amount']
-                test.outstandingbalance = test2.outstandingbalance - payment_amount
-                test.save()
+                PaymentOutstandingBalance.outstandingbalance = test2.outstandingbalance - payment_amount
+                PaymentOutstandingBalance.save()
 
             updateEnrollmentStatus(request, s_id.id)
 
