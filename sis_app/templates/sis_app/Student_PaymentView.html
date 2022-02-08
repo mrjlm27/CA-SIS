@@ -43,7 +43,8 @@
         <th>Student ID</th>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>School Year</th>
+        <th>School Year Start</th>
+        <th>School Year End</th>
         <th>Enrollment Type</th>
         <th>Enrollment Status</th>
         <th>Outstanding Balance</th>
@@ -56,7 +57,8 @@
         <td data-heading="Student ID">{{user.id}}</td>
         <td data-heading="First Name">{{student.student_firstname}}</td>
         <td data-heading="Last Name">{{student.student_lastname}}</td>
-        <td data-heading="Last Name">{{student.student_schoolyear_start}}</td>
+        <td data-heading="School Year Start">{{sy_start}}</td>
+        <td data-heading="School Year End">{{sy_end}}</td>
         <td data-heading="Enrollment Type">
           {{student.student_enrollment_plan}}
         </td>
@@ -77,6 +79,8 @@
     <thead class="border-bottom font-weight-bold">
       <tr>
         <th>Date of Payment</th>
+        <th>School Year Start</th>
+        <th>School Year End</th>
         <th>Enrollment Type</th>
         <th>Amount of Payment</th>
       </tr>
@@ -85,6 +89,8 @@
       {% for payment in payments %}
       <tr>
         <td data-heading="Date of Payment">{{payment.paymentdate_date}}</td>
+        <td data-heading="School Year Start">{{payment.get_sy_start}}</td>
+        <td data-heading="School Year End">{{payment.get_sy_end}}</td>
         <td data-heading="Enrollment Type">{{payment.getenrollmentplan}}</td>
         <td data-heading="Amount of Payment">{{payment.payment_amount}}</td>
       </tr>

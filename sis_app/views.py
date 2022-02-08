@@ -19,7 +19,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 
-
 # def hello_world(request):
 #     return render(request, 'sis_app/hello_world.html')
 def Home(request):
@@ -252,8 +251,11 @@ def StudentPaymentView(request):
     student = Student.objects.get(pk = user_id)
     paymentstudentid = Payment.objects.filter(payment_s_account_id = user_id).latest('payment_s_account_id')
     student_payments = Payment.objects.filter(payment_s_account_id = user_id)
+    sy_start = student.student_schoolyear_start
+    sy_end = sy_start + 1
 
-    context = {"student": student, "payment": paymentstudentid, "payments":student_payments}
+   
+    context = {"student": student, "payment": paymentstudentid, "payments":student_payments, "sy_start": sy_start, "sy_end":sy_end, "payment_sy_end": payment_sy_end, "payment_sy_start":payment_sy_start}
     
 
     return render(request, "sis_app/Student_PaymentView.html", context)

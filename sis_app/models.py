@@ -101,6 +101,8 @@ class Payment(models.Model):
     paymentdate_date = models.DateField(null = False)
     payment_amount = models.IntegerField(null = False)
     outstandingbalance = models.IntegerField(default = 0)
+    
+    payment_sy_end = 0
     # tuitionfee = models.IntegerField(default = 50000)
 
     # @property
@@ -130,5 +132,27 @@ class Payment(models.Model):
     
     def getstudentid(self):
         return self.payment_s_account_id.id
+
+    def get_sy_start(self):
+        first_half = [6,7,8,9,10,11,12]
+        payment_sy_start = 0
+        if self.paymentdate_date.month in first_half:
+            payment_sy_start = self.paymentdate_date.year
+            return payment_sy_start
+        else:
+            payment_sy_start = self.paymentdate_date.year - 1
+            return payment_sy_start
+    def get_sy_end(self):
+        first_half = [6,7,8,9,10,11,12]
+        payment_sy_start = 0
+        payment_sy_end = 0
+        if self.paymentdate_date.month in first_half:
+            payment_sy_start = self.paymentdate_date.year
+            payment_sy_end = payment_sy_start + 1
+            return payment_sy_end
+        else:
+            payment_sy_start = self.paymentdate_date.year - 1
+            payment_sy_end = payment_sy_start + 1
+            return payment_sy_end
     
 
