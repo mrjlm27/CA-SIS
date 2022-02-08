@@ -1,0 +1,96 @@
+{% load static %} {%block content %} {% block styles %}
+<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"> -->
+
+<!-- <style>
+
+.form-container {
+    /*display: inline-block;*/
+    text-align: right;
+    width: 90%;
+}
+
+.buttonDesignPositive {
+    border: 0;
+    padding: 16px 30px;
+    border-radius: 30px;
+    line-height: 1;
+    background: #3EAEB8;
+    color: #ffffff;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    margin: 1rem;
+}
+
+.buttonDesignPositive:hover,
+.buttonDesignPositive:focus {
+    background: #328c94;
+}
+
+</style> -->
+
+{% endblock %}
+
+<h1 class="pageHeading">View Payments</h1>
+
+<div class="table-container">
+  <table class="table table-borderless">
+    <caption class="pageHeading">
+      Outstanding Balance
+    </caption>
+    <thead class="border-bottom font-weight-bold">
+      <tr>
+        <th>Student ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>School Year</th>
+        <th>Enrollment Type</th>
+        <th>Enrollment Status</th>
+        <th>Outstanding Balance</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-heading="Student ID">{{user.id}}</td>
+        <td data-heading="First Name">{{student.student_firstname}}</td>
+        <td data-heading="Last Name">{{student.student_lastname}}</td>
+        <td data-heading="Last Name">{{student.student_schoolyear_start}}</td>
+        <td data-heading="Enrollment Type">
+          {{student.student_enrollment_plan}}
+        </td>
+        <td data-heading="Enrollment Status">{{student.enrollment_status}}</td>
+        <td data-heading="Outstanding Balance">
+          {{payment.outstandingbalance}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-container">
+  <table class="table table-borderless">
+    <caption class="pageHeading">
+      Previous Payments
+    </caption>
+    <thead class="border-bottom font-weight-bold">
+      <tr>
+        <th>Date of Payment</th>
+        <th>Enrollment Type</th>
+        <th>Amount of Payment</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for payment in payments %}
+      <tr>
+        <td data-heading="Date of Payment">{{payment.paymentdate_date}}</td>
+        <td data-heading="Enrollment Type">{{payment.getenrollmentplan}}</td>
+        <td data-heading="Amount of Payment">{{payment.payment_amount}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a>
+{% endblock content %}

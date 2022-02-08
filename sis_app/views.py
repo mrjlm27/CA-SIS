@@ -131,7 +131,7 @@ def GenerateAccount(request, id):
                     'CAMELEAN ACADEMY SIS username and pass',
                     "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON FIRST LOG-IN".format(username, password),
                     None,
-                    ['jlmanings@gmail.com'],#this is the recipient(change this to email of student later)
+                    ['gmgtechdev@gmail.com'],#this is the recipient(change this to email of student later)
                     fail_silently=False,
                 )
 
@@ -246,3 +246,14 @@ def EnrollmentStatusAndPaymentPlan(request):
 
     context = {'studentList' : students, 'myFilter2': myFilter2}
     return render(request,"sis_app/Student_Enrollment.html", context)   
+
+def StudentPaymentView(request):
+    user_id = request.user.id
+    student = Student.objects.get(pk = user_id)
+    paymentstudentid = Payment.objects.filter(payment_s_account_id = user_id).latest('payment_s_account_id')
+    student_payments = Payment.objects.filter(payment_s_account_id = user_id)
+
+    context = {"student": student, "payment": paymentstudentid, "payments":student_payments}
+    
+
+    return render(request, "sis_app/Student_PaymentView.html", context)

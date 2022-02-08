@@ -19,5 +19,6 @@ urlpatterns=[
     path('resetQuarterly',views.resetQEnrollmentStatus, name="reset_Q"),
     path('resetAll',views.resetALLEnrollmentStatus, name="reset_ALL"),
     path('studentEnrollment',views.EnrollmentStatusAndPaymentPlan, name="student_enrollment"),
+    path("StudentPaymentView", views.StudentPaymentView, name = "student_paymentview"),
 
 ]
