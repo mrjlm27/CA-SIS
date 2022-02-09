@@ -1,0 +1,28 @@
+<h1 class="pageHeading">View Grade Reports of Nursery Students</h1>
+
+<div class="table-container">
+    <table class = "table table-borderless">
+        <thead class= "border-bottom font-weight-bold">
+            <tr>
+                <th>Student Number</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in studentList %}
+            <tr>
+                <td data-heading="Student ID">{{student.pk}}</td>
+                <td data-heading="First Name">{{student.student_firstname}}</td>
+                <td data-heading="Last Name">{{student.student_lastname}}</td>
+                <td data-heading="Create Grade Report"><a href="{% url 'sis_app:grade_report_form_nursery' student.id %}">Create Grade Report</a>
+                    {% csrf_token %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    
+    </table>
+</div>

@@ -130,5 +130,28 @@ class Payment(models.Model):
     
     def getstudentid(self):
         return self.payment_s_account_id.id
+
+class TranscriptOfRecord(models.Model):
+    tor_id = models.IntegerField(default = 0)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null = False, default=None)
+
+class GradeReport(models.Model):
+    tor_id = models.ForeignKey(TranscriptOfRecord, on_delete=models.CASCADE, null=True, blank = True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank = True)
+    school_year = models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)
+    period =[
+    ('1','1'),
+    ('2', '2'),
+    ('3', '3'),
+    ]
+    grading_period = models.CharField(default='1', max_length=10, choices=period)
+    reading_grade = models.IntegerField()
+    mathematics_grade = models.IntegerField()
+    language_grade = models.IntegerField()
+    science_grade = models.IntegerField()
+    penmanship_grade = models.IntegerField()
+    filipino_grade = models.IntegerField()
+
+
     
 

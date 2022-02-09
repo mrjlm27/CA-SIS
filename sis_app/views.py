@@ -246,3 +246,32 @@ def EnrollmentStatusAndPaymentPlan(request):
 
     context = {'studentList' : students, 'myFilter2': myFilter2}
     return render(request,"sis_app/Student_Enrollment.html", context)   
+
+def GradeReportList_Nursery(request):
+    students = Student.objects.filter(student_grade_level = 'Nursery')
+    student = {'studentList' : students}
+    return render(request,"sis_app/GradeReportNursery_List.html", student)
+
+def GradeReportFormNursery(request, id):
+    model = GradeReport
+    form_class = GradeReportForm
+    student = Student.objects.get(pk=id)
+    if request.method == 'POST':
+        if TranscriptOfRecord.objects.filter(student = student).exists():
+            tor = TranscriptOfRecord.objects.get(student = student)
+            form = GradeReportForm(request.POST)
+        else:
+            tor = TranscriptOfRecord.objects.create(tor_id=id, student = student)
+            form = GradeReportForm(request.POST)
+        if form.is_valid():
+            form.save()
+        report = GradeReport.objects.latest('id')
+        tor_obj = TranscriptOfRecord.objects.get(tor_id=id)
+        report.tor_id = tor_obj
+        report.student = student
+        report.save()
+        return redirect('sis_app:grade_report_nursery')
+    context = {'form':form_class}
+    return render(request, 'sis_app/GradeReportForm_Nursery.html', context)
+
+

@@ -128,3 +128,27 @@ class PaymentForm(forms.ModelForm):
             'paymentdate_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
             'payment_amount': forms.NumberInput(attrs={'class': 'form-control'}),
         }
+
+class GradeReportForm(forms.ModelForm):
+    class Meta:
+        model=GradeReport
+        fields = ('school_year','grading_period','reading_grade','mathematics_grade','language_grade','science_grade','penmanship_grade','filipino_grade')
+        labels = {
+            'school_year':'School Year',
+            'grading_period':'Grading Period',
+            'reading_grade': 'Grade in Reading',
+            'mathematics_grade': 'Grade in Mathematics',
+            'language_grade': 'Grade in Language',
+            'science_grade': 'Grade in Science',
+            'penmanship_grade': 'Grade in Penmanship',
+            'filipino_grade': 'Grade in Filipino',
+        }
+
+        widgets = {
+            'reading_grade': forms.NumberInput(attrs={'class': 'form-control'}),
+            'mathematics_grade': forms.NumberInput(attrs={'class': 'form-control'}),
+            'language_grade': forms.NumberInput(attrs={'class': 'form-control'}),
+            'science_grade': forms.NumberInput(attrs={'class': 'form-control'}),
+            'penmanship_grade': forms.NumberInput(attrs={'class': 'form-control'}),
+            'filipino_grade': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
