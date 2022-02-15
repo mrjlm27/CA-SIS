@@ -40,7 +40,8 @@ class Student(Account):
     ('Enrolled', 'Enrolled'),
     ]#
     enrollment_status = models.CharField(max_length=20, choices=status,default='Not Enrolled')#
-    student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)#
+    #student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)#
+    student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000)], default=None)#
     student_address = models.CharField(max_length=300, default=None)
     student_religion = models.CharField(max_length=128, default=None)
     student_nationality = models.CharField(max_length=128, default=None)
@@ -100,7 +101,9 @@ class Payment(models.Model):
     payment_s_account_id = models.ForeignKey(Student, on_delete=models.CASCADE, null = False)
     paymentdate_date = models.DateField(null = False)
     payment_amount = models.IntegerField(null = False)
-    outstandingbalance = models.IntegerField(default = 0)
+    outstandingbalance = models.IntegerField(default = 1000000)
+    school_year_end=models.IntegerField(('year'), validators=[MinValueValidator(2000)], default=None)#
+
     # tuitionfee = models.IntegerField(default = 50000)
 
     # @property

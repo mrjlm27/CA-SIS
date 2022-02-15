@@ -21,6 +21,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
+from datetime import date
+
 
 
 
@@ -184,34 +186,87 @@ def paymentForm(request,id=0):
 
             s_id = form.cleaned_data['payment_s_account_id']
             payments = Payment.objects.filter(payment_s_account_id = s_id)
-            paymentstudentid = Payment.objects.filter(payment_s_account_id = s_id).latest('payment_s_account_id')
+            #paymentstudentid = Payment.objects.filter(payment_s_account_id = s_id).latest('payment_s_account_id')
+            
+            
+            paymentstudentid = Payment.objects.latest('payment_s_account_id')
             studentID = paymentstudentid.getstudentid()
             studentIDobject = Student.objects.get(pk = studentID)
-            test = studentIDobject.student_enrollment_plan
-            PaymentOutstandingBalance = Payment.objects.get(outstandingbalance = 0)
+            enrollment_plan = studentIDobject.student_enrollment_plan
+            # print(payments)
+            #PaymentOutstandingBalance = Payment.objects.get(outstandingbalance = 0)
 
             #Update the Initial Outstanding Balance of the student based on the student's enrollment plan
-            if test == "Annually":
-                Payment.objects.filter(outstandingbalance = 0).update(outstandingbalance = annual)
-            elif test == "Bi-Annually":
-                Payment.objects.filter(outstandingbalance = 0).update(outstandingbalance = biannual)
-            else:
-                Payment.objects.filter(outstandingbalance = 0).update(outstandingbalance = quarterly)
+            # if test == "Annually":
+            #     Payment.objects.filter(outstandingbalance = 0).update(outstandingbalance = annual)
+            # elif test == "Bi-Annually":
+            #     Payment.objects.filter(outstandingbalance = 0).update(outstandingbalance = biannual)
+            # else:
+            #     Payment.objects.filter(outstandingbalance = 0).update(outstandingbalance = quarterly)
 
             #Get the lowest value for the outstanding balance (The most recently updated outstanding balance based on payments made)
-            min = 100000
-            for i in payments:
-                if i.outstandingbalance < min:
-                    min = i.outstandingbalance
+            # min = 100000
+            # for i in payments:
+            #     if i.outstandingbalance < min:
+            #         min = i.outstandingbalance
+            #     print(i.outstandingbalance)
 
+            #student_schoolyear_start
             #Subtract payment amount field from the most recent outstanding balance
-            if min != 100000:
-                test2 = Payment.objects.get(outstandingbalance = min, payment_s_account_id = s_id)
-                payment_amount = form.cleaned_data['payment_amount']
-                PaymentOutstandingBalance.outstandingbalance = test2.outstandingbalance - payment_amount
-                PaymentOutstandingBalance.save()
+            #if min != 100000:
+            #print(paymentstudentid.outstandingbalance)
+            # todays_date = date.today()
+            # current_year = todays_date.year
+            school_year_end = form.cleaned_data['paymentdate_date']
+            school_year_end = paymentstudentid.school_year_end
+            #print(current_year)
+            payments_in_year = Payment.objects.filter(payment_s_account_id = s_id).filter(school_year_end = school_year_end)
+            #payments_in_year2 = payments_in_year.filter(payment_s_account_id__student_schoolyear_start = current_year)
+            # print(payments_in_year)
+            # payments_in_year2 = []
+            # for i in payments_in_year:
+            #     second_half = [6,7,8,9,10,11,12]
+            #     if i.paymentdate_date.month in second_half:
+            #         payments_in_year2.append(i)
+            #     else:
+            #         pass
+            # print(payments_in_year2)
+            # payments = Payment.objects.filter(payment_s_account_id = s_id)
+
+
+            if paymentstudentid.outstandingbalance == 1000000 and len(payments_in_year)==1:
+                if enrollment_plan == "Annually":
+                    paymentstudentid.outstandingbalance = annual
+                elif enrollment_plan == "Bi-Annually":
+                    paymentstudentid.outstandingbalance = biannual
+                else:
+                    paymentstudentid.outstandingbalance = quarterly
+                paymentstudentid.save()
+            else:
+                o_balance_list = []
+                for payment in payments_in_year:
+                    o_balance_list.append(payment.outstandingbalance)
+                paymentstudentid.outstandingbalance = min(o_balance_list)
+                paymentstudentid.save()
+
+
+
+
+            
+
+            # test2 = Payment.objects.get(outstandingbalance = min, payment_s_account_id = s_id)
+            payment_amount = form.cleaned_data['payment_amount']
+            # if min == 0:
+            print(paymentstudentid.outstandingbalance)
+            paymentstudentid.outstandingbalance = paymentstudentid.outstandingbalance - payment_amount
+            # else:
+            #     paymentstudentid.outstandingbalance = test2.outstandingbalance - payment_amount
+            paymentstudentid.save()
+            print(paymentstudentid.outstandingbalance)
 
             updateEnrollmentStatus(request, s_id.id)
+
+
 
         return redirect('/paymentList')
 
@@ -222,7 +277,7 @@ def paymentList(request):
     myPFilter = PaymentFilter(request.GET, queryset=payments)
     payments = myPFilter.qs
 
-    print(payments)
+    #print(payments)
 
     # Payment.objects.filter(getstudentenrollmentstatus="Not Enrolled").update(getstudentenrollmentstatus = "Enrolled")
     

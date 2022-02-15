@@ -114,14 +114,29 @@ class LogInForm(forms.ModelForm):
             'password': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+# class PaymentForm(forms.ModelForm):
+#     class Meta:
+#         model=Payment
+#         fields = ('payment_s_account_id','paymentdate_date','payment_amount')
+#         labels = {
+#             'payment_s_account_id': 'Select Student',
+#             'paymentdate_date': 'Date of Payment',
+#             'payment_amount': 'Amount of Payment',
+#         }
+
+#         widgets = {
+#             'paymentdate_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
+#             'payment_amount': forms.NumberInput(attrs={'class': 'form-control'}),
+#         }
 class PaymentForm(forms.ModelForm):
     class Meta:
         model=Payment
-        fields = ('payment_s_account_id','paymentdate_date','payment_amount')
+        fields = ('payment_s_account_id','paymentdate_date','payment_amount','school_year_end')
         labels = {
             'payment_s_account_id': 'Select Student',
             'paymentdate_date': 'Date of Payment',
             'payment_amount': 'Amount of Payment',
+            'school_year_end': 'End of School Year',
         }
 
         widgets = {
