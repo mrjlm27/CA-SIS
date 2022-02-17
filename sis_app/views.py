@@ -596,28 +596,9 @@ def generateTOR (request, id):
     student_id = object_student.id
     student_entity = Student.objects.get(pk = student_id)
     pdf_name = "Transcript of Records-%s.pdf" % str(student_entity.student_lastname)
-    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
-
     
     tor_pdf = SimpleDocTemplate(buff, pagesize = letter)
-    # response = HttpResponse(content_type='application/pdf')
-    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
-   
     
-    # elems = []    
-    # for grade in grade_report:
-    #     elems.append(generateTable(grade))
-
-    # print(elems)
-    # print(grade_report)
-    # print(buff)
-
-    # tor_pdf.build(elems)
-    # response = HttpResponse(content_type='application/pdf')
-    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
-    # response.write(buff.getvalue())
-    # buff.close()   
-    # return response
     
     if len(grade_report) == 1:
         p0 = generateTable(grade_report[0])
