@@ -20,5 +20,8 @@ urlpatterns=[
     path('resetAll',views.resetALLEnrollmentStatus, name="reset_ALL"),
     path('studentEnrollment',views.EnrollmentStatusAndPaymentPlan, name="student_enrollment"),
     path("StudentPaymentView", views.StudentPaymentView, name = "student_paymentview"),
+    path('GradeReportListNursery',views.GradeReportList_Nursery, name="grade_report_nursery"),
+    path('GradeReportFormNursery/<int:id>',views.GradeReportFormNursery, name="grade_report_form_nursery"),
+
 
 ]
