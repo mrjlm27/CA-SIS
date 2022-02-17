@@ -22,6 +22,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from datetime import date
+import xhtml2pdf
+from xhtml2pdf import pisa
 
 
 
@@ -314,7 +316,7 @@ def StudentPaymentView(request):
     sy_end = sy_start + 1
 
    
-    context = {"student": student, "payment": paymentstudentid, "payments":student_payments, "sy_start": sy_start, "sy_end":sy_end, "payment_sy_end": payment_sy_end, "payment_sy_start":payment_sy_start}
+    context = {"student": student, "payment": paymentstudentid, "payments":student_payments, "sy_start": sy_start, "sy_end":sy_end}
     
 
     return render(request, "sis_app/Student_PaymentView.html", context)
@@ -544,4 +546,39 @@ def GradeReportFormNursery(request, id):
     context = {'form':form_class}
     return render(request, 'sis_app/GradeReportForm_Nursery.html', context)
 
+def generateTOR (request,id):
+    grade_report = GradeReport.objects.filter(student__pk = id, grading_period = '3')
+    # if len(grade_report) == 1:
+    context = {'gr1' : grade_report}
+    #print(grade_report[0])
+    return render(request,"sis_app/Transcript_Page1.html", context)
+    # if len(grade_report) == 2:
+    #     # gr1 = grade_report[0]
+    #     # print(gr1.year_average)
+    #     # gr2 = grade_report[1]
+    #     gr1 = GradeReport.objects.filter(student__pk = id, grading_period = '3')[:1].get()
+    #     # print(gr1.year_average)
+    #     # gr2 = GradeReport.objects.filter(student__pk = id, grading_period = '3')[1]
+    #     # print(gr2)
+    #     context = {'gr1' : gr1}
+    #     return render(request,"sis_app/Transcript_Page2.html")
+    # if len(grade_report) == 3:
+    #     gr1 = grade_report[0]
+    #     gr2 = grade_report[1]
+    #     gr3 = grade_report[2]
+    #     context = {'gr1' : gr1, 'gr2' : gr2, 'gr3' : gr3}
+    #     return render(request,"sis_app/Transcript_Page3.html", context)
 
+def render_to_pdf(template_src, context dict={}):
+    template = get_template(template_src)
+    html = template. render(context_dict)
+    result - BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("IS0-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
+
+class ViewPDF(View):
+    def get(self, request, *ares, **kwargs):
+        pdf = render_to_pdf('sis_app/Transcript_Page1.html')
+        return HttpResponse(pdf, content_type='application/pdf')

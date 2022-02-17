@@ -1,0 +1,79 @@
+{% load static %}
+
+{%block content %}
+
+{% block styles %}
+<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"> -->
+
+<!-- <style>
+
+.form-container {
+    /*display: inline-block;*/
+    text-align: right;
+    width: 90%;
+}
+
+.buttonDesignPositive {
+    border: 0;
+    padding: 16px 30px;
+    border-radius: 30px;
+    line-height: 1;
+    background: #3EAEB8;
+    color: #ffffff;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    margin: 1rem;
+}
+
+.buttonDesignPositive:hover,
+.buttonDesignPositive:focus {
+    background: #328c94;
+}
+
+</style> -->
+
+{% endblock %}
+
+<h1 class="pageHeading">Transcript of Record</h1>
+{% comment %} Put Header here once it's done {% endcomment %}
+
+<div class="table-container">
+    <table class = "table table-borderless">
+        <thead class= "border-bottom font-weight-bold">
+            <tr>
+                <th>School Year</th>
+                <th>Reading</th>
+                <th>Mathematics</th>
+                <th>Language</th>
+                <th>Science</th>
+                <th>Penmanship</th>
+                <th>Filipino</th>
+                <th>General Average</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for g in gr1 %}
+            <tr>
+                <td data-heading="School Year">{{g.school_year}}</td>
+                <td data-heading="Reading">{{g.final_reading}}</td>
+                <td data-heading="Mathematics">{{g.final_mathematics}}</td>
+                <td data-heading="Language">{{g.final_language}}</td>
+                <td data-heading="Science">{{g.final_science}}</td>
+                <td data-heading="Penmanship">{{g.final_penmanship}}</td>
+                <td data-heading="Filipino">{{g.final_filipino}}</td>
+                <td data-heading="General Average">{{g.year_average}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    
+    </table>
+</div>
+{% comment %} <a class="buttonDesignNegative" href="{% url 'sis_app:PDF' %}">Convert to PDF</a> {% endcomment %}
+
+
+
+
+
+
+{% endblock content %}
