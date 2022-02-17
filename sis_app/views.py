@@ -560,24 +560,24 @@ def generateTable(object):
         gradeTableWidth = 250
 
         titleTable = Table([
-            ['School Year:', object.school_year]
-        ],gradeTableWidth)
+            ['School Year:',  "", object.school_year]
+        ],[50, 100, 100])
 
         
         yearlevelTable = Table([
-            ['Year Level:', student_entity.student_grade_level]
-        ],[50,200])
+            ['Year Level:', "", student_entity.student_grade_level]
+        ],[50,100, 100])
 
         finalgradeTable = Table([
-            ["Reading", object.final_reading],
-            ["Math", object.final_mathematics],
-            ["Language", object.final_language],
-            ["Reading", object.final_reading],
-            ["Science", object.final_science],
-            ["Penmanship", object.final_penmanship],
-            ["Reading", object.final_reading],
-            ["Filipino", object.final_filipino]
-        ], [50,200])
+            ["Reading", "", object.final_reading],
+            ["Math", "", object.final_mathematics],
+            ["Language",  "",object.final_language],
+            ["Reading", "", object.final_reading],
+            ["Science", "", object.final_science],
+            ["Penmanship", "", object.final_penmanship],
+            ["Reading", "", object.final_reading],
+            ["Filipino", "", object.final_filipino]
+        ], [50, 100, 100])
 
         gradeTable = Table([
             [titleTable],
@@ -599,105 +599,114 @@ def generateTOR (request, id):
     # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
 
     
-    tor_pdf = SimpleDocTemplate(pdf_name, pagesize = letter)
+    tor_pdf = SimpleDocTemplate(buff, pagesize = letter)
     # response = HttpResponse(content_type='application/pdf')
     # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
    
     
-    elems = []    
+    # elems = []    
+    # for grade in grade_report:
+    #     elems.append(generateTable(grade))
 
-    for grade in grade_report:
-        elems.append(generateTable(grade))
+    # print(elems)
+    # print(grade_report)
+    # print(buff)
 
-    print(elems)
-    print(grade_report)
-    print(buff)
-
-    tor_pdf.build(elems)
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
-    response.write(buff.getvalue())
-    buff.close()   
-    return response
+    # tor_pdf.build(elems)
+    # response = HttpResponse(content_type='application/pdf')
+    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+    # response.write(buff.getvalue())
+    # buff.close()   
+    # return response
     
-    # if len(grade_report) == 1:
-    #     p0 = generateTable(grade_report[0])
+    if len(grade_report) == 1:
+        p0 = generateTable(grade_report[0])
 
-    #     bigTable = Table([
-    #         [p0]
-    #     ])
+        bigTable = Table([
+            [p0]
+        ])
 
-    #     elems = []    
-    #     elems.append(bigTable)
-    #     print(grade_report)
-    #     tor_pdf.build(elems)
-    #     response.write(buff.getvalue())
-    #     buff.close()    
-    #     return response
-    # elif len(grade_report) == 2:
-    #     p0 = generateTable(grade_report[0])
-    #     p1 = generateTable(grade_report[1])
-    #     bigTable = Table([
-    #         [p0,p1]
-    #     ])
+        elems = []    
+        elems.append(bigTable)
+        print(grade_report)
+        tor_pdf.build(elems)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+        response.write(buff.getvalue())
+        buff.close()    
+        return response
+    elif len(grade_report) == 2:
+        p0 = generateTable(grade_report[0])
+        p1 = generateTable(grade_report[1])
+        bigTable = Table([
+            [p0,p1]
+        ])
 
-    #     elems = []    
-    #     elems.append(bigTable)
-    #     print(grade_report)
-    #     tor_pdf.build(elems)
-    #     response.write(buff.getvalue())
-    #     buff.close()   
-    #     return response
-    # elif len(grade_report) == 3:
-    #     p0 = generateTable(grade_report[0])
-    #     p1 = generateTable(grade_report[1])
-    #     p2 = generateTable(grade_report[2])
-    #     bigTable = Table([
-    #         [p0,p1],
-    #         [p2]
-    #     ])
+        elems = []    
+        elems.append(bigTable)
+        print(grade_report)
+        tor_pdf.build(elems)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+        response.write(buff.getvalue())
+        buff.close()   
+        return response
+    elif len(grade_report) == 3:
+        p0 = generateTable(grade_report[0])
+        p1 = generateTable(grade_report[1])
+        p2 = generateTable(grade_report[2])
+        bigTable = Table([
+            [p0,p1],
+            [p2]
+        ])
 
-    #     elems = []    
-    #     elems.append(bigTable)
-    #     print(grade_report)
-    #     tor_pdf.build(elems)
-    #     response.write(buff.getvalue())
-    #     buff.close()   
-    #     return response
-    # elif len(grade_report) == 4:
-    #     p0 = generateTable(grade_report[0])
-    #     p1 = generateTable(grade_report[1])
-    #     p2 = generateTable(grade_report[2])
-    #     p3 = generateTable(grade_report[3])
-    #     bigTable = Table([
-    #         [p0,p1],
-    #         [p2,p3]
-    #     ])
+        elems = []    
+        elems.append(bigTable)
+        print(grade_report)
+        tor_pdf.build(elems)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+        response.write(buff.getvalue())
+        buff.close()   
+        return response
+    elif len(grade_report) == 4:
+        p0 = generateTable(grade_report[0])
+        p1 = generateTable(grade_report[1])
+        p2 = generateTable(grade_report[2])
+        p3 = generateTable(grade_report[3])
+        bigTable = Table([
+            [p0,p1],
+            [p2,p3]
+        ])
 
-    #     elems = []    
-    #     elems.append(bigTable)
-    #     print(grade_report)
-    #     tor_pdf.build(elems)
-    #     response.write(buff.getvalue())
-    #     buff.close()   
-    #     return response
-    # elif len(grade_report) == 5:
-    #     p0 = generateTable(grade_report[0])
-    #     p1 = generateTable(grade_report[1])
-    #     p2 = generateTable(grade_report[2])
-    #     p3 = generateTable(grade_report[3])
-    #     p4 = generateTable(grade_report[4])
-    #     bigTable = Table([
-    #         [p0,p1],
-    #         [p2,p3],
-    #         [p4]
-    #     ])
+        elems = []    
+        elems.append(bigTable)
+        print(grade_report)
+        tor_pdf.build(elems)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+        response.write(buff.getvalue())
+        buff.close()   
+        return response
+    elif len(grade_report) == 5:
+        p0 = generateTable(grade_report[0])
+        p1 = generateTable(grade_report[1])
+        p2 = generateTable(grade_report[2])
+        p3 = generateTable(grade_report[3])
+        p4 = generateTable(grade_report[4])
+        bigTable = Table([
+            [p0,p1],
+            [p2,p3],
+            [p4]
+        ])
 
-    #     elems = []    
-    #     elems.append(bigTable)
-    #     print(grade_report)
-    #     tor_pdf.build(elems)
-    #     response.write(buff.getvalue())
-    #     buff.close()   
-    #     return response
+        elems = []    
+        elems.append(bigTable)
+        print(grade_report)
+        tor_pdf.build(elems)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+        response.write(buff.getvalue())
+        buff.close()   
+        return response
     
