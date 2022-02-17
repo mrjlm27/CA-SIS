@@ -623,6 +623,9 @@ def generateTOR (request, id):
         p0 = generateTable(grade_report[0])
 
         bigTable = Table([
+            ['Name:', student_entity.student_firstname +' '+ student_entity.student_lastname],
+            [],
+            [],
             [p0]
         ])
 
@@ -639,6 +642,9 @@ def generateTOR (request, id):
         p0 = generateTable(grade_report[0])
         p1 = generateTable(grade_report[1])
         bigTable = Table([
+            ['Name:', student_entity.student_firstname +' '+ student_entity.student_lastname],
+            [],
+            [],
             [p0,p1]
         ])
 
@@ -656,6 +662,9 @@ def generateTOR (request, id):
         p1 = generateTable(grade_report[1])
         p2 = generateTable(grade_report[2])
         bigTable = Table([
+            ['Name:', student_entity.student_firstname +' '+ student_entity.student_lastname],
+            [],
+            [],
             [p0,p1],
             [p2]
         ])
@@ -675,6 +684,9 @@ def generateTOR (request, id):
         p2 = generateTable(grade_report[2])
         p3 = generateTable(grade_report[3])
         bigTable = Table([
+            ['Name:', student_entity.student_firstname +' '+ student_entity.student_lastname],
+            [],
+            [],
             [p0,p1],
             [p2,p3]
         ])
@@ -695,6 +707,9 @@ def generateTOR (request, id):
         p3 = generateTable(grade_report[3])
         p4 = generateTable(grade_report[4])
         bigTable = Table([
+            ['Name:', student_entity.student_firstname +' '+ student_entity.student_lastname],
+            [],
+            [],
             [p0,p1],
             [p2,p3],
             [p4]
