@@ -24,7 +24,9 @@ from django.db.models import Avg
 from datetime import date
 import xhtml2pdf
 from xhtml2pdf import pisa
-
+from django.template.loader import get_template
+from io import BytesIO
+from django.views import View
 
 
 # def hello_world(request):
@@ -569,16 +571,17 @@ def generateTOR (request,id):
     #     context = {'gr1' : gr1, 'gr2' : gr2, 'gr3' : gr3}
     #     return render(request,"sis_app/Transcript_Page3.html", context)
 
-def render_to_pdf(template_src, context dict={}):
+def render_to_pdf(template_src, context_dict={}):
     template = get_template(template_src)
-    html = template. render(context_dict)
-    result - BytesIO()
+    html = template.render(context_dict)
+    result = BytesIO()
     pdf = pisa.pisaDocument(BytesIO(html.encode("IS0-8859-1")), result)
     if not pdf.err:
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return None
 
 class ViewPDF(View):
-    def get(self, request, *ares, **kwargs):
+    def get(self, request, *args, **kwargs):
+
         pdf = render_to_pdf('sis_app/Transcript_Page1.html')
         return HttpResponse(pdf, content_type='application/pdf')
