@@ -2,7 +2,7 @@ from asyncore import read
 from audioop import avg
 from multiprocessing import context
 
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -24,6 +24,10 @@ from django.db.models import Avg
 from datetime import date
 # import xhtml2pdf
 # from xhtml2pdf import pisa
+import io
+import reportlab
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.platypus import Table, SimpleDocTemplate, BaseDocTemplate
 
 
 
@@ -545,8 +549,155 @@ def GradeReportFormNursery(request, id):
         return redirect('sis_app:grade_report_nursery')
     context = {'form':form_class}
     return render(request, 'sis_app/GradeReportForm_Nursery.html', context)
+def generateTable(object):
+        object_student = object.student
+        student_id = object_student.id
+        student_entity = Student.objects.get(pk = student_id)
 
-def generateTOR (request,id):
+        #building the table structure
+        
+
+        gradeTableWidth = 250
+
+        titleTable = Table([
+            ['School Year:', object.school_year]
+        ],gradeTableWidth)
+
+        
+        yearlevelTable = Table([
+            ['Year Level:', student_entity.student_grade_level]
+        ],[50,200])
+
+        finalgradeTable = Table([
+            ["Reading", object.final_reading],
+            ["Math", object.final_mathematics],
+            ["Language", object.final_language],
+            ["Reading", object.final_reading],
+            ["Science", object.final_science],
+            ["Penmanship", object.final_penmanship],
+            ["Reading", object.final_reading],
+            ["Filipino", object.final_filipino]
+        ], [50,200])
+
+        gradeTable = Table([
+            [titleTable],
+            [yearlevelTable],
+            [finalgradeTable]
+        ],gradeTableWidth)
+
+        return gradeTable
+
+def generateTOR (request, id):
+    buff = io.BytesIO()
+    # response = HttpResponse(content_type='application/pdf')
     grade_report = GradeReport.objects.filter(student__pk = id, grading_period = '3')
+    object0 = grade_report[0]
+    object_student = object0.student
+    student_id = object_student.id
+    student_entity = Student.objects.get(pk = student_id)
+    pdf_name = "Transcript of Records-%s.pdf" % str(student_entity.student_lastname)
+    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
 
-    return redirect("/studentList")
+    
+    tor_pdf = SimpleDocTemplate(pdf_name, pagesize = letter)
+    # response = HttpResponse(content_type='application/pdf')
+    # response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+   
+    
+    elems = []    
+
+    for grade in grade_report:
+        elems.append(generateTable(grade))
+
+    print(elems)
+    print(grade_report)
+    print(buff)
+
+    tor_pdf.build(elems)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+    response.write(buff.getvalue())
+    buff.close()   
+    return response
+    
+    # if len(grade_report) == 1:
+    #     p0 = generateTable(grade_report[0])
+
+    #     bigTable = Table([
+    #         [p0]
+    #     ])
+
+    #     elems = []    
+    #     elems.append(bigTable)
+    #     print(grade_report)
+    #     tor_pdf.build(elems)
+    #     response.write(buff.getvalue())
+    #     buff.close()    
+    #     return response
+    # elif len(grade_report) == 2:
+    #     p0 = generateTable(grade_report[0])
+    #     p1 = generateTable(grade_report[1])
+    #     bigTable = Table([
+    #         [p0,p1]
+    #     ])
+
+    #     elems = []    
+    #     elems.append(bigTable)
+    #     print(grade_report)
+    #     tor_pdf.build(elems)
+    #     response.write(buff.getvalue())
+    #     buff.close()   
+    #     return response
+    # elif len(grade_report) == 3:
+    #     p0 = generateTable(grade_report[0])
+    #     p1 = generateTable(grade_report[1])
+    #     p2 = generateTable(grade_report[2])
+    #     bigTable = Table([
+    #         [p0,p1],
+    #         [p2]
+    #     ])
+
+    #     elems = []    
+    #     elems.append(bigTable)
+    #     print(grade_report)
+    #     tor_pdf.build(elems)
+    #     response.write(buff.getvalue())
+    #     buff.close()   
+    #     return response
+    # elif len(grade_report) == 4:
+    #     p0 = generateTable(grade_report[0])
+    #     p1 = generateTable(grade_report[1])
+    #     p2 = generateTable(grade_report[2])
+    #     p3 = generateTable(grade_report[3])
+    #     bigTable = Table([
+    #         [p0,p1],
+    #         [p2,p3]
+    #     ])
+
+    #     elems = []    
+    #     elems.append(bigTable)
+    #     print(grade_report)
+    #     tor_pdf.build(elems)
+    #     response.write(buff.getvalue())
+    #     buff.close()   
+    #     return response
+    # elif len(grade_report) == 5:
+    #     p0 = generateTable(grade_report[0])
+    #     p1 = generateTable(grade_report[1])
+    #     p2 = generateTable(grade_report[2])
+    #     p3 = generateTable(grade_report[3])
+    #     p4 = generateTable(grade_report[4])
+    #     bigTable = Table([
+    #         [p0,p1],
+    #         [p2,p3],
+    #         [p4]
+    #     ])
+
+    #     elems = []    
+    #     elems.append(bigTable)
+    #     print(grade_report)
+    #     tor_pdf.build(elems)
+    #     response.write(buff.getvalue())
+    #     buff.close()   
+    #     return response
+    
