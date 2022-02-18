@@ -5,9 +5,10 @@ class StudentForm(forms.ModelForm):
     student_schoolyear_start:forms.TypedChoiceField(coerce=int, choices=year_choices, initial=current_year)
     class Meta:
         model=Student
-        fields = ('student_firstname','student_lastname','student_middlename',
-        'student_nickname','student_schoolyear_start','student_grade_level',
-        'student_birthday','student_address','student_religion',
+        fields = ('student_schoolyear_start', 'student_grade_level', 'student_birthday', 
+        'student_lastname', 'student_firstname',
+        'student_middlename', 'student_nickname',
+        'student_address','student_religion', 
         'student_nationality','student_hobbies','student_likes',
         'student_dislikes', 'student_shm','student_allergies',
         'student_sd','student_oconsiderations','student_guardianemail',
@@ -74,9 +75,74 @@ class StudentForm(forms.ModelForm):
             'student_enrollment_plan':'Enrollment Plan'
         }
 
+        required = {
+            'student_likes': False,
+        }
+
         widgets = {
+            'student_schoolyear_start': forms.TextInput(attrs={'class': 'form-control', 'background-color': 'red'}),
+            'student_grade_level': forms.Select(attrs={'class': 'form-control'}),
+            'student_birthday': forms.DateInput(attrs={'class': 'form-control'}),
+
             'student_firstname': forms.TextInput(attrs={'class': 'form-control'}),
-            'student_lastname': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_lastname': forms.TextInput( attrs={'class': 'form-control'}),
+
+            'student_middlename': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_nickname': forms.TextInput( attrs={'class': 'form-control'}),
+
+            'student_address': forms.TextInput(attrs={'class': 'form-control'}),
+
+            'student_religion': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_nationality': forms.TextInput( attrs={'class': 'form-control'}),
+
+            'student_hobbies': forms.TextInput(attrs={'class': 'form-control'}),
+
+            'student_likes': forms.TextInput(attrs={'class': 'form-control','required':False}),
+            'student_dislikes': forms.TextInput( attrs={'class': 'form-control'}),
+
+            'student_shm': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_allergies': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_sd': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_oconsiderations': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_hobbies': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_guardianemail': forms.TextInput(attrs={'class': 'form-control'}),
+
+            'student_f_firstname': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_f_lastname': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_f_middlename': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_f_telno': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_f_address': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_f_occupation': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_f_employer': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_f_oaddress': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_f_otelno': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_f_natureofbusiness': forms.TextInput(attrs={'class': 'form-control'}),
+
+            'student_m_firstname': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_m_lastname': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_m_middlename': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_m_telno': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_m_address': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_m_occupation': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_m_employer': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_m_oaddress': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_m_otelno': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_m_natureofbusiness': forms.TextInput(attrs={'class': 'form-control'}),
+
+            'student_sibling_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_sibling_gender': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_sibling_age': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_sibling_school': forms.TextInput(attrs={'class': 'form-control'}),
+
+            'student_medexp': forms.CheckboxInput,
+            'student_rules': forms.CheckboxInput,
+            'student_accuracy': forms.CheckboxInput,
+
+            'student_signedname': forms.TextInput(attrs={'class': 'form-control'}),
+            'student_signdate': forms.DateInput(attrs={'class': 'form-control'}),
+            'student_enrollment_plan': forms.Select(attrs={'class': 'form-control'}),
+            
+
             # 'student_grade_level': forms.TextInput(attrs={'class': 'form-control'}),
             # 'special_notes': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
         }
@@ -84,7 +150,7 @@ class StudentForm(forms.ModelForm):
             super(StudentForm,self).__init__(*args, **kwargs)
             self.fields['student_religion'].required=False
             self.fields['student_middlename'].required=False
-            self.fields['student_dislikes'].required=False
+            self.fields['student_likes'].required=False
             self.fields['student_shm'].required=False
             self.fields['student_dislikes'].required=False
             self.fields['student_allergies'].required=False

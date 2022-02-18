@@ -1,8 +1,11 @@
+<!DOCTYPE html>
+<html>
 {% load static %}
 
 {%block content %}
 
 {% block styles %}
+<head>
 <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"> -->
 
 <!-- <style>
@@ -34,56 +37,60 @@
 </style> -->
 
 {% endblock %}
+</head>
 
-<h1 class="pageHeading">View Payments</h1>
+<body>
+    <h1 class="pageHeading">View Payments</h1>
 
-<div class="form-container">
-    <form method="get" style=>
-        {{myPFilter.form}}
-        <button class="buttonDesignPositive" type="submit">Search</button>
-    </form>
-</div>
+    <div class="form-container">
+        <form method="get" style=>
+            {{myPFilter.form}}
+            <button class="buttonDesignPositive" type="submit">Search</button>
+        </form>
+    </div>
 
-<div class="table-container">
-    <table class = "table table-borderless">
-        <thead class= "border-bottom font-weight-bold">
-            <tr>
-                <th>Student ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Date of Payment</th>
-                <th>Amount of Payment</th>
-                <th>Enrollment Type</th>
-                <th>Outstanding Balance</th>
-                <th>Enrollment Status</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for payment in paymentList %}
-            <tr>
-                <td data-heading="Student ID">{{payment.payment_s_account_id}}</td>
-                <td data-heading="First Name">{{payment.getstudentfirstname}}</td>
-                <td data-heading="Last Name">{{payment.getstudentlastname}}</td>
-                <td data-heading="Date of Payment">{{payment.paymentdate_date}}</td>
-                <td data-heading="Amount of Payment">{{payment.payment_amount}}</td>
-                <td data-heading="Enrollment Type">{{payment.getenrollmentplan}}</td>
-                <td data-heading="Outstanding Balance">{{payment.outstandingbalance}}</td>
-                <td data-heading="Enrollment Status">{{payment.getstudentenrollmentstatus}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    
-    </table>
-</div>
-<a class="buttonDesignNegative" href="{% url 'sis_app:payment_form' %}">Encode a Payment</a>
-<a class="buttonDesignNegative" href="{% url 'sis_app:reset_BA' %}">reset Bi-Annual Payments</a>
-<a class="buttonDesignNegative" href="{% url 'sis_app:reset_Q' %}">reset Quarterly Payments</a>
-<a class="buttonDesignNegative" href="{% url 'sis_app:reset_ALL' %}">reset ALL Payments</a>
-
-
-
+    <div class="table-container">
+        <table class = "table table-borderless">
+            <thead class= "border-bottom font-weight-bold">
+                <tr>
+                    <th>Student ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Payment</th>
+                    <th>Amount of Payment</th>
+                    <th>Enrollment Type</th>
+                    <th>Outstanding Balance</th>
+                    <th>Enrollment Status</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in paymentList %}
+                <tr>
+                    <td data-heading="Student ID">{{payment.payment_s_account_id}}</td>
+                    <td data-heading="First Name">{{payment.getstudentfirstname}}</td>
+                    <td data-heading="Last Name">{{payment.getstudentlastname}}</td>
+                    <td data-heading="Date of Payment">{{payment.paymentdate_date}}</td>
+                    <td data-heading="Amount of Payment">{{payment.payment_amount}}</td>
+                    <td data-heading="Enrollment Type">{{payment.getenrollmentplan}}</td>
+                    <td data-heading="Outstanding Balance">{{payment.outstandingbalance}}</td>
+                    <td data-heading="Enrollment Status">{{payment.getstudentenrollmentstatus}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        
+        </table>
+    </div>
+    <a class="buttonDesignNegative" href="{% url 'sis_app:payment_form' %}">Encode a Payment</a>
+    <a class="buttonDesignNegative" href="{% url 'sis_app:reset_BA' %}">reset Bi-Annual Payments</a>
+    <a class="buttonDesignNegative" href="{% url 'sis_app:reset_Q' %}">reset Quarterly Payments</a>
+    <a class="buttonDesignNegative" href="{% url 'sis_app:reset_ALL' %}">reset ALL Payments</a>
 
 
-{% endblock content %}
+
+
+
+    {% endblock content %}
+</body>
+</html>
