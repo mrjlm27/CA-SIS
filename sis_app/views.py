@@ -27,7 +27,9 @@ from datetime import date
 import io
 import reportlab
 from reportlab.lib.pagesizes import letter, A4
-from reportlab.platypus import Table, SimpleDocTemplate, BaseDocTemplate
+from reportlab.platypus import Table, SimpleDocTemplate, BaseDocTemplate, TableStyle
+from reportlab.lib import colors, fonts
+from reportlab.pdfgen import canvas
 
 
 
@@ -584,6 +586,16 @@ def generateTable(object):
             [yearlevelTable],
             [finalgradeTable]
         ],gradeTableWidth)
+
+        for font in canvas.Canvas('abc').getAvailableFonts():
+            print(font)
+
+        titleTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),12),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        titleTable.setStyle(titleTableStyle)
 
         return gradeTable
 
