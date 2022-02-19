@@ -151,7 +151,7 @@ class GradeReportForm(forms.ModelForm):
         'readingreadiness8', 'readingreadiness9', 'readingreadiness10', 'readingreadiness11', 'readingreadiness12', 'readingreadiness13',
         'science1','science2','science3' ,'science4','science5','science6', 'language1', 'language2', 'language3', 'language4', 'language5', 'language6',
         'language7', 'language8', 'language9', 'language10', 'math1', 'math2', 'math3', 'math4', 'math5', 'math6', 'math7', 'math8', 'math9', 'math10', 'math11',
-        'penmanship1', 'penmanship2', 'penmanship3', 'penmanship4', 'filipino1', 'filipino2', 'filipino3', 'filipino4', 'school_days', 'absences' )
+        'penmanship1', 'penmanship2', 'penmanship3', 'penmanship4', 'filipino1', 'filipino2', 'filipino3', 'filipino4', 'school_days', 'absences', 'gr_acknowledgement')
         labels = {
             'school_year':'School Year',
             'grading_period':'Grading Period',
@@ -205,6 +205,7 @@ class GradeReportForm(forms.ModelForm):
             'filipino4': 'Magkasingkahulugan at Magkasalungat',
             'school_days': 'Number of School Days',
             'absences': 'Number of Absences',
+            'gr_acknowledgement': "Parent's Acknowledgement: ",
         }
 
         widgets = {
