@@ -23,6 +23,7 @@ urlpatterns=[
     path('GradeReportListNursery',views.GradeReportList_Nursery, name="grade_report_nursery"),
     path('GradeReportFormNursery/<int:id>',views.GradeReportFormNursery, name="grade_report_form_nursery"),
     path('GenerateTOR/<int:id>', views.generateTOR, name= 'generate_tor'), 
+    path('ViewGradeReport',views.viewGradeReport, name = "viewGradeReport"),
 
 
 ]

@@ -316,12 +316,9 @@ def StudentPaymentView(request):
     student_payments = Payment.objects.filter(payment_s_account_id = user_id)
     sy_start = student.student_schoolyear_start
     sy_end = sy_start + 1
-
-   
     context = {"student": student, "payment": paymentstudentid, "payments":student_payments, "sy_start": sy_start, "sy_end":sy_end}
-    
-
     return render(request, "sis_app/Student_PaymentView.html", context)
+
 def GradeReportList_Nursery(request):
     students = Student.objects.filter(student_grade_level = 'Nursery')
     student = {'studentList' : students}
@@ -548,7 +545,7 @@ def GradeReportFormNursery(request, id):
     context = {'form':form_class}
     return render(request, 'sis_app/GradeReportForm_Nursery.html', context)
 
-def generateTOR (request,id):
+def generateTOR(request,id):
     grade_report = GradeReport.objects.filter(student__pk = id, grading_period = '3')
     # if len(grade_report) == 1:
     context = {'gr1' : grade_report}
@@ -585,3 +582,35 @@ class ViewPDF(View):
 
         pdf = render_to_pdf('sis_app/Transcript_Page1.html')
         return HttpResponse(pdf, content_type='application/pdf')
+# def render_to_pdf(template_src, context dict={}):
+#     template = get_template(template_src)
+#     html = template. render(context_dict)
+#     result - BytesIO()
+#     pdf = pisa.pisaDocument(BytesIO(html.encode("IS0-8859-1")), result)
+#     if not pdf.err:
+#         return HttpResponse(result.getvalue(), content_type='application/pdf')
+#     return None
+
+# class ViewPDF(View):
+#     def get(self, request, *ares, **kwargs):
+#         pdf = render_to_pdf('sis_app/Transcript_Page1.html')
+#         return HttpResponse(pdf, content_type='application/pdf')
+
+def viewGradeReport(request):
+    user_id = request.user.id
+    student_instance = Student.objects.get(pk = user_id)
+    grade_report = GradeReport.objects.filter(student = student_instance).latest('pk')   
+    print(grade_report)
+    context = {"grade_report":grade_report}
+    return render(request, "sis_app/ViewGradeReport.html", context)
+
+
+
+# def StudentPaymentView(request):
+#     user_id = request.user.id
+#     student = Student.objects.get(pk = user_id)
+#     paymentstudentid = Payment.objects.filter(payment_s_account_id = user_id).latest('payment_s_account_id')
+#     student_payments = Payment.objects.filter(payment_s_account_id = user_id)
+#     sy_start = student.student_schoolyear_start
+#     sy_end = sy_start + 1
+#     context = {"student": student, "payment": paymentstudentid, "payments":student_payments, "sy_start": sy_start, "sy_end":sy_end}
