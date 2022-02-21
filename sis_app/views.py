@@ -553,6 +553,7 @@ def GradeReportFormNursery(request, id):
     context = {'form':form_class}
     return render(request, 'sis_app/GradeReportForm_Nursery.html', context)
 
+#make another generateTable functions here to cater to the different grade levels
 def generateTable(object):
         object_student = object.student
         student_id = object_student.id
@@ -576,10 +577,8 @@ def generateTable(object):
             ["Reading", "", object.final_reading],
             ["Math", "", object.final_mathematics],
             ["Language",  "",object.final_language],
-            ["Reading", "", object.final_reading],
             ["Science", "", object.final_science],
             ["Penmanship", "", object.final_penmanship],
-            ["Reading", "", object.final_reading],
             ["Filipino", "", object.final_filipino]
         ], [50, 100, 100])
 
