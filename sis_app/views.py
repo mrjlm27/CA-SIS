@@ -1,6 +1,7 @@
 from asyncore import read
 from audioop import avg
 from email import header
+from email.mime import image
 from multiprocessing import context
 
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
@@ -10,6 +11,8 @@ from django.urls import reverse
 import json
 import datetime
 from django.http import JsonResponse
+
+from ca_sis.settings import BASE_DIR
 from .models import *
 from .forms import *
 from .filters import *
@@ -28,9 +31,12 @@ from datetime import date
 import io
 import reportlab
 from reportlab.lib.pagesizes import letter, A4
-from reportlab.platypus import Table, SimpleDocTemplate, BaseDocTemplate, TableStyle
+from reportlab.platypus import Table, SimpleDocTemplate, BaseDocTemplate, TableStyle, Image
 from reportlab.lib import colors, fonts
 from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+import os
+from PIL import Image
 
 
 
@@ -607,6 +613,15 @@ def generateTable(object):
         return gradeTable
 
 def generateHeader (student):
+
+    # logo = Image.open(os.path.join(BASE_DIR, "/sis_app/templates/camelean_logo.png"))
+    # logo.drawHeight = 1.25*inch*logo.drawHeight / logo.drawWidth
+    # logo.drawWidth = 1.25*inch
+
+    # headerTableWidth = 250
+    # schoolNameTable = Table([
+    #     [logo, 'Camelean Academy']
+    # ],[125,125])
 
     headerTableWidth = 250
     schoolNameTable = Table([
