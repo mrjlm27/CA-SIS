@@ -1,8 +1,9 @@
 from asyncore import read
 from audioop import avg
+from email import header
 from multiprocessing import context
 
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -22,11 +23,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from datetime import date
-import xhtml2pdf
-from xhtml2pdf import pisa
-from django.template.loader import get_template
-from io import BytesIO
-from django.views import View
+# import xhtml2pdf
+# from xhtml2pdf import pisa
+import io
+import reportlab
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.platypus import Table, SimpleDocTemplate, BaseDocTemplate, TableStyle
+from reportlab.lib import colors, fonts
+from reportlab.pdfgen import canvas
+
 
 
 # def hello_world(request):
@@ -545,72 +550,384 @@ def GradeReportFormNursery(request, id):
     context = {'form':form_class}
     return render(request, 'sis_app/GradeReportForm_Nursery.html', context)
 
-def generateTOR(request,id):
+#make another generateTable functions here to cater to the different grade levels
+def generateTable(object):
+        object_student = object.student
+        student_id = object_student.id
+        student_entity = Student.objects.get(pk = student_id)
+
+        #building the table structure
+        
+
+        gradeTableWidth = 250
+
+        titleTable = Table([
+            ['School Year:',  "", object.school_year]
+        ],[50, 100, 100])
+
+        
+        yearlevelTable = Table([
+            ['Year Level:', "", student_entity.student_grade_level]
+        ],[50,100, 100])
+
+        finalgradeTable = Table([
+            ["Reading", "", object.final_reading],
+            ["Math", "", object.final_mathematics],
+            ["Language",  "",object.final_language],
+            ["Science", "", object.final_science],
+            ["Penmanship", "", object.final_penmanship],
+            ["Filipino", "", object.final_filipino]
+        ], [50, 100, 100])
+
+        finalgradeTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'LEFT'),
+            ('TOPPADDING', (0,0), (-1,-1), 0),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 0),
+            ('FONTSIZE', (0,0), (-1, -1),10),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        finalgradeTable.setStyle(finalgradeTableStyle)
+
+        gradeTable = Table([
+            [titleTable],
+            [yearlevelTable],
+            [finalgradeTable]
+        ],gradeTableWidth)
+
+        titleTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),10),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        titleTable.setStyle(titleTableStyle)
+
+        return gradeTable
+
+def generateHeader (student):
+
+    headerTableWidth = 250
+    schoolNameTable = Table([
+        ['Camelean Academy']
+    ],headerTableWidth)
+
+    schoolNameTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),25),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+    schoolNameTable.setStyle(schoolNameTableStyle)
+
+    addressTable = Table([
+        ['10 J. Ocampo St. 1109 Quezon City, Philippines']
+    ],headerTableWidth)
+
+    adressTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),14),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+    addressTable.setStyle(adressTableStyle)
+
+    docLabelTable = Table([
+        ['OFFICIAL TRANSCRIPT OF RECORDS']
+    ],headerTableWidth)
+
+    docLabelTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),18),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+    docLabelTable.setStyle(docLabelTableStyle)
+
+    studentLabelTable = Table([
+        ['Student: %s' % str(student.student_firstname + ' '+ student.student_lastname), 'Address: %s' % str(student.student_address), 'Birthdate: %s' % str(student.student_birthday)],
+    ],[100,100,50])
+
+    studentLabelTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),8),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+    studentLabelTable.setStyle(studentLabelTableStyle)
+
+    headerTable = Table([
+        [schoolNameTable],
+        [addressTable],
+        [docLabelTable],
+        [studentLabelTable]
+    ], headerTableWidth)
+
+    headerTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ])
+    headerTable.setStyle(headerTableStyle)
+
+    return headerTable
+
+def generateGradesTable(grade_list):
+    len_report = len(grade_list)
+    if len_report == 1:
+       p0 = generateTable(grade_list[0])
+       gradesTableWidth = 250
+       gradesTable = Table([
+           [p0]
+       ],gradesTableWidth)
+       gradesTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'LEFT'),
+            ('FONTSIZE', (0,0), (-1, -1),8),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        
+        
+
+def generateTOR (request, id):
+    buff = io.BytesIO()
+    # response = HttpResponse(content_type='application/pdf')
     grade_report = GradeReport.objects.filter(student__pk = id, grading_period = '3')
-    # if len(grade_report) == 1:
-    context = {'gr1' : grade_report}
-    #print(grade_report[0])
-    return render(request,"sis_app/Transcript_Page1.html", context)
-    # if len(grade_report) == 2:
-    #     # gr1 = grade_report[0]
-    #     # print(gr1.year_average)
-    #     # gr2 = grade_report[1]
-    #     gr1 = GradeReport.objects.filter(student__pk = id, grading_period = '3')[:1].get()
-    #     # print(gr1.year_average)
-    #     # gr2 = GradeReport.objects.filter(student__pk = id, grading_period = '3')[1]
-    #     # print(gr2)
-    #     context = {'gr1' : gr1}
-    #     return render(request,"sis_app/Transcript_Page2.html")
-    # if len(grade_report) == 3:
-    #     gr1 = grade_report[0]
-    #     gr2 = grade_report[1]
-    #     gr3 = grade_report[2]
-    #     context = {'gr1' : gr1, 'gr2' : gr2, 'gr3' : gr3}
-    #     return render(request,"sis_app/Transcript_Page3.html", context)
+    object0 = grade_report[0]
+    object_student = object0.student
+    student_id = object_student.id
+    student_entity = Student.objects.get(pk = student_id)
+    pdf_name = "Transcript of Records-%s.pdf" % str(student_entity.student_lastname)
+    
+    tor_pdf = SimpleDocTemplate(buff, pagesize = letter, topMargin = 0.1)
+    
+    
+    if len(grade_report) == 1:
+        p0 = generateTable(grade_report[0])
+        o1 = generateHeader(student_entity)
+        
+        #start of making bigTable
+        bigTableWidth = 250
 
-def render_to_pdf(template_src, context_dict={}):
-    template = get_template(template_src)
-    html = template.render(context_dict)
-    result = BytesIO()
-    pdf = pisa.pisaDocument(BytesIO(html.encode("IS0-8859-1")), result)
-    if not pdf.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
-    return None
+        headerTable = Table([
+            [o1]
+        ],bigTableWidth)
+        headerTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ])
+        headerTable.setStyle(headerTableStyle)
 
-class ViewPDF(View):
-    def get(self, request, *args, **kwargs):
-
-        pdf = render_to_pdf('sis_app/Transcript_Page1.html')
-        return HttpResponse(pdf, content_type='application/pdf')
-# def render_to_pdf(template_src, context dict={}):
-#     template = get_template(template_src)
-#     html = template. render(context_dict)
-#     result - BytesIO()
-#     pdf = pisa.pisaDocument(BytesIO(html.encode("IS0-8859-1")), result)
-#     if not pdf.err:
-#         return HttpResponse(result.getvalue(), content_type='application/pdf')
-#     return None
-
-# class ViewPDF(View):
-#     def get(self, request, *ares, **kwargs):
-#         pdf = render_to_pdf('sis_app/Transcript_Page1.html')
-#         return HttpResponse(pdf, content_type='application/pdf')
-
-def viewGradeReport(request):
-    user_id = request.user.id
-    student_instance = Student.objects.get(pk = user_id)
-    grade_report = GradeReport.objects.filter(student = student_instance).latest('pk')   
-    print(grade_report)
-    context = {"grade_report":grade_report}
-    return render(request, "sis_app/ViewGradeReport.html", context)
+        gradesTable = Table([
+            [p0,'','']
+        ],bigTableWidth)
+        gradesTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1, -1), 'CENTER'),
+  
+            ('FONTSIZE', (0,0), (-1, -1),8),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        gradesTable.setStyle(gradesTableStyle)
 
 
+        bigTable = Table([
+            [headerTable],
+            [gradesTable]
+        ],bigTableWidth)
 
-# def StudentPaymentView(request):
-#     user_id = request.user.id
-#     student = Student.objects.get(pk = user_id)
-#     paymentstudentid = Payment.objects.filter(payment_s_account_id = user_id).latest('payment_s_account_id')
-#     student_payments = Payment.objects.filter(payment_s_account_id = user_id)
-#     sy_start = student.student_schoolyear_start
-#     sy_end = sy_start + 1
-#     context = {"student": student, "payment": paymentstudentid, "payments":student_payments, "sy_start": sy_start, "sy_end":sy_end}
+        #end of making bigTable
+        elems = []    
+        elems.append(bigTable)
+        print(grade_report)
+        tor_pdf.build(elems)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+        response.write(buff.getvalue())
+        buff.close()    
+        return response
+    elif len(grade_report) == 2:
+        p0 = generateTable(grade_report[0])
+        p1 = generateTable(grade_report[1])
+        o1 = generateHeader(student_entity)
+
+        #start of making bigTable
+        bigTableWidth = 250
+
+        headerTable = Table([
+            [o1]
+        ],bigTableWidth)
+        headerTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ])
+        headerTable.setStyle(headerTableStyle)
+
+        gradesTable = Table([
+            [p0,'',p1]
+        ],[5,240,5])
+        gradesTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1, -1), 'CENTER'),
+  
+            ('FONTSIZE', (0,0), (-1, -1),8),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        gradesTable.setStyle(gradesTableStyle)
+
+
+        bigTable = Table([
+            [headerTable],
+            [gradesTable]
+        ],bigTableWidth)
+
+        #end of making bigTable
+
+        elems = []    
+        elems.append(bigTable)
+        print(grade_report)
+        tor_pdf.build(elems)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+        response.write(buff.getvalue())
+        buff.close()   
+        return response
+    elif len(grade_report) == 3:
+        p0 = generateTable(grade_report[0])
+        p1 = generateTable(grade_report[1])
+        p2 = generateTable(grade_report[2])
+        o1 = generateHeader(student_entity)
+        #start of making bigTable
+        bigTableWidth = 250
+
+        headerTable = Table([
+            [o1]
+        ],bigTableWidth)
+        headerTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ])
+        headerTable.setStyle(headerTableStyle)
+
+        gradesTable = Table([
+            [p0,'',p1],
+            ['',p2,'']
+        ],[5,240,5])
+        gradesTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1, -1), 'CENTER'),
+  
+            ('FONTSIZE', (0,0), (-1, -1),8),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        gradesTable.setStyle(gradesTableStyle)
+
+
+        bigTable = Table([
+            [headerTable],
+            [],
+            [gradesTable]
+        ],bigTableWidth)
+
+        #end of making bigTable
+        elems = []    
+        elems.append(bigTable)
+        print(grade_report)
+        tor_pdf.build(elems)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+        response.write(buff.getvalue())
+        buff.close()   
+        return response
+    elif len(grade_report) == 4:
+        p0 = generateTable(grade_report[0])
+        p1 = generateTable(grade_report[1])
+        p2 = generateTable(grade_report[2])
+        p3 = generateTable(grade_report[3])
+        o1 = generateHeader(student_entity)
+        #start of making bigTable
+        bigTableWidth = 250
+
+        headerTable = Table([
+            [o1]
+        ],bigTableWidth)
+        headerTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ])
+        headerTable.setStyle(headerTableStyle)
+
+        gradesTable = Table([
+            [p0,'',p1],
+            [p2,'',p3]
+        ],[5,240,5])
+        gradesTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1, -1), 'CENTER'),
+  
+            ('FONTSIZE', (0,0), (-1, -1),8),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        gradesTable.setStyle(gradesTableStyle)
+
+
+        bigTable = Table([
+            [headerTable],
+            [gradesTable]
+        ],bigTableWidth)
+
+        bigTableStyle = TableStyle([
+            ('TOPPADDING',(0,0),(-1,-1), 0),
+            ('BOTTOMPADDING',(0,0),(-1,-1), 0)
+
+        ])
+        bigTable.setStyle(bigTableStyle)
+
+        #end of making bigTable
+        elems = []    
+        elems.append(bigTable)
+        print(grade_report)
+        tor_pdf.build(elems)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+        response.write(buff.getvalue())
+        buff.close()   
+        return response
+    elif len(grade_report) == 5:
+        p0 = generateTable(grade_report[0])
+        p1 = generateTable(grade_report[1])
+        p2 = generateTable(grade_report[2])
+        p3 = generateTable(grade_report[3])
+        p4 = generateTable(grade_report[4])
+        o1 = generateHeader(student_entity)
+        #start of making bigTable
+        bigTableWidth = 250
+
+        headerTable = Table([
+            [o1]
+        ],bigTableWidth)
+        headerTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ])
+        headerTable.setStyle(headerTableStyle)
+
+        gradesTable = Table([
+            [p0,'',p1],
+            [p2,'',p3],
+            ['',p4,'']
+        ],[5,240,5])
+        gradesTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1, -1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),8),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        gradesTable.setStyle(gradesTableStyle)
+
+
+        bigTable = Table([
+            [headerTable],
+            [gradesTable]
+        ],bigTableWidth)
+
+        bigTableStyle = TableStyle([
+            ('TOPPADDING',(0,0),(-1,-1), 0),
+            ('BOTTOMPADDING',(0,0),(-1,-1), 0),
+            ('FONTSIZE', (0,0), (-1, -1),8)
+
+        ])
+        bigTable.setStyle(bigTableStyle)
+
+        #end of making bigTable
+        elems = []    
+        elems.append(bigTable)
+        print(grade_report)
+        tor_pdf.build(elems)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
+        response.write(buff.getvalue())
+        buff.close()   
+        return response
+    
