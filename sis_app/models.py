@@ -40,7 +40,8 @@ class Student(Account):
     ('Enrolled', 'Enrolled'),
     ]#
     enrollment_status = models.CharField(max_length=20, choices=status,default='Not Enrolled')#
-    student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)#
+    #student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)#
+    student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000)], default=None)#
     student_address = models.CharField(max_length=300, default=None)
     student_religion = models.CharField(max_length=128, default=None)
     student_nationality = models.CharField(max_length=128, default=None)
@@ -101,6 +102,11 @@ class Payment(models.Model):
     paymentdate_date = models.DateField(null = False)
     payment_amount = models.IntegerField(null = False)
     outstandingbalance = models.IntegerField(default = 0)
+    
+    payment_sy_end = 0
+    outstandingbalance = models.IntegerField(default = 1000000)
+    school_year_end=models.IntegerField(('year'), validators=[MinValueValidator(2000)], default=None)#
+
     # tuitionfee = models.IntegerField(default = 50000)
 
     # @property
@@ -130,5 +136,105 @@ class Payment(models.Model):
     
     def getstudentid(self):
         return self.payment_s_account_id.id
-    
 
+    def get_sy_start(self):
+        first_half = [6,7,8,9,10,11,12]
+        payment_sy_start = 0
+        if self.paymentdate_date.month in first_half:
+            payment_sy_start = self.paymentdate_date.year
+            return payment_sy_start
+        else:
+            payment_sy_start = self.paymentdate_date.year - 1
+            return payment_sy_start
+    def get_sy_end(self):
+        first_half = [6,7,8,9,10,11,12]
+        payment_sy_start = 0
+        payment_sy_end = 0
+        if self.paymentdate_date.month in first_half:
+            payment_sy_start = self.paymentdate_date.year
+            payment_sy_end = payment_sy_start + 1
+            return payment_sy_end
+        else:
+            payment_sy_start = self.paymentdate_date.year - 1
+            payment_sy_end = payment_sy_start + 1
+            return payment_sy_end
+    
+class TranscriptOfRecord(models.Model):
+    tor_id = models.IntegerField(default = 0)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null = False, default=None)
+
+class GradeReport(models.Model):
+    tor_id = models.ForeignKey(TranscriptOfRecord, on_delete=models.CASCADE, null=True, blank = True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank = True)
+    school_year = models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)
+    period =[
+    ('1','1'),
+    ('2', '2'),
+    ('3', '3'),
+    ]
+    grading_period = models.CharField(default='1', max_length=10, choices=period)
+    sem_average = models.FloatField(null=True, blank=True, default= None)
+    year_average = models.FloatField(null=True, blank=True, default= None)
+    reading_grade = models.FloatField(null=True, blank = True)
+    mathematics_grade = models.FloatField(null=True, blank = True)
+    language_grade = models.FloatField(null=True, blank = True)
+    science_grade = models.FloatField(null=True, blank = True)
+    penmanship_grade = models.FloatField(null=True, blank = True)
+    filipino_grade = models.FloatField(null=True, blank = True)
+    final_reading = models.FloatField(null=True, blank=True, default= None)
+    final_mathematics = models.FloatField(null=True, blank=True, default= None)
+    final_language = models.FloatField(null=True, blank=True, default= None)
+    final_science = models.FloatField(null=True, blank=True, default= None)
+    final_penmanship = models.FloatField(null=True, blank=True, default= None)
+    final_filipino = models.FloatField(null=True, blank=True, default= None)
+    readingreadiness1 = models.IntegerField(null=True, blank=True, default= None)
+    readingreadiness2 = models.IntegerField(null=True, blank=True, default= None)
+    readingreadiness3 = models.IntegerField(null=True, blank=True, default= None)
+    readingreadiness4 = models.IntegerField(null=True, blank=True, default= None)
+    readingreadiness5 = models.IntegerField(null=True, blank=True, default= None)
+    readingreadiness6 = models.IntegerField(null=True, blank=True, default= None)
+    readingreadiness7 = models.IntegerField(null=True, blank=True, default= None)
+    readingreadiness8 = models.IntegerField(null=True, blank=True, default= None)
+    readingreadiness9 = models.IntegerField(null=True, blank=True, default= None)
+    readingreadiness10 = models.IntegerField(null=True, blank=True, default= None)
+    readingreadiness11 = models.IntegerField(null=True, blank=True, default= None)
+    readingreadiness12 = models.IntegerField(null=True, blank=True, default= None)
+    readingreadiness13 = models.IntegerField(null=True, blank=True, default= None)
+    science1 = models.IntegerField(null=True, blank=True, default= None)
+    science2 = models.IntegerField(null=True, blank=True, default= None)
+    science3 = models.IntegerField(null=True, blank=True, default= None)
+    science4 = models.IntegerField(null=True, blank=True, default= None)
+    science5 = models.IntegerField(null=True, blank=True, default= None)
+    science6 = models.IntegerField(null=True, blank=True, default= None)
+    language1 = models.IntegerField(null=True, blank=True, default= None)
+    language2 = models.IntegerField(null=True, blank=True, default= None)
+    language3 = models.IntegerField(null=True, blank=True, default= None)
+    language4 = models.IntegerField(null=True, blank=True, default= None)
+    language5 = models.IntegerField(null=True, blank=True, default= None)
+    language6 = models.IntegerField(null=True, blank=True, default= None)
+    language7 = models.IntegerField(null=True, blank=True, default= None)
+    language8 = models.IntegerField(null=True, blank=True, default= None)
+    language9 = models.IntegerField(null=True, blank=True, default= None)
+    language10 = models.IntegerField(null=True, blank=True, default= None)
+    math1 = models.IntegerField(null=True, blank=True, default= None)
+    math2 = models.IntegerField(null=True, blank=True, default= None)
+    math3 = models.IntegerField(null=True, blank=True, default= None)
+    math4 = models.IntegerField(null=True, blank=True, default= None)
+    math5 = models.IntegerField(null=True, blank=True, default= None)
+    math6 = models.IntegerField(null=True, blank=True, default= None)
+    math7 = models.IntegerField(null=True, blank=True, default= None)
+    math8 = models.IntegerField(null=True, blank=True, default= None)
+    math9 = models.IntegerField(null=True, blank=True, default= None)
+    math10 = models.IntegerField(null=True, blank=True, default= None)
+    math11 = models.IntegerField(null=True, blank=True, default= None)
+    penmanship1 = models.IntegerField(null=True, blank=True, default= None)
+    penmanship2 = models.IntegerField(null=True, blank=True, default= None)
+    penmanship3 = models.IntegerField(null=True, blank=True, default= None)
+    penmanship4 = models.IntegerField(null=True, blank=True, default= None)
+    filipino1 = models.IntegerField(null=True, blank=True, default= None)
+    filipino2 = models.IntegerField(null=True, blank=True, default= None)
+    filipino3 = models.IntegerField(null=True, blank=True, default= None)
+    filipino4 = models.IntegerField(null=True, blank=True, default= None)
+    school_days = models.IntegerField(null=True, blank=True, default= None)
+    absences = models.IntegerField(null=True, blank=True, default= None)
+    gr_acknowledgement = models.BooleanField(default = False)

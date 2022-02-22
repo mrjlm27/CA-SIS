@@ -19,5 +19,11 @@ urlpatterns=[
     path('resetQuarterly',views.resetQEnrollmentStatus, name="reset_Q"),
     path('resetAll',views.resetALLEnrollmentStatus, name="reset_ALL"),
     path('studentEnrollment',views.EnrollmentStatusAndPaymentPlan, name="student_enrollment"),
+    path("StudentPaymentView", views.StudentPaymentView, name = "student_paymentview"),
+    path('GradeReportListNursery',views.GradeReportList_Nursery, name="grade_report_nursery"),
+    path('GradeReportFormNursery/<int:id>',views.GradeReportFormNursery, name="grade_report_form_nursery"),
+    path('GenerateTOR/<int:id>', views.generateTOR, name= 'generate_tor'), 
+    path('ViewGradeReport',views.viewGradeReport, name = "viewGradeReport"),
+
 
 ]
