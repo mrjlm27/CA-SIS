@@ -550,6 +550,17 @@ def GradeReportFormNursery(request, id):
     context = {'form':form_class}
     return render(request, 'sis_app/GradeReportForm_Nursery.html', context)
 
+
+def viewGradeReport(request):
+    user_id = request.user.id
+    student_instance = Student.objects.get(pk = user_id)
+    grade_report = GradeReport.objects.filter(student = student_instance).latest('pk')   
+    print(grade_report)
+    context = {"grade_report":grade_report}
+    return render(request, "sis_app/ViewGradeReport.html", context)
+
+    
+
 #make another generateTable functions here to cater to the different grade levels
 def generateTable(object):
         object_student = object.student
