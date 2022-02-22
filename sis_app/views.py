@@ -17,6 +17,7 @@ from django.contrib.auth.models import User
 import random
 import string
 from django.core.mail import send_mail
+from django.contrib.auth.hashers import make_password
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -63,6 +64,11 @@ def EditAccountCred(request):
         new_username = request.POST.get('username')
         new_password = request.POST.get('password')
         # user.set_username(new_username)
+        user_id = request.user.id
+        student_entity = Student.objects.get(pk = user_id)
+        student_entity.username = new_username
+        student_entity.password = make_password(new_password)
+        student_entity.save()
         user.username = new_username
         user.set_password(new_password)
         user.save()
@@ -70,7 +76,33 @@ def EditAccountCred(request):
     context={}
     return render(request, 'sis_app/Account_Edit.html', context)
 
+def EditAccountCred_admin(request,id):
+    if request.method == 'POST':
+        user_entity = User.objects.get(pk = id)
+        new_username = request.POST.get('username')
+        new_password = request.POST.get('password')
+        # user.set_username(new_username)
+        student_entity = Student.objects.get(pk = id)
+        student_entity.username = new_username
+        student_entity.password = new_password
 
+        #sending new user and pass to student via email
+        send_mail(
+                    'CAMELEAN ACADEMY SIS CHANGE OF USERNAME AND PASSWORD',
+                    "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON LOGGING IN".format(student_entity.username, student_entity.password),
+                    None,
+                    ['gmgtechdev@gmail.com'],#this is the recipient(change this to email of student later)[student_entity.email]
+                    fail_silently=False,
+                )
+
+        student_entity.password = make_password(new_password)
+        student_entity.save()
+        user_entity.username = new_username
+        user_entity.set_password(new_password)
+        user_entity.save()
+        return redirect('sis_app:student_list')
+    context={}
+    return render(request, 'sis_app/Admin_Account_Edit.html', context)
 
 def StudentList(request):
     students = Student.objects.all()
@@ -331,6 +363,9 @@ def GradeReportList_Nursery(request):
     # students = GradeReport.objects.all()
     # studentgrade = {'GradeReportList' : students}
     # return render(request,"sis_app/GradeReportNursery_List.html", studentgrade)
+
+def RetrieveAccount(request):
+    return None
 
 def GradeReportFormNursery(request, id):
     model = GradeReport

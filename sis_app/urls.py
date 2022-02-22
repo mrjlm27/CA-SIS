@@ -24,6 +24,7 @@ urlpatterns=[
     path('GradeReportFormNursery/<int:id>',views.GradeReportFormNursery, name="grade_report_form_nursery"),
     path('GenerateTOR/<int:id>', views.generateTOR, name= 'generate_tor'), 
     path('ViewGradeReport',views.viewGradeReport, name = "viewGradeReport"),
+    path('Admin_EditAccount/<int:id>',views.EditAccountCred_admin, name = "admin_account_edit"),
 
 
 ]
