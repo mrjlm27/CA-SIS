@@ -37,11 +37,15 @@ from reportlab.pdfgen import canvas
 # def hello_world(request):
 #     return render(request, 'sis_app/hello_world.html')
 def Home(request):
-    context={}
+    # student = Student.objects.get()
+    user_id = request.user.id
+    user = User.objects.get(pk=user_id)
+    context={'user':user}
     return render(request,'sis_app/home.html',context) 
 
 
 def LogInScreen(request):
+    id = 0
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -50,7 +54,7 @@ def LogInScreen(request):
         if user is not None: #If log-in credentials are correct
             login(request, user)
             return redirect('/home')
-    context = {}
+    context = {'id':id}
     return render(request, 'sis_app/LogIn.html', context)
 
 def EditAccountCred(request):
@@ -101,8 +105,11 @@ def studentForm(request,id=0):
         if form.is_valid():
             form.save()
         return redirect('sis_app:log_in')
-    context = {'form':form_class}
+    context = {'form':form_class, 'student':model}
     return render(request, 'sis_app/Student_Form.html', context)
+
+# def editStudentForm(request,id):
+
 
 def RegistrationList(request, pk = 0):
     if request.user.is_superuser:
