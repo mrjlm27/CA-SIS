@@ -976,24 +976,23 @@ def generateTOR (request, id):
         response.write(buff.getvalue())
         buff.close()   
         return response
+
+def deleteStudentsPage(request):
+    current_year = date.today().year
+    year_to_delete = current_year - 6
+
+    students = Student.objects.filter(student_schoolyear_start = year_to_delete)
     
-def studentDeleteList(request): 
-    students = Student.objects.all()
 
-    myFilter = StudentDeleteFilter(request.GET, queryset=students)
-    students = myFilter.qs
+    context = {'studentList' : students, "year_to_delete":year_to_delete}
+    return render(request,"sis_app/Delete_Button.html", context)   
+    
+def deleteStudents(request):
 
-
-    context = {'studentList' : students, 'myFilter': myFilter}
-    return render(request,"sis_app/Student_Delete_List.html", context)
-
-def studentDelete(request):
-    students = Student.objects.all()
-
-    myFilter = StudentDeleteFilter(request.GET, queryset=students)
-    students = myFilter.qs
-    students.delete()
-
-
-    context = {'studentList' : students, 'myFilter': myFilter}
-    return redirect("/Student_Delete_List")
+    current_year = date.today().year
+    year_to_delete = current_year - 6
+    students_to_delete = Student.objects.filter(student_schoolyear_start = year_to_delete)
+    print(year_to_delete)
+    print(students_to_delete)
+    students_to_delete.delete()
+    return redirect('/studentList')

@@ -1,0 +1,67 @@
+{% load static %} {% block styles %}
+<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"> -->
+
+<!-- <style>
+
+.form-container {
+    /*display: inline-block;*/
+    text-align: right;
+    width: 90%;
+}
+
+.buttonDesignPositive {
+    border: 0;
+    padding: 16px 30px;
+    border-radius: 30px;
+    line-height: 1;
+    background: #3EAEB8;
+    color: #ffffff;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    margin: 1rem;
+}
+
+.buttonDesignPositive:hover,
+.buttonDesignPositive:focus {
+    background: #328c94;
+}
+
+</style> -->
+
+{% endblock %}
+
+<h1 class="pageHeading">Delete Students</h1>
+<h2>Deleting Students from year {{year_to_delete}}</h2>
+
+<div class="table-container">
+  <table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Student ID</th>
+        <th>Last Enrolled</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in studentList %}
+      <tr>
+        <td data-heading="First Name">{{student.student_firstname}}</td>
+        <td data-heading="Last Name">{{student.student_lastname}}</td>
+        <td data-heading="Student ID">{{student.id}}</td>
+        <td data-heading="Last Enrolled">
+          {{student.student_schoolyear_start}}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<a class="buttonDesignNegative" href="{% url 'sis_app:delete_students' %}"
+  >Delete Students</a
+>
+<a class="buttonDesignNegative" href="{% url 'sis_app:student_list' %}"
+  >Return to Student List</a
+>
