@@ -28,3 +28,10 @@ class EnrollmentStatusAndPaymentPlanFilter(django_filters.FilterSet):
             'enrollment_status': ['iexact'],
             'student_enrollment_plan': ['iexact'],
         }
+
+class StudentDeleteFilter(django_filters.FilterSet):
+    class Meta:
+        model = Student
+        fields = {
+            'student_schoolyear_start': ['icontains'],
+        }

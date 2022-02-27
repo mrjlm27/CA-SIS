@@ -25,6 +25,8 @@ urlpatterns=[
     path('GenerateTOR/<int:id>', views.generateTOR, name= 'generate_tor'), 
     path('ViewGradeReport',views.viewGradeReport, name = "viewGradeReport"),
     path('Admin_EditAccount/<int:id>',views.EditAccountCred_admin, name = "admin_account_edit"),
+    path('Student_Delete_List',views.studentDeleteList, name = "admin_student_delete_list"),
+    path('Student_Delete',views.studentDelete, name = "admin_student_delete"),
 
 
 ]

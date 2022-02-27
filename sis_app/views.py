@@ -977,3 +977,24 @@ def generateTOR (request, id):
         buff.close()   
         return response
     
+def studentDeleteList(request): 
+    students = Student.objects.all()
+
+    myFilter = StudentDeleteFilter(request.GET, queryset=students)
+    students = myFilter.qs
+
+
+    context = {'studentList' : students, 'myFilter': myFilter}
+    return render(request,"sis_app/Student_Delete_List.html", context)
+
+# def studentDelete(request):
+#     (list)
+
+#     students = Student.objects.all()
+
+#     myFilter = StudentDeleteFilter(request.GET, queryset=students)
+#     students = myFilter.qs
+
+
+#     context = {'studentList' : students, 'myFilter': myFilter}
+#     return render(request,"sis_app/Student_Delete_List.html", context)
