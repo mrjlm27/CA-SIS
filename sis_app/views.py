@@ -987,14 +987,13 @@ def studentDeleteList(request):
     context = {'studentList' : students, 'myFilter': myFilter}
     return render(request,"sis_app/Student_Delete_List.html", context)
 
-# def studentDelete(request):
-#     (list)
+def studentDelete(request):
+    students = Student.objects.all()
 
-#     students = Student.objects.all()
+    myFilter = StudentDeleteFilter(request.GET, queryset=students)
+    students = myFilter.qs
+    students.delete()
 
-#     myFilter = StudentDeleteFilter(request.GET, queryset=students)
-#     students = myFilter.qs
 
-
-#     context = {'studentList' : students, 'myFilter': myFilter}
-#     return render(request,"sis_app/Student_Delete_List.html", context)
+    context = {'studentList' : students, 'myFilter': myFilter}
+    return redirect("/Student_Delete_List")
