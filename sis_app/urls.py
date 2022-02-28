@@ -22,6 +22,10 @@ urlpatterns=[
     path("StudentPaymentView", views.StudentPaymentView, name = "student_paymentview"),
     path('GradeReportListNursery',views.GradeReportList_Nursery, name="grade_report_nursery"),
     path('GradeReportFormNursery/<int:id>',views.GradeReportFormNursery, name="grade_report_form_nursery"),
+    path('GradeReportListKinder2Senior',views.GradeReportList_Kinder2Senior, name="grade_report_kinder2senior"),
+    path('GradeReportFormKinder2Senior/<int:id>',views.GradeReportFormKinder2Senior, name="grade_report_form_kinder2senior"),
+    path('GradeReportListKinder1Kinder2Junior',views.GradeReportList_Kinder1Kinder2Junior, name="grade_report_k1k2jr"),
+    path('GradeReportFormKinder1Kinder2Junior/<int:id>',views.GradeReportFormKinder1Kinder2Junior, name="grade_report_form_k1k2jr"),
     path('GenerateTOR/<int:id>', views.generateTOR, name= 'generate_tor'), 
     path('ViewGradeReport',views.viewGradeReport, name = "viewGradeReport"),
 

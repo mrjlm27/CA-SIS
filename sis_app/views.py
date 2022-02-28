@@ -101,7 +101,7 @@ def studentForm(request,id=0):
         if form.is_valid():
             form.save()
         return redirect('sis_app:log_in')
-    context = {'form':form_class}
+    context = {'form': form_class}
     return render(request, 'sis_app/Student_Form.html', context)
 
 def RegistrationList(request, pk = 0):
@@ -324,6 +324,7 @@ def StudentPaymentView(request):
     context = {"student": student, "payment": paymentstudentid, "payments":student_payments, "sy_start": sy_start, "sy_end":sy_end}
     return render(request, "sis_app/Student_PaymentView.html", context)
 
+#GradeReport List for Nursery students only
 def GradeReportList_Nursery(request):
     students = Student.objects.filter(student_grade_level = 'Nursery')
     student = {'studentList' : students}
@@ -332,9 +333,668 @@ def GradeReportList_Nursery(request):
     # studentgrade = {'GradeReportList' : students}
     # return render(request,"sis_app/GradeReportNursery_List.html", studentgrade)
 
+#GradeReport Form for Nursery students only
 def GradeReportFormNursery(request, id):
     model = GradeReport
-    form_class = GradeReportForm
+    form_class = GradeReportFormN
+    student = Student.objects.get(pk=id)
+    if request.method == 'POST':
+        if TranscriptOfRecord.objects.filter(student = student).exists():
+            tor = TranscriptOfRecord.objects.get(student = student)
+            form = GradeReportFormN(request.POST)
+        else:
+            tor = TranscriptOfRecord.objects.create(tor_id=id, student = student)
+            form = GradeReportFormN(request.POST)
+        if form.is_valid():
+            form.save()
+        report = GradeReport.objects.latest('id')
+        tor_obj = TranscriptOfRecord.objects.get(tor_id=id)
+        report.tor_id = tor_obj
+        report.student = student
+        report.save()
+
+        #Language Grade for Nursery
+        language = (report.Nlanguage1, report.Nlanguage2, report.Nlanguage3, report.Nlanguage4, report.Nlanguage5, report.Nlanguage6, report.Nlanguage7, report.Nlanguage8, report.Nlanguage9, report.Nlanguage10)
+        languagelist1 = list(language)
+        languagelist2 = []
+        languagetotal = 0
+        for i in languagelist1:
+            if i == 'O':
+                i = 98
+                languagelist2.append(i)
+            elif i == 'VG':
+                i = 93
+                languagelist2.append(i)
+            elif i == 'G':
+                i = 87
+                languagelist2.append(i)
+            elif i == 'F':
+                i = 82
+                languagelist2.append(i)
+            else:
+                languagelist1.remove(i)
+        for i in languagelist2:
+            languagetotal += i
+        languageaverage =(languagetotal/len(languagelist2))
+        report.N_language = languageaverage
+        report.save()
+        
+        #Reading Readiness Grade for Nursery
+        readingreadiness = (report.N_reading_readiness1, report.N_reading_readiness2, report.N_reading_readiness3, report.N_reading_readiness4, report.N_reading_readiness5, report.N_reading_readiness6, 
+        report.N_reading_readiness7, report.N_reading_readiness8, report.N_reading_readiness9, report.N_reading_readiness10, report.N_reading_readiness11, report.N_reading_readiness12, report.N_reading_readiness13)
+        readingreadinesslist1 = list(readingreadiness)
+        readingreadinesslist2 = []
+        readingreadinesstotal = 0
+        for i in readingreadinesslist1:
+            if i == 'O':
+                i = 98
+                readingreadinesslist2.append(i)
+            elif i == 'VG':
+                i = 93
+                readingreadinesslist2.append(i)
+            elif i == 'G':
+                i = 87
+                readingreadinesslist2.append(i)
+            elif i == 'F':
+                i = 82
+                readingreadinesslist2.append(i)
+            else:
+                readingreadinesslist1.remove(i)
+        for i in readingreadinesslist2:
+            readingreadinesstotal += i
+        readingreadinessaverage =(readingreadinesstotal/len(readingreadinesslist2))
+        report.N_reading_readiness = readingreadinessaverage
+        report.save()
+
+        #Numbber Readiness Grade for Nursery
+        numberreadiness = (report.N_number_readiness1, report.N_number_readiness2, report.N_number_readiness3, report.N_number_readiness4, report.N_number_readiness5, report.N_number_readiness6, 
+        report.N_number_readiness7, report.N_number_readiness8)
+        numberreadinesslist1 = list(numberreadiness)
+        numberreadinesslist2 = []
+        numberreadinesstotal = 0
+        for i in numberreadinesslist1:
+            if i == 'O':
+                i = 98
+                numberreadinesslist2.append(i)
+            elif i == 'VG':
+                i = 93
+                numberreadinesslist2.append(i)
+            elif i == 'G':
+                i = 87
+                numberreadinesslist2.append(i)
+            elif i == 'F':
+                i = 82
+                numberreadinesslist2.append(i)
+            else:
+                numberreadinesslist1.remove(i)
+        for i in numberreadinesslist2:
+            numberreadinesstotal += i
+        numberreadinessaverage =(numberreadinesstotal/len(numberreadinesslist2))
+        report.N_number_readiness = numberreadinessaverage
+        report.save()
+
+        #Science Grade for Nursery
+        science = (report.N_science1, report.N_science2, report.N_science3, report.N_science4, report.N_science5, report.N_science6)
+        sciencelist1 = list(science)
+        sciencelist2 = []
+        sciencetotal = 0
+        for i in sciencelist1:
+            if i == 'O':
+                i = 98
+                sciencelist2.append(i)
+            elif i == 'VG':
+                i = 93
+                sciencelist2.append(i)
+            elif i == 'G':
+                i = 87
+                sciencelist2.append(i)
+            elif i == 'F':
+                i = 82
+                sciencelist2.append(i)
+            else:
+                sciencelist1.remove(i)
+        for i in sciencelist2:
+            sciencetotal += i
+        scienceaverage =(sciencetotal/len(sciencelist2))
+        report.N_science = scienceaverage
+        report.save()
+
+        #Interpersonal Skills Grade for Nursery
+        interpersonalskills = (report.N_interpersonal_skills1, report.N_interpersonal_skills2, report.N_interpersonal_skills3, report.N_interpersonal_skills4, 
+        report.N_interpersonal_skills5, report.N_interpersonal_skills6, report.N_interpersonal_skills7, report.N_interpersonal_skills8, report.N_interpersonal_skills9, 
+        report.N_interpersonal_skills10, report.N_interpersonal_skills11, report.N_interpersonal_skills12, report.N_interpersonal_skills13)
+        interpersonalskillslist1 = list(interpersonalskills)
+        interpersonalskillslist2 = []
+        interpersonalskillstotal = 0
+        for i in interpersonalskillslist1:
+            if i == 'O':
+                i = 98
+                interpersonalskillslist2.append(i)
+            elif i == 'VG':
+                i = 93
+                interpersonalskillslist2.append(i)
+            elif i == 'G':
+                i = 87
+                interpersonalskillslist2.append(i)
+            elif i == 'F':
+                i = 82
+                interpersonalskillslist2.append(i)
+            else:
+                interpersonalskillslist1.remove(i)
+        for i in interpersonalskillslist2:
+            interpersonalskillstotal += i
+        interpersonalskillsaverage =(interpersonalskillstotal/len(interpersonalskillslist2))
+        report.N_interpersonal_skills = interpersonalskillsaverage
+        report.save()
+
+        #Motor Skills Grade for Nursery
+        motorskills = (report.N_motor_skills1, report.N_motor_skills2, report.N_motor_skills3, report.N_motor_skills4, 
+        report.N_motor_skills5, report.N_motor_skills6, report.N_motor_skills7, report.N_motor_skills8, report.N_motor_skills9, 
+        report.N_motor_skills10, report.N_motor_skills11, report.N_motor_skills12, report.N_motor_skills13)
+        motorskillslist1 = list(motorskills)
+        motorskillslist2 = []
+        motorskillstotal = 0
+        for i in motorskillslist1:
+            if i == 'O':
+                i = 98
+                motorskillslist2.append(i)
+            elif i == 'VG':
+                i = 93
+                motorskillslist2.append(i)
+            elif i == 'G':
+                i = 87
+                motorskillslist2.append(i)
+            elif i == 'F':
+                i = 82
+                motorskillslist2.append(i)
+            else:
+                motorskillslist1.remove(i)
+        for i in motorskillslist2:
+            motorskillstotal += i
+        motorskillsaverage =(motorskillstotal/len(motorskillslist2))
+        report.N_motor_skills = motorskillsaverage
+        report.save()
+
+        #Creative Domain Grade for Nursery
+        creativedomain = (report.N_creative_domain1, report.N_creative_domain2, report.N_creative_domain3, report.N_creative_domain4, 
+        report.N_creative_domain5)
+        creativedomainlist1 = list(creativedomain)
+        creativedomainlist2 = []
+        creativedomaintotal = 0
+        for i in creativedomainlist1:
+            if i == 'O':
+                i = 98
+                creativedomainlist2.append(i)
+            elif i == 'VG':
+                i = 93
+                creativedomainlist2.append(i)
+            elif i == 'G':
+                i = 87
+                creativedomainlist2.append(i)
+            elif i == 'F':
+                i = 82
+                creativedomainlist2.append(i)
+            else:
+                creativedomainlist1.remove(i)
+        for i in creativedomainlist2:
+            creativedomaintotal += i
+        creativedomainaverage =(creativedomaintotal/len(creativedomainlist2))
+        report.N_creative_domain = creativedomainaverage
+        report.save()
+
+        #Good Morals and Value Formation Grade for Nursery
+        moralvalueformation = (report.N_good_moral_valueformation1, report.N_good_moral_valueformation2, report.N_good_moral_valueformation3, report.N_good_moral_valueformation4, 
+        report.N_good_moral_valueformation5, report.N_good_moral_valueformation6, report.N_good_moral_valueformation7, report.N_good_moral_valueformation8, report.N_good_moral_valueformation9)
+        moralvalueformationlist1 = list(moralvalueformation)
+        moralvalueformationlist2 = []
+        moralvalueformationtotal = 0
+        for i in moralvalueformationlist1:
+            if i == 'O':
+                i = 98
+                moralvalueformationlist2.append(i)
+            elif i == 'VG':
+                i = 93
+                moralvalueformationlist2.append(i)
+            elif i == 'G':
+                i = 87
+                moralvalueformationlist2.append(i)
+            elif i == 'F':
+                i = 82
+                moralvalueformationlist2.append(i)
+            else:
+                moralvalueformationlist1.remove(i)
+        for i in moralvalueformationlist2:
+            moralvalueformationtotal += i
+        moralvalueformationaverage =(moralvalueformationtotal/len(moralvalueformationlist2))
+        report.N_good_moral_valueformation = moralvalueformationaverage
+        report.save()
+
+        #Sem Average (Average of all academic subject grades)
+        semaverage = (report.N_language, report.N_reading_readiness, report.N_number_readiness, report.N_science, report.N_interpersonal_skills, report.N_motor_skills, 
+        report.N_creative_domain, report.N_good_moral_valueformation)
+        semaveragelist1 = list(semaverage)
+        semaveragelist2 = []
+        semaveragetotal = 0
+        for i in semaveragelist1:
+            if i != None:
+                semaveragelist2.append(i)
+        for i in semaveragelist2:
+            semaveragetotal += i
+        semaverage1 =(semaveragetotal/len(semaveragelist2))
+        report.sem_average = semaverage1
+        report.save()
+
+        # Filter objects to specific student 
+        x = GradeReport.objects.select_related().filter(student = id)
+
+        #Filter objects to specific student and school year
+        sy = form.cleaned_data['school_year']
+        filteredsy = x.filter(school_year = sy)
+
+        # (FINAL RATING) Average of all language grade per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.N_language
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        if yearaverage >= 96 and yearaverage <= 100:
+            yearaverage = 'O'
+        elif yearaverage >= 90 and yearaverage <= 95:
+            yearaverage = 'VG'
+        elif yearaverage >= 85 and yearaverage <= 89:
+            yearaverage = 'G'
+        else:
+            yearaverage = 'F'
+
+        report.N_final_language = yearaverage
+        report.save()
+
+        # (FINAL RATING) Average of all Reading Readiness grade per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.N_reading_readiness
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        if yearaverage >= 96 and yearaverage <= 100:
+            yearaverage = 'O'
+        elif yearaverage >= 90 and yearaverage <= 95:
+            yearaverage = 'VG'
+        elif yearaverage >= 85 and yearaverage <= 89:
+            yearaverage = 'G'
+        else:
+            yearaverage = 'F'
+
+        report.N_final_reading_readiness = yearaverage
+        report.save()
+
+        # (FINAL RATING) Average of all number readiness grade per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.N_number_readiness
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        if yearaverage >= 96 and yearaverage <= 100:
+            yearaverage = 'O'
+        elif yearaverage >= 90 and yearaverage <= 95:
+            yearaverage = 'VG'
+        elif yearaverage >= 85 and yearaverage <= 89:
+            yearaverage = 'G'
+        else:
+            yearaverage = 'F'
+
+        report.N_final_number_readiness = yearaverage
+        report.save()
+
+        # (FINAL RATING) Average of all science grade per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.N_science
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        if yearaverage >= 96 and yearaverage <= 100:
+            yearaverage = 'O'
+        elif yearaverage >= 90 and yearaverage <= 95:
+            yearaverage = 'VG'
+        elif yearaverage >= 85 and yearaverage <= 89:
+            yearaverage = 'G'
+        else:
+            yearaverage = 'F'
+
+        report.N_final_science = yearaverage
+        report.save()
+
+
+        # (FINAL RATING) Average of all interpersonal grade per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.N_interpersonal_skills
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        if yearaverage >= 96 and yearaverage <= 100:
+            yearaverage = 'O'
+        elif yearaverage >= 90 and yearaverage <= 95:
+            yearaverage = 'VG'
+        elif yearaverage >= 85 and yearaverage <= 89:
+            yearaverage = 'G'
+        else:
+            yearaverage = 'F'
+
+        report.N_final_interpersonal_skills = yearaverage
+        report.save()
+
+        # (FINAL RATING) Average of all motor skills grade per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.N_motor_skills
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        if yearaverage >= 96 and yearaverage <= 100:
+            yearaverage = 'O'
+        elif yearaverage >= 90 and yearaverage <= 95:
+            yearaverage = 'VG'
+        elif yearaverage >= 85 and yearaverage <= 89:
+            yearaverage = 'G'
+        else:
+            yearaverage = 'F'
+
+        report.N_final_motor_skills = yearaverage
+        report.save()
+
+        # (FINAL RATING) Average of all creative domain grade per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.N_creative_domain
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        if yearaverage >= 96 and yearaverage <= 100:
+            yearaverage = 'O'
+        elif yearaverage >= 90 and yearaverage <= 95:
+            yearaverage = 'VG'
+        elif yearaverage >= 85 and yearaverage <= 89:
+            yearaverage = 'G'
+        else:
+            yearaverage = 'F'
+
+        report.N_final_creative_domain = yearaverage
+        report.save()
+
+        # (FINAL RATING) Average of all good morals and value formation grade per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.N_good_moral_valueformation
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        if yearaverage >= 96 and yearaverage <= 100:
+            yearaverage = 'O'
+        elif yearaverage >= 90 and yearaverage <= 95:
+            yearaverage = 'VG'
+        elif yearaverage >= 85 and yearaverage <= 89:
+            yearaverage = 'G'
+        else:
+            yearaverage = 'F'
+
+        report.N_final_good_moral_valueformation = yearaverage
+        report.save()
+
+        # (FINAL RATING) Average of all of a student's grades per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.sem_average
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        if yearaverage >= 96 and yearaverage <= 100:
+            yearaverage = 'O'
+        elif yearaverage >= 90 and yearaverage <= 95:
+            yearaverage = 'VG'
+        elif yearaverage >= 85 and yearaverage <= 89:
+            yearaverage = 'G'
+        else:
+            yearaverage = 'F'
+
+        report.N_year_average = yearaverage
+        report.save()
+
+
+        return redirect('sis_app:grade_report_nursery')
+    context = {'form':form_class}
+    return render(request, 'sis_app/GradeReportForm_Nursery.html', context)
+
+#GradeReport List for Kinder 1 and Kinder 2 Junior students only
+def GradeReportList_Kinder1Kinder2Junior(request):
+    students = Student.objects.filter(student_grade_level__in = ['Kinder 1', 'Kinder 2 Junior'])
+    student = {'studentList' : students}
+    return render(request,"sis_app/GradeReportK1K2JR_List.html", student)
+
+#GradeReport Form for Kinder 1 and Kinder 2 Junior students only
+def GradeReportFormKinder1Kinder2Junior(request, id):
+    model = GradeReport
+    form_class = GradeReportFormK1K2JR
+    student = Student.objects.get(pk=id)
+    if request.method == 'POST':
+        if TranscriptOfRecord.objects.filter(student = student).exists():
+            tor = TranscriptOfRecord.objects.get(student = student)
+            form = GradeReportForm(request.POST)
+        else:
+            tor = TranscriptOfRecord.objects.create(tor_id=id, student = student)
+            form = GradeReportForm(request.POST)
+        if form.is_valid():
+            form.save()
+        report = GradeReport.objects.latest('id')
+        tor_obj = TranscriptOfRecord.objects.get(tor_id=id)
+        report.tor_id = tor_obj
+        report.student = student
+        report.save()
+        
+        #FOR AVERAGES: FIX ERROR (zero over zero) when one subject has no value at all
+        #Reading Readiness Grade
+        readingreadiness = (report.readingreadiness1, report.readingreadiness2, report.readingreadiness3, report.readingreadiness4, report.readingreadiness5, report.readingreadiness6,
+        report.readingreadiness7, report.readingreadiness8, report.readingreadiness9, report.readingreadiness10, report.readingreadiness11, report.readingreadiness12, report.readingreadiness13)
+        readingreadinesslist1 = list(readingreadiness)
+        readingreadinesslist2 = []
+        readingtotal = 0
+        for i in readingreadinesslist1:
+            if i != None:
+                readingreadinesslist2.append(i)
+        for i in readingreadinesslist2:
+            readingtotal += i
+        readingreadinessaverage =(readingtotal/len(readingreadinesslist2))
+        report.reading_grade = readingreadinessaverage
+        report.save()
+
+
+        #Science Readiness Grade
+        sciencereadiness = (report.science1, report.science2, report.science3, report.science4, report.science5, report.science6)
+        sciencereadinesslist1 = list(sciencereadiness)
+        sciencereadinesslist2 = []
+        sciencetotal = 0
+        for i in sciencereadinesslist1:
+            if i != None:
+                sciencereadinesslist2.append(i)
+        for i in sciencereadinesslist2:
+            sciencetotal += i
+        sciencereadinessaverage =(sciencetotal/len(sciencereadinesslist2))
+        report.science_grade = sciencereadinessaverage
+        report.save()
+
+
+        #Language Readiness Grade
+        languagereadiness = (report.language1, report.language2, report.language3, report.language4, report.language5, report.language6, report.language7, 
+        report.language8, report.language9, report.language10)
+        languagereadinesslist1 = list(languagereadiness)
+        languagereadinesslist2 = []
+        languagetotal = 0
+        for i in languagereadinesslist1:
+            if i != None:
+                languagereadinesslist2.append(i)
+        for i in languagereadinesslist2:
+            languagetotal += i
+        languagereadinessaverage =(languagetotal/len(languagereadinesslist2))
+        report.language_grade = languagereadinessaverage
+        report.save()
+
+        #Mathematics Readiness Grade
+        mathreadiness = (report.math1, report.math2, report.math3, report.math4, report.math5, report.math6, report.math7, report.math8,
+        report.math9, report.math10, report.math11)
+        mathreadinesslist1 = list(mathreadiness)
+        mathreadinesslist2 = []
+        mathtotal = 0
+        for i in mathreadinesslist1:
+            if i != None:
+                mathreadinesslist2.append(i)
+        for i in mathreadinesslist2:
+            mathtotal += i
+        mathreadinessaverage =(mathtotal/len(mathreadinesslist2))
+        report.mathematics_grade = mathreadinessaverage
+        report.save()
+
+        #Penmanship Readiness Grade
+        penmanshipreadiness = (report.penmanship1, report.penmanship2, report.penmanship3, report.penmanship4)
+        penmanshipreadinesslist1 = list(penmanshipreadiness)
+        penmanshipreadinesslist2 = []
+        penmanshiptotal = 0
+        for i in penmanshipreadinesslist1:
+            if i != None:
+                penmanshipreadinesslist2.append(i)
+        for i in penmanshipreadinesslist2:
+            penmanshiptotal += i
+        penmanshipreadinessaverage =(penmanshiptotal/len(penmanshipreadinesslist2))
+        report.penmanship_grade = penmanshipreadinessaverage
+        report.save()
+
+        #Sem Average (Average of all academic subject grades)
+        semaverage = (report.reading_grade, report.mathematics_grade, report.language_grade, report.science_grade, report.penmanship_grade)
+        semaveragelist1 = list(semaverage)
+        semaveragelist2 = []
+        semaveragetotal = 0
+        for i in semaveragelist1:
+            if i != None:
+                semaveragelist2.append(i)
+        for i in semaveragelist2:
+            semaveragetotal += i
+        semaverage1 =(semaveragetotal/len(semaveragelist2))
+        report.sem_average = semaverage1
+        report.save()
+
+        # Filter objects to specific student 
+        x = GradeReport.objects.select_related().filter(student = id)
+
+        #Filter objects to specific student and school year
+        sy = form.cleaned_data['school_year']
+        filteredsy = x.filter(school_year = sy)
+
+        # (FINAL RATING) Average of all reading grade per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.reading_grade
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        report.final_reading = yearaverage
+        report.save()
+
+        # (FINAL RATING) Average of all mathematics grade per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.mathematics_grade
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        report.final_mathematics = yearaverage
+        report.save()
+
+        # (FINAL RATING) Average of all language grade per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.language_grade
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        report.final_language = yearaverage
+        report.save()
+
+        # (FINAL RATING) Average of all science grade per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.science_grade
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        report.final_science = yearaverage
+        report.save()
+
+        # (FINAL RATING) Average of all penmanship grade per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.penmanship_grade
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        report.final_penmanship = yearaverage
+        report.save()
+
+        # (FINAL RATING) Average of all of a student's grades per school year
+        averagecounter = 0
+        average = 0
+        for i in filteredsy:
+            average += i.sem_average
+            averagecounter += 1
+        else:
+            yearaverage = average/averagecounter
+        
+        report.year_average = yearaverage
+        report.save()
+
+        return redirect('sis_app:grade_report_k1k2jr')
+    context = {'form':form_class}
+    return render(request, 'sis_app/GradeReportForm_K1K2JR.html', context)
+
+#GradeReport List for Kinder 2 Senior students only
+def GradeReportList_Kinder2Senior(request):
+    students = Student.objects.filter(student_grade_level = 'Kinder 2 Senior')
+    student = {'studentList' : students}
+    return render(request,"sis_app/GradeReportKinder2Senior_List.html", student)
+
+#GradeReport Form for Kinder 2 Senior students only
+def GradeReportFormKinder2Senior(request, id):
+    model = GradeReport
+    form_class = GradeReportFormK2SR
     student = Student.objects.get(pk=id)
     if request.method == 'POST':
         if TranscriptOfRecord.objects.filter(student = student).exists():
@@ -522,7 +1182,7 @@ def GradeReportFormNursery(request, id):
         report.final_penmanship = yearaverage
         report.save()
 
-         # (FINAL RATING) Average of all penmanship grade per school year
+         # (FINAL RATING) Average of all filipino grade per school year
         averagecounter = 0
         average = 0
         for i in filteredsy:
@@ -546,9 +1206,9 @@ def GradeReportFormNursery(request, id):
         report.year_average = yearaverage
         report.save()
 
-        return redirect('sis_app:grade_report_nursery')
+        return redirect('sis_app:grade_report_kinder2senior')
     context = {'form':form_class}
-    return render(request, 'sis_app/GradeReportForm_Nursery.html', context)
+    return render(request, 'sis_app/GradeReportForm_Kinder2Senior.html', context)
 
 
 def viewGradeReport(request):
