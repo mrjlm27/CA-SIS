@@ -28,6 +28,10 @@ urlpatterns=[
     path('GradeReportFormKinder1Kinder2Junior/<int:id>',views.GradeReportFormKinder1Kinder2Junior, name="grade_report_form_k1k2jr"),
     path('GenerateTOR/<int:id>', views.generateTOR, name= 'generate_tor'), 
     path('ViewGradeReport',views.viewGradeReport, name = "viewGradeReport"),
+    path('Admin_EditAccount/<int:id>',views.EditAccountCred_admin, name = "admin_account_edit"),
+    path('Delete_Button',views.deleteStudentsPage, name = "delete_students_page"),
+    path('Delete_Students',views.deleteStudents, name = "delete_students"),
+    
 
 
 ]
