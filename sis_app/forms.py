@@ -213,13 +213,14 @@ class PaymentForm(forms.ModelForm):
 class GradeReportForm(forms.ModelForm):
     class Meta:
         model=GradeReport
-        fields = ('school_year','grading_period','readingreadiness1', 'readingreadiness2', 'readingreadiness3', 'readingreadiness4', 'readingreadiness5', 'readingreadiness6', 'readingreadiness7',
+        fields = ('school_year', 'gradelevel', 'grading_period','readingreadiness1', 'readingreadiness2', 'readingreadiness3', 'readingreadiness4', 'readingreadiness5', 'readingreadiness6', 'readingreadiness7',
         'readingreadiness8', 'readingreadiness9', 'readingreadiness10', 'readingreadiness11', 'readingreadiness12', 'readingreadiness13',
         'science1','science2','science3' ,'science4','science5','science6', 'language1', 'language2', 'language3', 'language4', 'language5', 'language6',
         'language7', 'language8', 'language9', 'language10', 'math1', 'math2', 'math3', 'math4', 'math5', 'math6', 'math7', 'math8', 'math9', 'math10', 'math11',
         'penmanship1', 'penmanship2', 'penmanship3', 'penmanship4', 'filipino1', 'filipino2', 'filipino3', 'filipino4', 'school_days', 'absences', 'gr_acknowledgement')
         labels = {
             'school_year':'School Year',
+            'gradelevel': 'Grade Level',
             'grading_period':'Grading Period',
             'readingreadiness1': 'Identifies basic colors and shapes',
             'readingreadiness2': 'Identifies his/her name in a list',
@@ -330,13 +331,14 @@ class GradeReportForm(forms.ModelForm):
 class GradeReportFormK2SR(forms.ModelForm):
     class Meta:
         model=GradeReport
-        fields = ('school_year','grading_period','readingreadiness1', 'readingreadiness2', 'readingreadiness3', 'readingreadiness4', 'readingreadiness5', 'readingreadiness6', 'readingreadiness7',
+        fields = ('school_year', 'gradelevel','grading_period','readingreadiness1', 'readingreadiness2', 'readingreadiness3', 'readingreadiness4', 'readingreadiness5', 'readingreadiness6', 'readingreadiness7',
         'readingreadiness8', 'readingreadiness9', 'readingreadiness10', 'readingreadiness11', 'readingreadiness12', 'readingreadiness13',
         'science1','science2','science3' ,'science4','science5','science6', 'language1', 'language2', 'language3', 'language4', 'language5', 'language6',
         'language7', 'language8', 'language9', 'language10', 'math1', 'math2', 'math3', 'math4', 'math5', 'math6', 'math7', 'math8', 'math9', 'math10', 'math11',
         'penmanship1', 'penmanship2', 'penmanship3', 'penmanship4', 'filipino1', 'filipino2', 'filipino3', 'filipino4', 'school_days', 'absences', 'gr_acknowledgement')
         labels = {
             'school_year':'School Year',
+            'gradelevel': 'Grade Level',
             'grading_period':'Grading Period',
             'readingreadiness1': 'Identifies basic colors and shapes',
             'readingreadiness2': 'Identifies his/her name in a list',
@@ -447,13 +449,14 @@ class GradeReportFormK2SR(forms.ModelForm):
 class GradeReportFormK1K2JR(forms.ModelForm):
     class Meta:
         model=GradeReport
-        fields = ('school_year','grading_period','readingreadiness1', 'readingreadiness2', 'readingreadiness3', 'readingreadiness4', 'readingreadiness5', 'readingreadiness6', 'readingreadiness7',
+        fields = ('school_year', 'gradelevel','grading_period','readingreadiness1', 'readingreadiness2', 'readingreadiness3', 'readingreadiness4', 'readingreadiness5', 'readingreadiness6', 'readingreadiness7',
         'readingreadiness8', 'readingreadiness9', 'readingreadiness10', 'readingreadiness11', 'readingreadiness12', 'readingreadiness13',
         'science1','science2','science3' ,'science4','science5','science6', 'language1', 'language2', 'language3', 'language4', 'language5', 'language6',
         'language7', 'language8', 'language9', 'language10', 'math1', 'math2', 'math3', 'math4', 'math5', 'math6', 'math7', 'math8', 'math9', 'math10', 'math11',
         'penmanship1', 'penmanship2', 'penmanship3', 'penmanship4', 'school_days', 'absences', 'gr_acknowledgement')
         labels = {
             'school_year':'School Year',
+            'gradelevel': 'Grade Level',
             'grading_period':'Grading Period',
             'readingreadiness1': 'Identifies basic colors and shapes',
             'readingreadiness2': 'Identifies his/her name in a list',
@@ -556,7 +559,7 @@ class GradeReportFormK1K2JR(forms.ModelForm):
 class GradeReportFormN(forms.ModelForm):
     class Meta:
         model=GradeReport
-        fields = ('school_year','grading_period', 'Nlanguage1', 'Nlanguage2', 'Nlanguage3', 'Nlanguage4', 'Nlanguage5', 'Nlanguage6', 'Nlanguage7', 'Nlanguage8', 
+        fields = ('school_year', 'gradelevel','grading_period', 'Nlanguage1', 'Nlanguage2', 'Nlanguage3', 'Nlanguage4', 'Nlanguage5', 'Nlanguage6', 'Nlanguage7', 'Nlanguage8', 
         'Nlanguage9', 'Nlanguage10', 'N_reading_readiness1', 'N_reading_readiness2', 'N_reading_readiness3', 'N_reading_readiness4', 'N_reading_readiness5', 
         'N_reading_readiness6', 'N_reading_readiness7', 'N_reading_readiness8', 'N_reading_readiness9', 'N_reading_readiness10', 'N_reading_readiness11', 
         'N_reading_readiness12', 'N_reading_readiness13', 'N_number_readiness1', 'N_number_readiness2', 'N_number_readiness3', 'N_number_readiness4', 
@@ -571,6 +574,7 @@ class GradeReportFormN(forms.ModelForm):
         
         labels = {
             'school_year':'School Year',
+            'gradelevel':'Grade Level',
             'grading_period':'Grading Period',
             'Nlanguage1': 'CAN GIVE FIRST/LAST NAME',
             'Nlanguage2': 'HAS CLEAR PRONOUNCIATION',

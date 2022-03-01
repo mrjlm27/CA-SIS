@@ -1282,14 +1282,15 @@ def viewGradeReport(request):
 
 #make another generateTable functions here to cater to the different grade levels
 def generateTable(object):
-        object_student = object.student
-        student_id = object_student.id
-        student_entity = Student.objects.get(pk = student_id)
+    object_student = object.student
+    student_id = object_student.id
+    student_entity = Student.objects.get(pk = student_id)
 
-        #building the table structure
-        
-
+    #building the table structure
+    #Table for Nursery
+    if object.gradelevel == 'Nursery':
         gradeTableWidth = 250
+
 
         titleTable = Table([
             ['School Year:',  "", object.school_year]
@@ -1297,7 +1298,147 @@ def generateTable(object):
 
         
         yearlevelTable = Table([
-            ['Year Level:', "", student_entity.student_grade_level]
+            ['Year Level:', "", object.gradelevel]
+        ],[50,100, 100])
+
+        finalgradeTable = Table([
+            ["Reading Readiness", "", object.N_final_reading_readiness],
+            ["Math Readiness", "", object.N_final_number_readiness],
+            ["Language",  "",object.N_final_language],
+            ["Science", "", object.N_final_science],
+            ["Interpersonal Skills", "", object.N_final_interpersonal_skills],
+            ["Motor Skills", "", object.N_final_motor_skills],
+            ["Creative Domain", "", object.N_creative_domain],
+            ["Year Average", "", object.N_year_average]
+        ], [50, 100, 100])
+
+        finalgradeTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'LEFT'),
+            ('TOPPADDING', (0,0), (-1,-1), 0),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 0),
+            ('FONTSIZE', (0,0), (-1, -1),10),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        finalgradeTable.setStyle(finalgradeTableStyle)
+
+        gradeTable = Table([
+            [titleTable],
+            [yearlevelTable],
+            [finalgradeTable]
+        ],gradeTableWidth)
+
+        titleTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),10),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        titleTable.setStyle(titleTableStyle)
+
+        return gradeTable
+    #Table for Kinder 1 
+    elif object.gradelevel == 'Kinder 1':
+        gradeTableWidth = 250
+
+
+        titleTable = Table([
+            ['School Year:',  "", object.school_year]
+        ],[50, 100, 100])
+
+        
+        yearlevelTable = Table([
+            ['Year Level:', "", object.gradelevel]
+        ],[50,100, 100])
+
+        finalgradeTable = Table([
+            ["Reading", "", object.final_reading],
+            ["Math", "", object.final_mathematics],
+            ["Language",  "",object.final_language],
+            ["Science", "", object.final_science],
+            ["Penmanship", "", object.final_penmanship],
+        ], [50, 100, 100])
+
+        finalgradeTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'LEFT'),
+            ('TOPPADDING', (0,0), (-1,-1), 0),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 0),
+            ('FONTSIZE', (0,0), (-1, -1),10),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        finalgradeTable.setStyle(finalgradeTableStyle)
+
+        gradeTable = Table([
+            [titleTable],
+            [yearlevelTable],
+            [finalgradeTable]
+        ],gradeTableWidth)
+
+        titleTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),10),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        titleTable.setStyle(titleTableStyle)
+
+        return gradeTable
+
+    #Table for Kinder 2 Junior
+    elif object.gradelevel == 'Kinder 2 Junior':
+        gradeTableWidth = 250
+
+
+        titleTable = Table([
+            ['School Year:',  "", object.school_year]
+        ],[50, 100, 100])
+
+        
+        yearlevelTable = Table([
+            ['Year Level:', "", object.gradelevel]
+        ],[50,100, 100])
+
+        finalgradeTable = Table([
+            ["Reading", "", object.final_reading],
+            ["Math", "", object.final_mathematics],
+            ["Language",  "",object.final_language],
+            ["Science", "", object.final_science],
+            ["Penmanship", "", object.final_penmanship],
+        ], [50, 100, 100])
+
+        finalgradeTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'LEFT'),
+            ('TOPPADDING', (0,0), (-1,-1), 0),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 0),
+            ('FONTSIZE', (0,0), (-1, -1),10),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        finalgradeTable.setStyle(finalgradeTableStyle)
+
+        gradeTable = Table([
+            [titleTable],
+            [yearlevelTable],
+            [finalgradeTable]
+        ],gradeTableWidth)
+
+        titleTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),10),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+        titleTable.setStyle(titleTableStyle)
+
+        return gradeTable
+
+    #Table for Kinder 2 Senior
+    elif object.gradelevel == 'Kinder 2 Senior':
+        gradeTableWidth = 250
+
+
+        titleTable = Table([
+            ['School Year:',  "", object.school_year]
+        ],[50, 100, 100])
+
+        
+        yearlevelTable = Table([
+            ['Year Level:', "", object.gradelevel]
         ],[50,100, 100])
 
         finalgradeTable = Table([
