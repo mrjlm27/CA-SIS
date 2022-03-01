@@ -676,6 +676,7 @@ def GradeReportFormNursery(request, id):
         report.N_final_reading_readiness = yearaverage
         report.save()
 
+
         # (FINAL RATING) Average of all number readiness grade per school year
         averagecounter = 0
         average = 0
@@ -803,7 +804,18 @@ def GradeReportFormNursery(request, id):
         report.N_final_good_moral_valueformation = yearaverage
         report.save()
 
+
+        # Filter objects to specific student 
+        x = GradeReport.objects.select_related().filter(student = id)
+
+        #Filter objects to specific student and school year
+        sy = form.cleaned_data['school_year']
+        filteredsy = x.filter(school_year = sy)
+        filteredperiod = form.cleaned_data['grading_period']
+
         # (FINAL RATING) Average of all of a student's grades per school year
+        
+        
         averagecounter = 0
         average = 0
         for i in filteredsy:
@@ -811,19 +823,23 @@ def GradeReportFormNursery(request, id):
             averagecounter += 1
         else:
             yearaverage = average/averagecounter
-        
-        if yearaverage >= 96 and yearaverage <= 100:
-            yearaverage = 'O'
-        elif yearaverage >= 90 and yearaverage <= 95:
-            yearaverage = 'VG'
-        elif yearaverage >= 85 and yearaverage <= 89:
-            yearaverage = 'G'
-        else:
-            yearaverage = 'F'
 
         report.N_year_average = yearaverage
         report.save()
 
+
+        if filteredperiod == '3':
+            if yearaverage >= 96 and yearaverage <= 100:
+                yearaverage = 'O'
+            elif yearaverage >= 90 and yearaverage <= 95:
+                yearaverage = 'VG'
+            elif yearaverage >= 85 and yearaverage <= 89:
+                yearaverage = 'G'
+            else:
+                yearaverage = 'F'
+            
+            report.N_year_average = yearaverage
+            report.save()
 
         return redirect('sis_app:grade_report_nursery')
     context = {'form':form_class}
