@@ -885,6 +885,10 @@ def GradeReportFormKinder1Kinder2Junior(request, id):
             readingtotal += i
         readingreadinessaverage =(readingtotal/len(readingreadinesslist2))
         report.reading_grade = readingreadinessaverage
+
+        print(readingtotal)
+        print(len(readingreadinesslist2))
+
         report.save()
 
 
@@ -1684,6 +1688,7 @@ def generateTOR (request, id):
         p0 = generateTable(grade_report[0])
         p1 = generateTable(grade_report[1])
         o1 = generateHeader(student_entity)
+        f1 = generateFooter(student_entity)
 
         #start of making bigTable
         bigTableWidth = 250
@@ -1707,10 +1712,19 @@ def generateTOR (request, id):
         ])
         gradesTable.setStyle(gradesTableStyle)
 
+        footerTable = Table([
+            [f1]
+        ],bigTableWidth)
+        footerTableStyle = TableStyle([
+            ('VALIGN',(0,0),(-1,-1), "BOTTOM"),
+            ('TOPPADDING',(0,0),(-1,-1), 296)#change this value
+        ])
+        footerTable.setStyle(footerTableStyle)
 
         bigTable = Table([
             [headerTable],
-            [gradesTable]
+            [gradesTable],
+            [footerTable]
         ],bigTableWidth)
 
         #end of making bigTable
@@ -1729,6 +1743,7 @@ def generateTOR (request, id):
         p1 = generateTable(grade_report[1])
         p2 = generateTable(grade_report[2])
         o1 = generateHeader(student_entity)
+        f1 = generateFooter(student_entity)
         #start of making bigTable
         bigTableWidth = 250
 
@@ -1752,11 +1767,21 @@ def generateTOR (request, id):
         ])
         gradesTable.setStyle(gradesTableStyle)
 
+        footerTable = Table([
+            [f1]
+        ],bigTableWidth)
+        footerTableStyle = TableStyle([
+            ('VALIGN',(0,0),(-1,-1), "BOTTOM"),
+            ('TOPPADDING',(0,0),(-1,-1), 150)#change this value
+        ])
+        footerTable.setStyle(footerTableStyle)
+
 
         bigTable = Table([
             [headerTable],
             [],
-            [gradesTable]
+            [gradesTable],
+            [footerTable]
         ],bigTableWidth)
 
         #end of making bigTable
@@ -1775,6 +1800,7 @@ def generateTOR (request, id):
         p2 = generateTable(grade_report[2])
         p3 = generateTable(grade_report[3])
         o1 = generateHeader(student_entity)
+        f1 = generateFooter(student_entity)
 
 
         #start of making bigTable
@@ -1800,70 +1826,25 @@ def generateTOR (request, id):
         ])
         gradesTable.setStyle(gradesTableStyle)
 
+        footerTable = Table([
+            [f1]
+        ],bigTableWidth)
+        footerTableStyle = TableStyle([
+            ('VALIGN',(0,0),(-1,-1), "BOTTOM"),
+            ('TOPPADDING',(0,0),(-1,-1), 150)#change this value
+        ])
+        footerTable.setStyle(footerTableStyle)
+
 
         bigTable = Table([
             [headerTable],
-            [gradesTable]
+            [gradesTable],
+            [footerTable]
         ],bigTableWidth)
 
         bigTableStyle = TableStyle([
             ('TOPPADDING',(0,0),(-1,-1), 0),
             ('BOTTOMPADDING',(0,0),(-1,-1), 0),
-        ])
-        bigTable.setStyle(bigTableStyle)
-
-        #end of making bigTable
-        elems = []    
-        elems.append(bigTable)
-        print(grade_report)
-        tor_pdf.build(elems)
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
-        response.write(buff.getvalue())
-        buff.close()   
-        return response
-
-    elif len(grade_report) == 5:
-        p0 = generateTable(grade_report[0])
-        p1 = generateTable(grade_report[1])
-        p2 = generateTable(grade_report[2])
-        p3 = generateTable(grade_report[3])
-        p4 = generateTable(grade_report[4])
-        o1 = generateHeader(student_entity)
-        #start of making bigTable
-        bigTableWidth = 250
-
-        headerTable = Table([
-            [o1]
-        ],bigTableWidth)
-        headerTableStyle = TableStyle([
-            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
-        ])
-        headerTable.setStyle(headerTableStyle)
-
-        gradesTable = Table([
-            [p0,'',p1],
-            [p2,'',p3],
-            ['',p4,'']
-        ],[5,240,5])
-        gradesTableStyle = TableStyle([
-            ('ALIGN', (0,0), (-1, -1), 'CENTER'),
-            ('FONTSIZE', (0,0), (-1, -1),8),
-            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
-        ])
-        gradesTable.setStyle(gradesTableStyle)
-
-
-        bigTable = Table([
-            [headerTable],
-            [gradesTable]
-        ],bigTableWidth)
-
-        bigTableStyle = TableStyle([
-            ('TOPPADDING',(0,0),(-1,-1), 0),
-            ('BOTTOMPADDING',(0,0),(-1,-1), 0),
-            ('FONTSIZE', (0,0), (-1, -1),8)
-
         ])
         bigTable.setStyle(bigTableStyle)
 
