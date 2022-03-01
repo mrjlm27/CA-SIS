@@ -179,13 +179,13 @@ def GenerateAccount(request, id):
             password = ''.join(random.choices(string.ascii_lowercase + string.digits, k = pass_length))
 
             if username_exists(username) == False:
-                user = User.objects.create_user(id = test.id, username = username, email = 'lennon2@thebeatles.com', password = password, first_name = str(test.student_firstname), last_name = test.student_lastname)
+                user = User.objects.create_user(id = test.id, username = username, email = test.student_guardianemail, password = password, first_name = str(test.student_firstname), last_name = test.student_lastname)
             
                 send_mail(
                     'CAMELEAN ACADEMY SIS username and pass',
                     "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON FIRST LOG-IN".format(username, password),
                     None,
-                    ['gmgtechdev@gmail.com'],#this is the recipient(change this to email of student later)
+                    [str(test.student_guardianemail)],#this is the recipient(change this to email of student later)
                     fail_silently=False,
                 )
 
@@ -1308,7 +1308,7 @@ def generateTable(object):
             ["Science", "", object.N_final_science],
             ["Interpersonal Skills", "", object.N_final_interpersonal_skills],
             ["Motor Skills", "", object.N_final_motor_skills],
-            ["Creative Domain", "", object.N_creative_domain],
+            ["Creative Domain", "", object.N_final_creative_domain],
             ["Year Average", "", object.N_year_average]
         ], [50, 100, 100])
 
@@ -1535,6 +1535,69 @@ def generateHeader (student):
 
     return headerTable
 
+def generateFooter(student):
+    footerTableWidth = 250
+
+    signatureTable = Table([
+        ['____________________',''],
+        ['Michael Ross P. Atienza',''],
+        ['Camelean Academy School Administrator','']
+    ],footerTableWidth)
+
+    signatureTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),10),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+    signatureTable.setStyle(signatureTableStyle)
+
+    studentNameDateTable = Table([
+        ['Date Generated: %s' % str(date.today())]
+    ],footerTableWidth)
+
+    studentNameDateTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),8),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+    studentNameDateTable.setStyle(studentNameDateTableStyle)
+
+    docLabelTable = Table([
+        ['THIS IS AN OFFICIAL ELECTRONIC DOCUMENT ISSUED BY CAMELEAN ACADEMY.']
+    ],footerTableWidth)
+
+    docLabelTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),7),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+    docLabelTable.setStyle(docLabelTableStyle)
+
+    telNumberTable = Table([
+        ['Tel/Fax + 63 2 8421 2595'],
+    ],footerTableWidth)
+
+    telNumberTableStyle = TableStyle([
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('FONTSIZE', (0,0), (-1, -1),5),
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+        ])
+    telNumberTable.setStyle(telNumberTableStyle)
+
+    footerTable = Table([
+        [signatureTable,''],
+        [studentNameDateTable],
+        [docLabelTable],
+        [telNumberTable]
+    ], [50,200])
+
+    footerTableStyle = TableStyle([
+            ('VALIGN',(0,0),(-1,-1), "BOTTOM")
+        ])
+    footerTable.setStyle(footerTableStyle)
+
+    return footerTable
+
 def generateGradesTable(grade_list):
     len_report = len(grade_list)
     if len_report == 1:
@@ -1567,6 +1630,7 @@ def generateTOR (request, id):
     if len(grade_report) == 1:
         p0 = generateTable(grade_report[0])
         o1 = generateHeader(student_entity)
+        f1 = generateFooter(student_entity)
         
         #start of making bigTable
         bigTableWidth = 250
@@ -1584,16 +1648,26 @@ def generateTOR (request, id):
         ],bigTableWidth)
         gradesTableStyle = TableStyle([
             ('ALIGN', (0,0), (-1, -1), 'CENTER'),
-  
             ('FONTSIZE', (0,0), (-1, -1),8),
-            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman'),
+            ('VALIGN',(0,0),(-1,-1), "TOP")
         ])
         gradesTable.setStyle(gradesTableStyle)
+
+        footerTable = Table([
+            [f1]
+        ],bigTableWidth)
+        footerTableStyle = TableStyle([
+            ('VALIGN',(0,0),(-1,-1), "BOTTOM"),
+            ('TOPPADDING',(0,0),(-1,-1), 296)#change this value
+        ])
+        footerTable.setStyle(footerTableStyle)
 
 
         bigTable = Table([
             [headerTable],
-            [gradesTable]
+            [gradesTable],
+            [footerTable]
         ],bigTableWidth)
 
         #end of making bigTable
@@ -1627,9 +1701,9 @@ def generateTOR (request, id):
         ],[5,240,5])
         gradesTableStyle = TableStyle([
             ('ALIGN', (0,0), (-1, -1), 'CENTER'),
-  
             ('FONTSIZE', (0,0), (-1, -1),8),
-            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman'),
+            ('VALIGN',(0,0),(-1,-1), "TOP")
         ])
         gradesTable.setStyle(gradesTableStyle)
 
@@ -1672,9 +1746,9 @@ def generateTOR (request, id):
         ],[5,240,5])
         gradesTableStyle = TableStyle([
             ('ALIGN', (0,0), (-1, -1), 'CENTER'),
-  
             ('FONTSIZE', (0,0), (-1, -1),8),
-            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman'),
+            ('VALIGN',(0,0),(-1,-1), "TOP")
         ])
         gradesTable.setStyle(gradesTableStyle)
 
@@ -1701,6 +1775,8 @@ def generateTOR (request, id):
         p2 = generateTable(grade_report[2])
         p3 = generateTable(grade_report[3])
         o1 = generateHeader(student_entity)
+
+
         #start of making bigTable
         bigTableWidth = 250
 
@@ -1718,9 +1794,9 @@ def generateTOR (request, id):
         ],[5,240,5])
         gradesTableStyle = TableStyle([
             ('ALIGN', (0,0), (-1, -1), 'CENTER'),
-  
             ('FONTSIZE', (0,0), (-1, -1),8),
-            ('FONTNAME', (0,0), (-1,-1),'Times-Roman')
+            ('FONTNAME', (0,0), (-1,-1),'Times-Roman'),
+            ('VALIGN',(0,0),(-1,-1), "TOP")
         ])
         gradesTable.setStyle(gradesTableStyle)
 
@@ -1732,8 +1808,7 @@ def generateTOR (request, id):
 
         bigTableStyle = TableStyle([
             ('TOPPADDING',(0,0),(-1,-1), 0),
-            ('BOTTOMPADDING',(0,0),(-1,-1), 0)
-
+            ('BOTTOMPADDING',(0,0),(-1,-1), 0),
         ])
         bigTable.setStyle(bigTableStyle)
 
@@ -1747,6 +1822,7 @@ def generateTOR (request, id):
         response.write(buff.getvalue())
         buff.close()   
         return response
+
     elif len(grade_report) == 5:
         p0 = generateTable(grade_report[0])
         p1 = generateTable(grade_report[1])
