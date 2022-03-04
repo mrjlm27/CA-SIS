@@ -29,7 +29,8 @@ from reportlab.platypus import Table, SimpleDocTemplate, BaseDocTemplate, TableS
 from reportlab.lib import colors, fonts
 from reportlab.pdfgen import canvas
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 
 
@@ -1901,3 +1902,9 @@ def deleteStudents(request):
         return redirect('/studentList')
     else:
         return redirect('sis_app:home')
+
+
+@login_required(login_url='sis_app:log_in')
+def logout(request):
+    django_logout(request)
+    return redirect('/login')
