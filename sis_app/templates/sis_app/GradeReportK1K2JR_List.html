@@ -17,46 +17,46 @@
 </head>
 
 <h1 class="pageHeading">View Grade Reports of Kinder 1 and Kinder 2 Junior Students</h1>
-
-<div class="table-container">
-    <table class = "table table-borderless">
-        <thead class= "border-bottom font-weight-bold">
-            <tr>
-                <th>Student Number</th>
-                <th>Student First Name</th>
-                <th>Student Last Name</th>
-                <th>Student Grade Level</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for student in studentList %}
-            <tr>
-                <td data-heading="Student ID">{{student.pk}}</td>
-                <td data-heading="First Name">{{student.student_firstname}}</td>
-                <td data-heading="Last Name">{{student.student_lastname}}</td>
-                <td data-heading="Last Name">{{student.student_grade_level}}</td>
-                <td data-heading="Create Grade Report"><a href="{% url 'sis_app:grade_report_form_k1k2jr' student.id %}">Create Grade Report</a>
-                    {% csrf_token %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        <!-- <tbody>
-            {% for student in GradeReportList %}
-            <tr>
-                <td data-heading="Student ID">{{student.student}}</td>
-                <td data-heading="Grading Period">{{student.grading_period}}</td>
-                <td data-heading="School Year">{{student.school_year}}</td>
-                <td data-heading="Sem Average">{{student.sem_average}}</td>
-                <td data-heading="Create Grade Report"><a href="{% url 'sis_app:grade_report_form_nursery' student.student %}">Create Grade Report</a>
-                    {% csrf_token %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-     -->
-    </table>
-</div>
+    <hr>
+        <div class="table-container">
+            <table class = "table table-borderless">
+                <thead class= "border-bottom font-weight-bold">
+                    <tr>
+                        <th>Student Number</th>
+                        <th>Student First Name</th>
+                        <th>Student Last Name</th>
+                        <th>Student Grade Level</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in studentList %}
+                    <tr>
+                        <td data-heading="Student ID">{{student.pk}}</td>
+                        <td data-heading="First Name">{{student.student_firstname}}</td>
+                        <td data-heading="Last Name">{{student.student_lastname}}</td>
+                        <td data-heading="Last Name">{{student.student_grade_level}}</td>
+                        <td data-heading="Create Grade Report"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_form_k1k2jr' student.id %}">Create Grade Report</a>
+                            {% csrf_token %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <!-- <tbody>
+                    {% for student in GradeReportList %}
+                    <tr>
+                        <td data-heading="Student ID">{{student.student}}</td>
+                        <td data-heading="Grading Period">{{student.grading_period}}</td>
+                        <td data-heading="School Year">{{student.school_year}}</td>
+                        <td data-heading="Sem Average">{{student.sem_average}}</td>
+                        <td data-heading="Create Grade Report"><a href="{% url 'sis_app:grade_report_form_nursery' student.student %}">Create Grade Report</a>
+                            {% csrf_token %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            -->
+            </table>
+        </div>
 </html>
