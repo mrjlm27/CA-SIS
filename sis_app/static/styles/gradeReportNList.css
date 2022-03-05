@@ -1,0 +1,40 @@
+html {
+    background-color: white;
+    margin-left: 20px;
+    font-family: "Rubik", sans-serif;
+    font-weight: 300;
+}
+ 
+hr {
+    margin-left: 0px;
+    background-color: #D0581C;
+    height: 500px;
+    width: 196px;
+}
+ 
+h1 {
+    font-family: 'M PLUS 1p', sans-serif;
+    font-weight: 800;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.buttonDesignNegative {
+    display: flex;
+    font-family: "Rubik", sans-serif;
+    font-weight: 300;
+    text-align: center;
+    /* border: 10px solid black; */
+    border-radius: 13px;
+    color: white;
+    background-color: #D0581C;
+    border-color: #D0581C;
+    width: 200px;
+    height: 34px;
+}

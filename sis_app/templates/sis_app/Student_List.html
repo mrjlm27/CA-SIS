@@ -1,6 +1,7 @@
+
+
 {% load static %}
 
-{%block content %}
 
 {% block styles %}
 <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"> -->
@@ -51,8 +52,9 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Enrollment Status</th>
-                <th></th>
-                <th></th>
+                <th>Last Enrolled</th>
+                <th>Generate Transcript of Records</th>
+                <th>Edit Account Credentials</th>
                 <th></th>
             </tr>
         </thead>
@@ -62,16 +64,15 @@
                 <td data-heading="First Name">{{student.student_firstname}}</td>
                 <td data-heading="Last Name">{{student.student_lastname}}</td>
                 <td data-heading="Enrollment Status">{{student.enrollment_status}}</td>
+                <td data-heading="Last Enrolled">{{student.student_schoolyear_start}}</td>
+                <td><a class="buttonDesignNegative" href="{% url 'sis_app:generate_tor' student.id %}">Generate TOR</a></td>
+                <td><a class="buttonDesignNegative" href="{% url 'sis_app:admin_account_edit' student.id %}">Edit Credentials</a></td>
             </tr>
             {% endfor %}
         </tbody>
     
     </table>
 </div>
-<a class="buttonDesignNegative" href="{% url 'sis_app:student_form' %}">Register a student</a>
-
-
-
-
-
-{% endblock content %}
+{% comment %} <a class="buttonDesignNegative" href="{% url 'sis_app:student_form' %}">Register a student</a> {% endcomment %}
+<a class="buttonDesignNegative" href="{% url 'sis_app:delete_students_page' %}">Delete Students</a>
+{% comment %} <a class="buttonDesignNegative" href="{% url 'sis_app:student_form' %}">Register a student</a> {% endcomment %}
