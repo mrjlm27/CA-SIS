@@ -41,8 +41,8 @@ class Student(Account):
     ('Enrolled', 'Enrolled'),
     ]#
     enrollment_status = models.CharField(max_length=20, choices=status,default='Not Enrolled')#
-    #student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)#
-    student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000)], default=None)#
+    student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)
+    # student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000)], default=None)#
     student_address = models.CharField(max_length=300, default=None)
     student_religion = models.CharField(max_length=128, default=None)
     student_nationality = models.CharField(max_length=128, default=None)
