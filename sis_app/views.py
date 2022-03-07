@@ -377,6 +377,7 @@ def GradeReportFormNursery(request, id):
         model = GradeReport
         form_class = GradeReportFormN
         student = Student.objects.get(pk=id)
+        student_name =  student.student_firstname + " " +  student.student_lastname
         if request.method == 'POST':
             if TranscriptOfRecord.objects.filter(student = student).exists():
                 tor = TranscriptOfRecord.objects.get(student = student)
@@ -836,9 +837,9 @@ def GradeReportFormNursery(request, id):
                 
                 report.N_year_average = yearaverage
                 report.save()
-
+        
             return redirect('sis_app:grade_report_nursery')
-        context = {'form':form_class}
+        context = {'form':form_class,"student_name": student_name}
         return render(request, 'sis_app/GradeReportForm_Nursery.html', context)
     else:
         return redirect('sis_app:home')
