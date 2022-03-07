@@ -37,7 +37,7 @@
                     <td data-heading="First Name">{{student.student_firstname}}</td>
                     <td data-heading="Last Name">{{student.student_lastname}}</td>
                     <td data-heading="Last Name">{{student.student_grade_level}}</td>
-                    <td data-heading="Create Grade Report"><a href="{% url 'sis_app:grade_report_form_nursery' student.id %}">Create Grade Report</a>
+                    <td data-heading="Create Grade Report"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_form_nursery' student.id %}">Create Grade Report</a>
                         {% csrf_token %}
                     </td>
                 </tr>

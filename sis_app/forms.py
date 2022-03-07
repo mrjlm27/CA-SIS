@@ -206,8 +206,10 @@ class PaymentForm(forms.ModelForm):
         }
 
         widgets = {
+            'payment_s_account_id': forms.Select(attrs={'class': 'form-control'}),
             'paymentdate_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
             'payment_amount': forms.NumberInput(attrs={'class': 'form-control'}),
+            'school_year_end': forms.NumberInput(attrs={'class': 'form-control'}),
         }
 
 class GradeReportForm(forms.ModelForm):
@@ -551,6 +553,8 @@ class GradeReportFormK1K2JR(forms.ModelForm):
             'penmanship4': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
+            'school_year': forms.DateInput(attrs={'class': 'form-control'}),
+            'grading_period': forms.Select(attrs={'class': 'form-control'}),
         }
 
 class GradeReportFormN(forms.ModelForm):
