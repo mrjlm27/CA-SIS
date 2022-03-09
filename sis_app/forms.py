@@ -282,6 +282,7 @@ class GradeReportForm(forms.ModelForm):
         }
 
         widgets = {
+            'school_year':forms.Select(choices=YEAR_CHOICES),
             'readingreadiness1': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness2': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness3': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -399,6 +400,7 @@ class GradeReportFormK2SR(forms.ModelForm):
         }
 
         widgets = {
+            'school_year':forms.Select(choices=YEAR_CHOICES),
             'readingreadiness1': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness2': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness3': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -512,6 +514,7 @@ class GradeReportFormK1K2JR(forms.ModelForm):
         }
 
         widgets = {
+            'school_year':forms.Select(choices=YEAR_CHOICES),
             'readingreadiness1': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness2': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness3': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -662,6 +665,7 @@ class GradeReportFormN(forms.ModelForm):
         }
 
         widgets = {
+            'school_year':forms.Select(choices=YEAR_CHOICES),
             'Nlanguage1': forms.Select(attrs={'class': 'form-control'}),
             'Nlanguage2': forms.Select(attrs={'class': 'form-control'}),
             'Nlanguage3': forms.Select(attrs={'class': 'form-control'}),

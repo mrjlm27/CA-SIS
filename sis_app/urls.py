@@ -6,7 +6,7 @@ from . import views
 app_name = 'sis_app'
 
 urlpatterns=[
-    path('', views.LogInScreen, name="log_in"),
+    path('login', views.LogInScreen, name="log_in"),
     path('home',views.Home, name='home'),
     path('editAccount', views.EditAccountCred, name='edit_acc'),
     path('studentList',views.StudentList, name="student_list"),
@@ -32,8 +32,4 @@ urlpatterns=[
     path('Delete_Button',views.deleteStudentsPage, name = "delete_students_page"),
     path('Delete_Students',views.deleteStudents, name = "delete_students"),
     path('logout', views.logout, name="log_out"),
-
-    
-
-
 ]
