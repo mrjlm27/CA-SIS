@@ -745,3 +745,14 @@ class GradeReportFormN(forms.ModelForm):
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
         }
+
+
+class AcknowledgementForm(forms.ModelForm):
+    class Meta:
+        model=GradeReport
+        fields =  ('gr_acknowledgement',)
+
+        widgets = {'gr_acknowledgement': forms.CheckboxInput(attrs={'class': 'form-control'}),}
+
+        labels = {'gr_acknowledgement': "Please click on the box to acknowledge that you have seen the student's report card: ",
+        }
