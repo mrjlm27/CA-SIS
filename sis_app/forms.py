@@ -194,12 +194,15 @@ class LogInForm(forms.ModelForm):
 #             'paymentdate_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
 #             'payment_amount': forms.NumberInput(attrs={'class': 'form-control'}),
 #         }
+
+YEAR_CHOICES= [tuple([x,x]) for x in range(2022,2035)]
+
 class PaymentForm(forms.ModelForm):
     class Meta:
         model=Payment
         fields = ('payment_s_account_id','paymentdate_date','payment_amount','school_year_end')
         labels = {
-            'payment_s_account_id': 'Select Student',
+            'payment_s_account_id': 'Input Student ID',
             'paymentdate_date': 'Date of Payment',
             'payment_amount': 'Amount of Payment',
             'school_year_end': 'End of School Year',
@@ -208,7 +211,11 @@ class PaymentForm(forms.ModelForm):
         widgets = {
             'paymentdate_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
             'payment_amount': forms.NumberInput(attrs={'class': 'form-control'}),
+            'school_year_end':forms.Select(choices=YEAR_CHOICES)
         }
+    def __init__(self, *args, **kwargs):
+        super(PaymentForm, self).__init__(*args, **kwargs)
+        self.fields['payment_s_account_id'].widget = forms.TextInput()
 
 class GradeReportForm(forms.ModelForm):
     class Meta:
