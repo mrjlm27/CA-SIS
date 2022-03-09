@@ -381,6 +381,8 @@ def GradeReportFormNursery(request, id):
     model = GradeReport
     form_class = GradeReportFormN
     student = Student.objects.get(pk=id)
+    student_name =  student.student_firstname + " " +  student.student_lastname
+
     if request.method == 'POST':
         if TranscriptOfRecord.objects.filter(student = student).exists():
             tor = TranscriptOfRecord.objects.get(student = student)
@@ -842,7 +844,7 @@ def GradeReportFormNursery(request, id):
             report.save()
 
         return redirect('sis_app:grade_report_nursery')
-    context = {'form':form_class}
+    context = {'form':form_class,"student_name": student_name}
     return render(request, 'sis_app/GradeReportForm_Nursery.html', context)
 
 #GradeReport List for Kinder 1 and Kinder 2 Junior students only
@@ -856,6 +858,7 @@ def GradeReportFormKinder1Kinder2Junior(request, id):
     model = GradeReport
     form_class = GradeReportFormK1K2JR
     student = Student.objects.get(pk=id)
+    student_name =  student.student_firstname + " " +  student.student_lastname
     if request.method == 'POST':
         if TranscriptOfRecord.objects.filter(student = student).exists():
             tor = TranscriptOfRecord.objects.get(student = student)
@@ -1041,7 +1044,7 @@ def GradeReportFormKinder1Kinder2Junior(request, id):
         report.save()
 
         return redirect('sis_app:grade_report_k1k2jr')
-    context = {'form':form_class}
+    context = {'form':form_class,"student_name": student_name}
     return render(request, 'sis_app/GradeReportForm_K1K2JR.html', context)
 
 #GradeReport List for Kinder 2 Senior students only
@@ -1055,6 +1058,7 @@ def GradeReportFormKinder2Senior(request, id):
     model = GradeReport
     form_class = GradeReportFormK2SR
     student = Student.objects.get(pk=id)
+    student_name =  student.student_firstname + " " +  student.student_lastname
     if request.method == 'POST':
         if TranscriptOfRecord.objects.filter(student = student).exists():
             tor = TranscriptOfRecord.objects.get(student = student)
@@ -1266,7 +1270,7 @@ def GradeReportFormKinder2Senior(request, id):
         report.save()
 
         return redirect('sis_app:grade_report_kinder2senior')
-    context = {'form':form_class}
+    context = {'form':form_class,"student_name": student_name}
     return render(request, 'sis_app/GradeReportForm_Kinder2Senior.html', context)
 
 

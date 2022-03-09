@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;500&family=Rubik:wght@300;400&display=swap" rel="stylesheet">
  
-    <link rel="stylesheet" href="{% static "styles/gradeReportNList.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "styles/gradeReportFormK1K2JR.css" %}" type="text/css">
 
 </head>
 
@@ -26,14 +26,14 @@
 
 <h1 class="pageHeading">Encode Student Grades</h1>
 <hr>
+<h2 class="pageHeading">{{student_name}}</h2>
+
     <div class="formContainer">
         <div class="formGroup">
             <form action="" method="post" autocomplete="off">
                     {% csrf_token %}
                     {% comment %} {{ form.as_p }} {% endcomment %}
-                    {% comment %} <div class="form-group col-md-4">
-                        {{ form.school_year|as_crispy_field }}
-                    </div> {% endcomment %}
+                    
                     <div class="row"> <!--1st row-->
                         <div class="form-group col-md-6">
                             {{ form.school_year|as_crispy_field }}
@@ -43,6 +43,86 @@
                             {{ form.grading_period|as_crispy_field }}
                         </div>
                     </div>
+                    
+                    <h3 class="Student">READING READINESS</h3>
+
+                    <div class="row"> <!--2nd row-->
+                        <div class="form-group col-md-3">
+                            {{ form.readingreadiness1|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.readingreadiness2|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.readingreadiness3|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.readingreadiness4|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row"> <!--3rd row-->
+                        <div class="form-group col-md-3">
+                            {{ form.readingreadiness5|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.readingreadiness6|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.readingreadiness7|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.readingreadiness8|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row"> <!--4th row-->
+                        <div class="form-group col-md-3">
+                            {{ form.readingreadiness9|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.readingreadiness10|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.readingreadiness11|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.readingreadiness12|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class = "row">
+                        <div class="form-group col-md-3"> <!--5th row-->
+                            {{ form.readingreadiness13|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <h3 class="Student">SCIENCE</h3>
+
+                    <div class="row"> <!--6th row-->
+                        <div class="form-group col-md-4">
+                            {{ form.science1|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            {{ form.science2|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            {{ form.science3|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row"> <!--7th row-->
+                        <div class="form-group col-md-4">
+                            {{ form.science5|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            {{ form.science5|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            {{ form.science6|as_crispy_field }}
+                        </div>
+                    </div>
+
 
                     <div class="buttonContainer">
 
