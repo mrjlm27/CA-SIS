@@ -42,7 +42,10 @@ def Home(request):
     user_id = request.user.id
     user = User.objects.get(pk=user_id)
     context={'user':user}
-    return render(request,'sis_app/home.html',context) 
+    if request.user.is_superuser:
+        return render(request,'sis_app/home_admin.html',context)
+    else:
+        return render(request,'sis_app/home.html',context) 
 
 
 def LogInScreen(request):
