@@ -1672,7 +1672,6 @@ def deleteStudentsPage(request):
     return render(request,"sis_app/Delete_Button.html", context)   
     
 def deleteStudents(request):
-
     current_year = date.today().year
     year_to_delete = current_year - 6
     students_to_delete = Student.objects.filter(student_schoolyear_start = year_to_delete)
@@ -1680,3 +1679,7 @@ def deleteStudents(request):
     print(students_to_delete)
     students_to_delete.delete()
     return redirect('/studentList')
+
+def logout(request):
+    django_logout(request)
+    return redirect('/login')

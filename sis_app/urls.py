@@ -31,6 +31,8 @@ urlpatterns=[
     path('Admin_EditAccount/<int:id>',views.EditAccountCred_admin, name = "admin_account_edit"),
     path('Delete_Button',views.deleteStudentsPage, name = "delete_students_page"),
     path('Delete_Students',views.deleteStudents, name = "delete_students"),
+    path('logout', views.logout, name="log_out"),
+
     
 
 
