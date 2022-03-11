@@ -1294,10 +1294,28 @@ def GradeReportFormKinder2Senior(request, id):
 def viewGradeReport(request):
     user_id = request.user.id
     student_instance = Student.objects.get(pk = user_id)
-    grade_report = GradeReport.objects.filter(student = student_instance).latest('pk')   
+    grade_report = GradeReport.objects.filter(student = student_instance).latest('pk')
+    model = GradeReport
+    form_class = AcknowledgementForm
+    if request.method == 'POST':
+        x = request.POST.get('gr_acknowledgement')
+        if x == 'on':
+            x = 'True'
+        else:
+            x = 'False'
+        print(x)
+        grade_report.gr_acknowledgement = x
+        grade_report.save()
+        print(grade_report.gr_acknowledgement)
+        return redirect('sis_app:home')  
     print(grade_report)
-    context = {"grade_report":grade_report}
-    return render(request, "sis_app/ViewGradeReport.html", context)
+    context = {"grade_report":grade_report, 'form':form_class}
+    if student_instance.student_grade_level == "Nursery":
+        return render(request, "sis_app/ViewGradeReportN.html", context)
+    elif student_instance.student_grade_level == "Kinder 1" or student_instance.student_grade_level == "Kinder 2 Junior":
+        return render(request, "sis_app/ViewGradeReportK1K2JR.html", context)
+    elif student_instance.student_grade_level == "Kinder 2 Senior":
+        return render(request, "sis_app/ViewGradeReportK2SR.html", context)
 
     
 

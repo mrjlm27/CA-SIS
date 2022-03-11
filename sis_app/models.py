@@ -242,7 +242,7 @@ class GradeReport(models.Model):
     filipino4 = models.IntegerField(null=True, blank=True, default= None)
     school_days = models.IntegerField(null=True, blank=True, default= None)
     absences = models.IntegerField(null=True, blank=True, default= None)
-    gr_acknowledgement = models.BooleanField(default = False)
+    gr_acknowledgement = models.BooleanField(blank=True, default = None)
     
     #For Nursery Grade Reports
     nursery_evaluation_choices =[

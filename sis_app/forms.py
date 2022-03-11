@@ -224,7 +224,7 @@ class GradeReportForm(forms.ModelForm):
         'readingreadiness8', 'readingreadiness9', 'readingreadiness10', 'readingreadiness11', 'readingreadiness12', 'readingreadiness13',
         'science1','science2','science3' ,'science4','science5','science6', 'language1', 'language2', 'language3', 'language4', 'language5', 'language6',
         'language7', 'language8', 'language9', 'language10', 'math1', 'math2', 'math3', 'math4', 'math5', 'math6', 'math7', 'math8', 'math9', 'math10', 'math11',
-        'penmanship1', 'penmanship2', 'penmanship3', 'penmanship4', 'filipino1', 'filipino2', 'filipino3', 'filipino4', 'school_days', 'absences', 'gr_acknowledgement')
+        'penmanship1', 'penmanship2', 'penmanship3', 'penmanship4', 'filipino1', 'filipino2', 'filipino3', 'filipino4', 'school_days', 'absences')
         labels = {
             'school_year':'School Year',
             'grading_period':'Grading Period',
@@ -278,7 +278,6 @@ class GradeReportForm(forms.ModelForm):
             'filipino4': 'Magkasingkahulugan at Magkasalungat',
             'school_days': 'Number of School Days',
             'absences': 'Number of Absences',
-            'gr_acknowledgement': "Parent's Acknowledgement: ",
         }
 
         widgets = {
@@ -342,7 +341,7 @@ class GradeReportFormK2SR(forms.ModelForm):
         'readingreadiness8', 'readingreadiness9', 'readingreadiness10', 'readingreadiness11', 'readingreadiness12', 'readingreadiness13',
         'science1','science2','science3' ,'science4','science5','science6', 'language1', 'language2', 'language3', 'language4', 'language5', 'language6',
         'language7', 'language8', 'language9', 'language10', 'math1', 'math2', 'math3', 'math4', 'math5', 'math6', 'math7', 'math8', 'math9', 'math10', 'math11',
-        'penmanship1', 'penmanship2', 'penmanship3', 'penmanship4', 'filipino1', 'filipino2', 'filipino3', 'filipino4', 'school_days', 'absences', 'gr_acknowledgement')
+        'penmanship1', 'penmanship2', 'penmanship3', 'penmanship4', 'filipino1', 'filipino2', 'filipino3', 'filipino4', 'school_days', 'absences')
         labels = {
             'school_year':'School Year',
             'grading_period':'Grading Period',
@@ -396,7 +395,6 @@ class GradeReportFormK2SR(forms.ModelForm):
             'filipino4': 'Magkasingkahulugan at Magkasalungat',
             'school_days': 'Number of School Days',
             'absences': 'Number of Absences',
-            'gr_acknowledgement': "Parent's Acknowledgement: ",
         }
 
         widgets = {
@@ -460,7 +458,7 @@ class GradeReportFormK1K2JR(forms.ModelForm):
         'readingreadiness8', 'readingreadiness9', 'readingreadiness10', 'readingreadiness11', 'readingreadiness12', 'readingreadiness13',
         'science1','science2','science3' ,'science4','science5','science6', 'language1', 'language2', 'language3', 'language4', 'language5', 'language6',
         'language7', 'language8', 'language9', 'language10', 'math1', 'math2', 'math3', 'math4', 'math5', 'math6', 'math7', 'math8', 'math9', 'math10', 'math11',
-        'penmanship1', 'penmanship2', 'penmanship3', 'penmanship4', 'school_days', 'absences', 'gr_acknowledgement')
+        'penmanship1', 'penmanship2', 'penmanship3', 'penmanship4', 'school_days', 'absences')
         labels = {
             'school_year':'School Year',
             'grading_period':'Grading Period',
@@ -510,7 +508,6 @@ class GradeReportFormK1K2JR(forms.ModelForm):
             'penmanship4': 'Writes words (1st)/ phrases(2nd)/ sentences(3rd) properly',
             'school_days': 'Number of School Days',
             'absences': 'Number of Absences',
-            'gr_acknowledgement': "Parent's Acknowledgement: ",
         }
 
         widgets = {
@@ -577,7 +574,7 @@ class GradeReportFormN(forms.ModelForm):
         'N_motor_skills5', 'N_motor_skills6', 'N_motor_skills7', 'N_motor_skills8', 'N_motor_skills9', 'N_motor_skills10', 'N_motor_skills11', 'N_motor_skills12', 
         'N_motor_skills13', 'N_creative_domain1', 'N_creative_domain2', 'N_creative_domain3', 'N_creative_domain4', 'N_creative_domain5', 'N_good_moral_valueformation1', 
         'N_good_moral_valueformation2', 'N_good_moral_valueformation3', 'N_good_moral_valueformation4', 'N_good_moral_valueformation5', 'N_good_moral_valueformation6', 
-        'N_good_moral_valueformation7', 'N_good_moral_valueformation8', 'N_good_moral_valueformation9', 'school_days', 'absences', 'gr_acknowledgement')
+        'N_good_moral_valueformation7', 'N_good_moral_valueformation8', 'N_good_moral_valueformation9', 'school_days', 'absences')
         
         labels = {
             'school_year':'School Year',
@@ -661,7 +658,6 @@ class GradeReportFormN(forms.ModelForm):
             'N_good_moral_valueformation9': 'IS POLITE',
             'school_days': 'Number of School Days',
             'absences': 'Number of Absences',
-            'gr_acknowledgement': "Parent's Acknowledgement: ",
         }
 
         widgets = {
@@ -744,4 +740,15 @@ class GradeReportFormN(forms.ModelForm):
             'N_good_moral_valueformation9': forms.Select(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+
+class AcknowledgementForm(forms.ModelForm):
+    class Meta:
+        model=GradeReport
+        fields =  ('gr_acknowledgement',)
+
+        widgets = {'gr_acknowledgement': forms.CheckboxInput(attrs={'class': 'form-control'}),}
+
+        labels = {'gr_acknowledgement': "Please click on the box to acknowledge that you have seen the student's report card: ",
         }
