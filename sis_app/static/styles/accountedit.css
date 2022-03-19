@@ -1,0 +1,29 @@
+html {
+    background-color: white;
+    margin-left: 20px;
+    font-family: "Rubik", sans-serif;
+    font-weight: 300;
+}
+ 
+hr {
+    background-color: #D0581C;
+    height: 300px;
+    width: 500px;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-family: 'M PLUS 1p', sans-serif;
+    font-weight: 800;
+}
+
+.buttonDesignPositive{
+	background-color: #D0581C;
+    border-color: #D0581C;
+	width: 300px;
+	height: 39px;
+    border-radius: 13px;
+	text-align: center;
+	margin: auto;
+    color: white;
+}
