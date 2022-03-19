@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;500&family=Rubik:wght@300;400&display=swap" rel="stylesheet">
  
-    <link rel="stylesheet" href="{% static "styles/gradeReportFormK1K2JR.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "styles/gradeReportFormNursery.css" %}" type="text/css">
 
 </head>
 {% endblock %}
@@ -303,10 +303,10 @@
 
                     <div class="buttonContainer">
 
-                        <a class="btn btn-secondary" id='cancelButton' href="{% url 'sis_app:grade_report_kinder2senior' %}">Cancel</a>
+                        <a class="buttonDesignPositive" href="{% url 'sis_app:grade_report_kinder2senior' %}" id='cancelButton'>Cancel</a>
 
-                        <button type='submit' class='btn btn-primary' id='submitButton'>Submit</button>
-                        
+                        <button type='submit' class='buttonDesignNegative'>Submit</button>
+
                     </div>
             </form>
         </div>
