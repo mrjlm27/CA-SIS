@@ -453,7 +453,6 @@ class GradeReportFormK2SR(forms.ModelForm):
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_year': forms.DateInput(attrs={'class': 'form-control'}),
             'grading_period': forms.Select(attrs={'class': 'form-control'}),
-            'gr_acknowledgement': forms.NullBooleanSelect(attrs={'class': 'form-control'}),
         }
 
 class GradeReportFormK1K2JR(forms.ModelForm):
@@ -565,7 +564,6 @@ class GradeReportFormK1K2JR(forms.ModelForm):
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_year': forms.DateInput(attrs={'class': 'form-control'}),
             'grading_period': forms.Select(attrs={'class': 'form-control'}),
-            'gr_acknowledgement': forms.NullBooleanSelect(attrs={'class': 'form-control'}),
         }
 
 class GradeReportFormN(forms.ModelForm):
@@ -751,7 +749,6 @@ class GradeReportFormN(forms.ModelForm):
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_year': forms.DateInput(attrs={'class': 'form-control'}),
             'grading_period': forms.Select(attrs={'class': 'form-control'}),
-            'gr_acknowledgement': forms.NullBooleanSelect(attrs={'class': 'form-control'}),
         }
 
 
