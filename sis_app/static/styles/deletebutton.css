@@ -1,13 +1,8 @@
 html {
     background-color: white;
-    font-family: "Rubik", sans-serif;
     margin-left: 20px;
+    font-family: "Rubik", sans-serif;
     font-weight: 300;
-}
- 
-h1 {
-    font-family: 'M PLUS 1p', sans-serif;
-    font-weight: 800;
 }
  
 hr {
@@ -16,14 +11,18 @@ hr {
     height: 500px;
     width: 196px;
 }
- 
-#filterButton {
-    background-color: #D0581C;
-    width: 275px;
-    height: 39px;
-    border-radius: 13px;
+
+h1 {
+    font-family: 'M PLUS 1p', sans-serif;
+    font-weight: 800;
 }
- 
+
+h3 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: 600;
+}
+
 .buttonContainer {
     display: flex;
     margin-top: 20px;
@@ -51,6 +50,6 @@ a {
     margin-bottom: 20px;
     margin-left: 10px;
     margin-right: 10px;
-    width: 100px;
+    width: 200px;
     height: 39px;
 }

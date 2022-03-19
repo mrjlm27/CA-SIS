@@ -17,40 +17,38 @@ hr {
     width: 196px;
 }
  
-#filterButton {
+.buttonDesignPositive {
     background-color: #D0581C;
-    width: 275px;
+    width: 150px;
     height: 39px;
     border-radius: 13px;
+    COLOR: WHITE;
+    border-color: #D0581C;
 }
  
-.buttonContainer {
+.buttonDesignNegative {
     display: flex;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    justify-content: space-evenly;
     font-family: "Rubik", sans-serif;
     font-weight: 300;
     text-align: center;
     /* border: 10px solid black; */
-}
- 
-a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
- 
-.buttonDesignPositive {
     border-radius: 13px;
+    justify-content: space-evenly;
     color: white;
     background-color: #D0581C;
     border-color: #D0581C;
-    margin-bottom: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
+    width: 170px;
+    height: 34px;
+}
+
+a {
+    border-radius: 13px;
+    color: white;
+    background-color: gray;
     width: 100px;
     height: 39px;
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
 }
