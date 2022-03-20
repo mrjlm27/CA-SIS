@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 from .models import *
 
 class StudentForm(forms.ModelForm):
@@ -207,13 +208,17 @@ class PaymentForm(forms.ModelForm):
             'payment_amount': 'Amount of Payment',
             'school_year_end': 'End of School Year',
         }
-
         widgets = {
             'payment_s_account_id': forms.Select(attrs={'class': 'form-control'}),
             'paymentdate_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
             'payment_amount': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_year_end': forms.NumberInput(attrs={'class': 'form-control'}),
         }
+        # error_messages = {
+        #     'payment_amount': {
+        #         'invalid': _("Student ID does not exist"),
+        #     },
+        # }
     def __init__(self, *args, **kwargs):
         super(PaymentForm, self).__init__(*args, **kwargs)
         self.fields['payment_s_account_id'].widget = forms.TextInput()

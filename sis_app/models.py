@@ -100,8 +100,8 @@ class Teacher(Account):
 
 class Payment(models.Model):
     payment_s_account_id = models.ForeignKey(Student, on_delete=models.CASCADE, null = False)
-    paymentdate_date = models.DateField(null = False)
-    payment_amount = models.IntegerField(null = False)
+    paymentdate_date = models.DateField(default = datetime.date.today(), null = False)
+    payment_amount = models.IntegerField(null = False, validators=[MinValueValidator(0)], error_messages={"invalid":"Invalid"})
     outstandingbalance = models.IntegerField(default = 0)
     
     payment_sy_end = 0
@@ -168,7 +168,19 @@ class GradeReport(models.Model):
     #General Fields For All Students
     tor_id = models.ForeignKey(TranscriptOfRecord, on_delete=models.CASCADE, null=True, blank = True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank = True)
+    # years =[
+    # ('2022', '2022'),
+    # ('2023', '2023'),
+    # ('2024', '2024'),
+    # ('2025', '2025'),
+    # ('2026', '2026'),
+    # ('2027', '2027'),
+    # ('2028', '2028'),
+    # ('2029', '2029'),
+    # ('2030', '2030'),
+    # ]
     school_year = models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)
+    # school_year = models.CharField(max_length=10, choices=years)
     period =[
     ('1','1'),
     ('2', '2'),

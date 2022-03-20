@@ -290,8 +290,9 @@ def paymentForm(request,id=0):
                 updateEnrollmentStatus(request, s_id.id)
                 return redirect('/paymentList')
             else:
-                messages.error(request, "Student ID does not exist")
-                return render(request, 'sis_app/Payment_Form.html')
+                # messages.error(request, "error")
+                #messages.info(request, "Testing")
+                return render(request, 'sis_app/Payment_Form.html', {'form':form})
 
     else:
             return redirect('sis_app:home')
