@@ -379,6 +379,17 @@
                             </div>
                         </div>
 
+                        <h3 class="Student">ATTENDANCE</h3>
+
+                        <div class="row"> <!--25th row-->
+                            <div class="form-group col-md-6">
+                                {{ form.school_days|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.absences|as_crispy_field }}
+                            </div>
+                        </div>
+
                         <div class="buttonContainer">
 
                             <a class="buttonDesignPositive" href="{% url 'sis_app:grade_report_nursery' %}" id='cancelButton'>Cancel</a>
