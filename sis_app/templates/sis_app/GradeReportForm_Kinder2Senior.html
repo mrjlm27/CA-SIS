@@ -17,293 +17,338 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;500&family=Rubik:wght@300;400&display=swap" rel="stylesheet">
  
-    <link rel="stylesheet" href="{% static "styles/gradeReportFormNursery.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "styles/GRForm.css" %}" type="text/css">
 
 </head>
 {% endblock %}
 
-
-<h1 class="pageHeading">Encode Student Grades</h1>
-<hr>
-<h2 class="pageHeading">{{student_name}}</h2>
-
-    <div class="formContainer">
-        <div class="formGroup">
-            <form action="" method="post" autocomplete="off">
-                    {% csrf_token %}
-                    {% comment %} {{ form.as_p }} {% endcomment %}
-
-                    <div class="row"> <!--1st row-->
-                        <div class="form-group col-md-6">
-                            {{ form.school_year|as_crispy_field }}
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            {{ form.grading_period|as_crispy_field }}
-                        </div>
-                    </div>
-                    
-                    <h3 class="Student">READING READINESS</h3>
-
-                    <div class="row"> <!--2nd row-->
-                        <div class="form-group col-md-6">
-                            {{ form.readingreadiness1|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.readingreadiness2|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--3rd row-->
-                        <div class="form-group col-md-6">
-                            {{ form.readingreadiness3|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.readingreadiness4|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--4th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.readingreadiness5|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.readingreadiness6|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--5th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.readingreadiness7|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.readingreadiness8|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--6th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.readingreadiness9|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.readingreadiness10|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--7th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.readingreadiness11|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.readingreadiness12|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class = "row">
-                        <div class="form-group col-md-6"> <!--8th row-->
-                            {{ form.readingreadiness13|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <h3 class="Student">SCIENCE</h3>
-
-                    <div class="row"> <!--9th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.science1|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.science2|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--10th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.science3|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.science4|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--11th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.science5|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.science6|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <h3 class="Student">LANGUAGE</h3>
-
-                    <div class="row"> <!--12th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.language1|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.language2|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--13th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.language3|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.language4|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--14th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.language5|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.language6|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--15th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.language7|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.language8|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--16th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.language9|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.language10|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <h3 class="Student">MATH</h3>
-
-                    <div class="row"> <!--17th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.math1|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.math2|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--18th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.math3|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.math4|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--19th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.math5|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.math6|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--20th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.math7|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.math8|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--21st row-->
-                        <div class="form-group col-md-6">
-                            {{ form.math9|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.math10|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--22nd row-->
-                        <div class="form-group col-md-6">
-                            {{ form.math11|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <h3 class="Student">PENMANSHIP</h3>
-
-                    <div class="row"> <!--23rd row-->
-                        <div class="form-group col-md-6">
-                            {{ form.penmanship1|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.penmanship2|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--24th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.penmanship3|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.penmanship4|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <h3 class="Student">FILIPINO</h3>
-
-                    <div class="row"> <!--23rd row-->
-                        <div class="form-group col-md-6">
-                            {{ form.filipino1|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.filipino2|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <div class="row"> <!--24th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.filipino3|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.filipino4|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <h3 class="Student">ATTENDANCE</h3>
-
-                    <div class="row"> <!--25th row-->
-                        <div class="form-group col-md-6">
-                            {{ form.school_days|as_crispy_field }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.absences|as_crispy_field }}
-                        </div>
-                    </div>
-
-                    <br>
-
-                    {% comment %} <div class="buttonContainer">
-
-                        <a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_kinder2senior' %}">Cancel</a>
-
-                        <button type='submit' class='buttonDesignPositive'>Submit</button>
-
-                    </div> {% endcomment %}
-
-                    <div class="buttonContainer">
-
-                        <a class="buttonDesignPositive" href="{% url 'sis_app:grade_report_kinder2senior' %}" id='cancelButton'>Cancel</a>
-
-                        <button type='submit' class='buttonDesignNegative'>Submit</button>
-
-                    </div>
-            </form>
+<body>
+    <div class="navbar">
+        <div class="navbar-table-container">
+            <table class = "navbarTable">
+                <thead class= "border-bottom font-weight-bold">
+                    <h1 class = "navbarHeader">
+                        Camelean Academy
+                    </h1>
+                </thead>
+                <tbody>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:registration_list' %}">Registration List</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_list' %}">View Student List</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:payment_list' %}">View Payment Records</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_enrollment' %}">View Student Enrollment Report</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_nursery' %}">Generate Grade Reports<br> Nursery</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_k1k2jr' %}">Generate Grade Reports<br> K1 Jr. & K2 Jr.</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_kinder2senior' %}">Generate Grade Reports<br> K2 Sr.</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                    <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
+                    </tr>
+                </tbody>
+            
+            </table>
         </div>
     </div>
+    
+    <div class = "elements">
 
+        <h2 class="pageHeading">Encode Student Grades</h2>
+        <hr id = "baseHR">
+        <h2 class="pageHeading">{{student_name}}</h2>
+
+            <div class="formContainer">
+                <div class="formGroup">
+                    <form action="" method="post" autocomplete="off">
+                            {% csrf_token %}
+                            {% comment %} {{ form.as_p }} {% endcomment %}
+
+                            <div class="row"> <!--1st row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.school_year|as_crispy_field }}
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    {{ form.grading_period|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <h3 class="Student">READING READINESS</h3>
+
+                            <div class="row"> <!--2nd row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.readingreadiness1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.readingreadiness2|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--3rd row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.readingreadiness3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.readingreadiness4|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--4th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.readingreadiness5|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.readingreadiness6|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--5th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.readingreadiness7|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.readingreadiness8|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--6th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.readingreadiness9|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.readingreadiness10|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--7th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.readingreadiness11|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.readingreadiness12|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class = "row">
+                                <div class="form-group col-md-6"> <!--8th row-->
+                                    {{ form.readingreadiness13|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">SCIENCE</h3>
+
+                            <div class="row"> <!--9th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.science1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.science2|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--10th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.science3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.science4|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--11th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.science5|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.science6|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">LANGUAGE</h3>
+
+                            <div class="row"> <!--12th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.language1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.language2|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--13th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.language3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.language4|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--14th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.language5|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.language6|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--15th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.language7|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.language8|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--16th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.language9|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.language10|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">MATH</h3>
+
+                            <div class="row"> <!--17th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.math1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.math2|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--18th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.math3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.math4|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--19th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.math5|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.math6|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--20th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.math7|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.math8|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--21st row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.math9|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.math10|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--22nd row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.math11|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">PENMANSHIP</h3>
+
+                            <div class="row"> <!--23rd row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.penmanship1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.penmanship2|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--24th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.penmanship3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.penmanship4|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">FILIPINO</h3>
+
+                            <div class="row"> <!--23rd row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.filipino1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.filipino2|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--24th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.filipino3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.filipino4|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">ATTENDANCE</h3>
+
+                            <div class="row"> <!--25th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.school_days|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.absences|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <br>
+
+                            {% comment %} <div class="buttonContainer">
+
+                                <a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_kinder2senior' %}">Cancel</a>
+
+                                <button type='submit' class='buttonDesignPositive'>Submit</button>
+
+                            </div> {% endcomment %}
+
+                            <div class="buttonContainer">
+
+                                <a class="buttonDesignNegative-elements" href="{% url 'sis_app:grade_report_kinder2senior' %}" id='cancelButton'>Cancel</a>
+
+                                <button type='submit' class='buttonDesignPositive'>Submit</button>
+
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
 {% endblock content %}

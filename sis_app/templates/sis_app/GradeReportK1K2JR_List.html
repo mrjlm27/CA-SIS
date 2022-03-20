@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;500&family=Rubik:wght@300;400&display=swap" rel="stylesheet">
  
-    <link rel="stylesheet" href="{% static "styles\GRLT.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "styles\GReportList.css" %}" type="text/css">
 </head>
 
 <body>
@@ -79,26 +79,12 @@
                             <td data-heading="First Name">{{student.student_firstname}}</td>
                             <td data-heading="Last Name">{{student.student_lastname}}</td>
                             <td data-heading="Last Name">{{student.student_grade_level}}</td>
-                            <td data-heading="Create Grade Report"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_form_k1k2jr' student.id %}">Create Grade Report</a>
+                            <td data-heading="Create Grade Report"><a class="buttonDesignNegative-elements" href="{% url 'sis_app:grade_report_form_k1k2jr' student.id %}">Create Grade Report</a>
                                 {% csrf_token %}
                             </td>
                         </tr>
                         {% endfor %}
                     </tbody>
-                    <!-- <tbody>
-                        {% for student in GradeReportList %}
-                        <tr>
-                            <td data-heading="Student ID">{{student.student}}</td>
-                            <td data-heading="Grading Period">{{student.grading_period}}</td>
-                            <td data-heading="School Year">{{student.school_year}}</td>
-                            <td data-heading="Sem Average">{{student.sem_average}}</td>
-                            <td data-heading="Create Grade Report"><a href="{% url 'sis_app:grade_report_form_nursery' student.student %}">Create Grade Report</a>
-                                {% csrf_token %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                -->
                 </table>
             </div>
     </div>

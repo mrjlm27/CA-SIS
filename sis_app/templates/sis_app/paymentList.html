@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;500&family=Rubik:wght@300;400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static "styles\paymentliststyling.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "styles\pList.css" %}" type="text/css">
 
 </head>
 
@@ -59,7 +59,7 @@
     <div class = "elements">
         <h2 class="pageHeading">View Payments</h2>
 
-        <hr>
+        <hr id = "baseHR">
 
         <div class="form-container">
             <form method="get" style=>
@@ -102,10 +102,10 @@
             </table>
         </div>
         <div class="buttonContainer">
-            <a class="buttonDesignNegative" id="filterButton" href="{% url 'sis_app:payment_form' %}">Encode a Payment</a>
-            <a class="buttonDesignNegative" id="filterButton" href="{% url 'sis_app:reset_BA' %}">reset Bi-Annual Payments</a>
-            <a class="buttonDesignNegative" id="filterButton" href="{% url 'sis_app:reset_Q' %}">reset Quarterly Payments</a>
-            <a class="buttonDesignNegative" id="filterButton" href="{% url 'sis_app:reset_ALL' %}">reset ALL Payments</a>
+            <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:payment_form' %}">Encode a Payment</a>
+            <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:reset_BA' %}">reset Bi-Annual Payments</a>
+            <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:reset_Q' %}">reset Quarterly Payments</a>
+            <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:reset_ALL' %}">reset ALL Payments</a>
         </div>
     </div>
 </body>

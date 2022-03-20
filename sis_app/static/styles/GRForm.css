@@ -23,7 +23,7 @@ h1 {
 
     margin:0;
     padding:0;
-    position: relative;
+    position: fixed;
 }
 
 .navbarTr {
@@ -45,6 +45,7 @@ a:hover {
 .navbar {
     margin:0;
     padding:0;
+    position: fixed;
 }
 
 body {
@@ -65,12 +66,44 @@ h2 {
     height:15px;
 
     margin-top: 27px;
-    margin-left: 86px;
+    margin-left: 444px;
   }
 
-.table, .form-container {
-    padding-left: 86px;
+.formContainer {
+    margin-left: 444px;
 }
+
+.pageHeading {
+    margin-left: 358px;
+}
+
+
+#cancelButton{
+    color: white;
+    background: gray;
+}
+
+.buttonDesignNegative-elements{
+    background: #FBB023;
+    border: 0;
+    border-radius: 12px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Rubik", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    height: 39px;
+    line-height: 2.5;
+    outline: transparent;
+    padding: 0 1rem;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    width: 100px;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
 
 .buttonDesignPositive{
     background: linear-gradient(to bottom right, #D0581C, #FBB023);
@@ -95,6 +128,7 @@ h2 {
     white-space: nowrap;
     width: 100px;
     margin-left: 10px;
+    margin-top: 20px;
 }
 
 .buttonDesignPositive:not([disabled]):focus {
