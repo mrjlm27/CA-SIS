@@ -106,7 +106,7 @@ class Payment(models.Model):
     
     payment_sy_end = 0
     outstandingbalance = models.IntegerField(default = 1000000)
-    school_year_end=models.IntegerField(('year'), validators=[MinValueValidator(2000)], default=None)#
+    school_year_end=models.IntegerField(('year'), validators=[MinValueValidator(2000)], default=None, error_messages={"invalid":"Invalid"})#
 
     # tuitionfee = models.IntegerField(default = 50000)
 
