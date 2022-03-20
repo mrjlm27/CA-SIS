@@ -1,4 +1,4 @@
-h1 {
+.navbarHeader {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,14 +45,20 @@ a:hover {
 .navbar {
     margin:0;
     padding:0;
+    position:fixed;
+    /* height: 100vh; */
 }
 
 body {
     display: flex;
 }
 
+.elements {
+    margin-left: 444px;
+}
+
 h2 {
-    padding-left: 86px;
+    /* padding-left: 86px; */
     padding-top: 79px;
 
     font-weight: 700;
@@ -65,12 +71,9 @@ h2 {
     height:15px;
 
     margin-top: 27px;
-    margin-left: 86px;
+    /* margin-left: 86px; */
   }
 
-.table, .form-container {
-    padding-left: 86px;
-}
 
 .buttonDesignPositive{
     background: linear-gradient(to bottom right, #D0581C, #FBB023);
@@ -93,7 +96,7 @@ h2 {
     -webkit-user-select: none;
     touch-action: manipulation;
     white-space: nowrap;
-    width: 300px;
+    width: 100px;
     margin-left: 10px;
 }
 
@@ -104,3 +107,28 @@ h2 {
 .buttonDesignPositive:not([disabled]):hover {
     box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
   }
+
+.buttonContainer{
+    display:flex;
+    justify-content: space-evenly;
+}
+
+#filterButton{
+    background: #FBB023;
+    border: 0;
+    border-radius: 12px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Rubik", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    height: 39px;
+    line-height: 2.5;
+    outline: transparent;
+    padding: 0 1rem;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    width: 250px;
+    margin-left: 10px;
+}

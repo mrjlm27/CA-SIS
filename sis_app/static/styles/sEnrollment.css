@@ -68,10 +68,6 @@ h2 {
     margin-left: 86px;
   }
 
-.table, .form-container {
-    padding-left: 86px;
-}
-
 .buttonDesignPositive{
     background: linear-gradient(to bottom right, #D0581C, #FBB023);
     border: 0;
@@ -93,7 +89,7 @@ h2 {
     -webkit-user-select: none;
     touch-action: manipulation;
     white-space: nowrap;
-    width: 300px;
+    width: 100px;
     margin-left: 10px;
 }
 
@@ -104,3 +100,7 @@ h2 {
 .buttonDesignPositive:not([disabled]):hover {
     box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
   }
+
+.form-container{
+    margin-left: 86px;
+}
