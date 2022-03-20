@@ -58,6 +58,9 @@ def LogInScreen(request):
         if user is not None: #If log-in credentials are correct
             login(request, user)
             return redirect('/home')
+        else: #if log-in creds are incorrect
+            print('hello')
+            messages.error(request, "Username or Password is incorrect")
     context = {'id':id}
     return render(request, 'sis_app/LogIn.html', context)
 
@@ -285,8 +288,11 @@ def paymentForm(request,id=0):
                 print(paymentstudentid.outstandingbalance)
 
                 updateEnrollmentStatus(request, s_id.id)
+                return redirect('/paymentList')
+            else:
+                messages.error(request, "Student ID does not exist")
+                return render(request, 'sis_app/Payment_Form.html')
 
-            return redirect('/paymentList')
     else:
             return redirect('sis_app:home')
 
