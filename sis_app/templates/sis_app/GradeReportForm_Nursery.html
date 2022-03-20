@@ -18,6 +18,47 @@
 {% endblock %}
 
 <body>
+    <div class="navbar">
+        <div class="navbar-table-container">
+            <table class = "navbarTable">
+                <thead class= "border-bottom font-weight-bold">
+                    <h1 class = "navbarHeader">
+                        Camelean Academy
+                    </h1>
+                </thead>
+                <tbody>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:registration_list' %}">Registration List</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_list' %}">View Student List</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:payment_list' %}">View Payment Records</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_enrollment' %}">View Student Enrollment Report</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_nursery' %}">Generate Grade Reports<br> Nursery</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_k1k2jr' %}">Generate Grade Reports<br> K1 Jr. & K2 Jr.</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_kinder2senior' %}">Generate Grade Reports<br> K2 Sr.</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                    <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
+                    </tr>
+                </tbody>
+            
+            </table>
+        </div>
+    </div>
     <h1 class="pageHeading">Encode Student Grades</h1>
     <hr>
     <h2 class="pageHeading">{{student_name}}</h2>
