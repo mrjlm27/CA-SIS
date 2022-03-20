@@ -5,21 +5,19 @@ body,
 			height: 100%;
 			/*background: #3EAEB8 !important;*/
 			background: #fff;
-            font-family: 'M PLUS 1p', sans-serif;
+            font-family: 'Rubik', sans-serif;
 		}
 		.user_card {
-			width: 834px;
-            height: 789px;
+			width: 400px;
+            height: 400px;
 			margin-top: auto;
 			margin-bottom: auto;
-            margin-right: 88px;
 			/*background: #fff;*/
 			background: #FBB023; /*change background color eventually*/
 			position: relative;
 			display: flex;
-			justify-content: center;
+			justify-content: space-evenly;
 			flex-direction: column;
-			padding: 10px;
 			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -28,31 +26,25 @@ body,
 		}
 
 		.form_container {
-			margin-top: 20px;
-            background-color: red;
+			margin-top: 20px;           
 		}
 
         .form-control {
             height: 104px;
-            width: 701px;
+            width: 11px;
         }
 
 		#form-title{
 			color: black;
             font-weight: 800;
             font-size: 28px;
-            background-color: blue;
 		}
-
-        .test{
-            background-color: green;
-        }
 
 		.login_btn {
 			width: 100%;
 			/*background: #3EAEB8 !important;*/
-			background: #fff !important;
-			color: #3EAEB8 !important;
+			background: #D0581C !important;
+			color: white !important;
 		}
 		.login_btn:focus {
 			box-shadow: none !important;
@@ -67,6 +59,7 @@ body,
 			border: 0 !important;
 			border-radius: 0.25rem 0 0 0.25rem !important;
 		}
+
 		.input_user,
 		.input_pass:focus {
 			box-shadow: none !important;
@@ -88,3 +81,30 @@ body,
             font-size: 48px;
             /* background-color: black; */
         }
+		
+		h1 {
+			font-family: 'M PLUS 1p', sans-serif;
+			font-weight: 800;
+			text-align: center; 
+			margin-top: 30px;
+			margin-bottom: 30px;
+		}
+
+		h2 {
+			font-family: 'Rubik', sans-serif;
+			font-weight: 800;
+			margin-top: 30px;
+			text-align: center;
+		}
+
+		h5 {
+			font-family: 'M PLUS 1p', sans-serif;
+			font-weight: 800;
+			text-align: left; 
+		}
+
+		a {
+			font-family: 'Rubik', sans-serif;
+			font-weight: 700;
+			color:#D0581C;
+		}

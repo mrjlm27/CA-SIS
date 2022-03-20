@@ -209,9 +209,10 @@ class PaymentForm(forms.ModelForm):
         }
 
         widgets = {
+            'payment_s_account_id': forms.Select(attrs={'class': 'form-control'}),
             'paymentdate_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
             'payment_amount': forms.NumberInput(attrs={'class': 'form-control'}),
-            'school_year_end':forms.Select(choices=YEAR_CHOICES)
+            'school_year_end': forms.NumberInput(attrs={'class': 'form-control'}),
         }
     def __init__(self, *args, **kwargs):
         super(PaymentForm, self).__init__(*args, **kwargs)
@@ -332,6 +333,7 @@ class GradeReportForm(forms.ModelForm):
             'filipino4': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
+            'gr_acknowledgement': forms.NullBooleanSelect(attrs={'class': 'form-control'}),
         }
 
 class GradeReportFormK2SR(forms.ModelForm):
@@ -449,6 +451,8 @@ class GradeReportFormK2SR(forms.ModelForm):
             'filipino4': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
+            'school_year': forms.DateInput(attrs={'class': 'form-control'}),
+            'grading_period': forms.Select(attrs={'class': 'form-control'}),
         }
 
 class GradeReportFormK1K2JR(forms.ModelForm):
@@ -558,6 +562,8 @@ class GradeReportFormK1K2JR(forms.ModelForm):
             'penmanship4': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
+            'school_year': forms.DateInput(attrs={'class': 'form-control'}),
+            'grading_period': forms.Select(attrs={'class': 'form-control'}),
         }
 
 class GradeReportFormN(forms.ModelForm):
@@ -619,7 +625,7 @@ class GradeReportFormN(forms.ModelForm):
             'N_interpersonal_skills1': 'IS CONSCIENTIOUS AND INDUSTRIOUS',
             'N_interpersonal_skills2': 'IS ATTENTIVE',
             'N_interpersonal_skills3': 'IS NEAT AND CLEAN',
-            'N_interpersonal_skills4': 'FINISHES ASSINED WORK',
+            'N_interpersonal_skills4': 'FINISHES ASSIGNED WORK',
             'N_interpersonal_skills5': 'TAKES CARE OF MATERIALS AFTER USE',
             'N_interpersonal_skills6': 'TAKES CARE OF BELONGINGS AND THOSE OF OTHERS',
             'N_interpersonal_skills7': 'SELF RELIANT IN TOILETING AND WASHING',
@@ -702,6 +708,7 @@ class GradeReportFormN(forms.ModelForm):
             'N_interpersonal_skills1': forms.Select(attrs={'class': 'form-control'}),
             'N_interpersonal_skills2': forms.Select(attrs={'class': 'form-control'}),
             'N_interpersonal_skills3': forms.Select(attrs={'class': 'form-control'}),
+            'N_interpersonal_skills4': forms.Select(attrs={'class': 'form-control'}),
             'N_interpersonal_skills5': forms.Select(attrs={'class': 'form-control'}),
             'N_interpersonal_skills6': forms.Select(attrs={'class': 'form-control'}),
             'N_interpersonal_skills7': forms.Select(attrs={'class': 'form-control'}),
@@ -740,6 +747,8 @@ class GradeReportFormN(forms.ModelForm):
             'N_good_moral_valueformation9': forms.Select(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
+            'school_year': forms.DateInput(attrs={'class': 'form-control'}),
+            'grading_period': forms.Select(attrs={'class': 'form-control'}),
         }
 
 
@@ -750,5 +759,5 @@ class AcknowledgementForm(forms.ModelForm):
 
         widgets = {'gr_acknowledgement': forms.CheckboxInput(attrs={'class': 'form-control'}),}
 
-        labels = {'gr_acknowledgement': "Please click on the box to acknowledge that you have seen the student's report card: ",
+        labels = {'gr_acknowledgement': "Please click on the box to acknowledge that you have seen the student's report card",
         }

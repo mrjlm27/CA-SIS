@@ -1,0 +1,65 @@
+html {
+    background-color: white;
+    margin-left: 20px;
+    font-family: "Rubik", sans-serif;
+    font-weight: 300;
+}
+ 
+hr {
+    margin-left: 0px;
+    background-color: #D0581C;
+    height: 500px;
+    width: 196px;
+}
+
+h1 {
+    font-family: 'M PLUS 1p', sans-serif;
+    font-weight: 800;
+}
+
+h3 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: 600;
+}
+
+.buttonContainer {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: space-evenly;
+    font-family: "Rubik", sans-serif;
+    font-weight: 300;
+    text-align: center;
+    /* border: 10px solid black; */
+}
+ 
+
+/* a {
+    border-radius: 13px;
+    color: white;
+    background-color: gray;
+    width: 100px;
+    height: 39px;
+    display: flex;
+    text-decoration: none;
+    justify-content: space-evenly;
+    align-items: center;
+} */
+
+.buttonDesignNegative {
+        border-radius: 13px;
+        color: white;
+        background-color: #D0581C;
+        border-color: #D0581C;
+        margin-bottom: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 100px;
+        height: 39px;
+}
+
+#cancelButton, #submitButton {
+	border-radius: 13px;
+}
+

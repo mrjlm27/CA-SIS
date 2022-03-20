@@ -1,42 +1,72 @@
-<h1 style="text-align: center;padding: 1rem 0 1rem 0;">Camelean Academy Student Information System (CA-SIS)</h1>
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Camelean Acacdemy</title>
+	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100&display=swap" rel="stylesheet">
 
-<h2 class="pageHeading">Admin Home</h2>
-<div class="table-container">
-    <table>
-        <thead class= "border-bottom font-weight-bold">
-        </thead>
-        <tbody>
-            <tr>
-                <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:registration_list' %}">Registration List</a></td>
-            </tr>
-            <tr>
-                <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_list' %}">View Student List</a></td>
-            </tr>
-            <tr>
-                <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:payment_list' %}">View Payment Records</a></td>
-            </tr>
-            <tr>
-                <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_enrollment' %}">View Student Enrollment Report</a></td>
-            </tr>
-            <tr>
-            <tr>
-                <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_nursery' %}">Generate Grade Reports: Nursery</a></td>
-            </tr>
-            <tr>
-                <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_k1k2jr' %}">Generate Grade Reports: K1 Jr. & K2 Jr.</a></td>
-            </tr>
-            <tr>
-                <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_kinder2senior' %}">Generate Grade Reports: K2 Sr.</a></td>
-            </tr>
-            <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
-            </tr>
-        </tbody>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
-    </table>
-</div>
-<br>
-<br>
-</div> 
+	<link rel="stylesheet" href="{% static "styles/homeAdmin.css" %}" type="text/css">
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="table-container">
+            <table>
+                <thead class= "border-bottom font-weight-bold">
+                    <h1>
+                        Camelean Academy
+                    </h1>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a></td>
+                    </tr>
+                    <tr>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:registration_list' %}">Registration List</a></td>
+                    </tr>
+                    <tr>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_list' %}">View Student List</a></td>
+                    </tr>
+                    <tr>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:payment_list' %}">View Payment Records</a></td>
+                    </tr>
+                    <tr>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_enrollment' %}">View Student Enrollment Report</a></td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_nursery' %}">Generate Grade Reports: Nursery</a></td>
+                    </tr>
+                    <tr>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_k1k2jr' %}">Generate Grade Reports: K1 Jr. & K2 Jr.</a></td>
+                    </tr>
+                    <tr>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_kinder2senior' %}">Generate Grade Reports: K2 Sr.</a></td>
+                    </tr>
+                    <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
+                    </tr>
+                </tbody>
+            
+            </table>
+        </div>
+    </div>
+
+    <div class="homepage">
+        <h2 class="pageHeading">Admin Home</h2>
+        <hr id="homeHR">
+        <h2 class="pageHeading">Announcements</h2>
+        <hr id="announcementsHR">
+    </div>
+
+</body>
+</html>
 
 
 
