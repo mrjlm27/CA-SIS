@@ -759,5 +759,5 @@ class AcknowledgementForm(forms.ModelForm):
 
         widgets = {'gr_acknowledgement': forms.CheckboxInput(attrs={'class': 'form-control'}),}
 
-        labels = {'gr_acknowledgement': "Please click on the box to acknowledge that you have seen the student's report card: ",
+        labels = {'gr_acknowledgement': "Please click on the box to acknowledge that you have seen the student's report card",
         }

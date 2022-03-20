@@ -1,54 +1,86 @@
 <!DOCTYPE html>
-<html>
 {% load static %} 
-{%block content %}
-{% block styles %}
+<html>
+
 <head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-   
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;500&family=Rubik:wght@300;400&display=swap" rel="stylesheet">
+    <title>Edit Account</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="{% static "styles/accountEdit.css" %}" type="text/css">
   
-  <link rel="stylesheet" href="{% static "styles/accountedit.css" %}" type="text/css">
-  
-  {% endblock %}
 </head>
-{% endblock %}
+
+<body>
+    <div class="navbar">
+        <div class="table-container">
+            <table>
+                <thead class= "border-bottom font-weight-bold">
+                    <h1>Camelean<br>Academy</h1>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a></td>
+                    </tr>
+                    <tr id="EAC">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:edit_acc' %}">Edit Account Credentials</a></td>
+                    </tr>
+                    <tr>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_form' user.id %}">Edit Student Information</a></td>
+                    </tr>
+                    <tr>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_paymentview' %}">View Payments</a></td>
+                    </tr>
+                    <tr>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:viewGradeReport' %}">View Grade Report</a></td>
+                    </tr>
+                    <tr>
+                    <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
+                    </tr>
+                </tbody>
+            
+            </table>
+        </div>
+    </div>
+
+        <div class="container h-100">
+            <div class="d-flex justify-content-center h-100">
+                <div class="user_card">
+                    <div class="d-flex justify-content-center">
 
 
-<div class="container h-100">
-    <div class="d-flex justify-content-center h-100">
-        <div class="user_card">
-            <div class="d-flex justify-content-center">
-
-
-                <h3 id="form-title">Change Username and Password</h3>
-            </div>
-            <hr>
-            <div class="d-flex justify-content-center form_container">
-                <form method="POST" action="">
-                    {% csrf_token %}
-                    <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        </div>
-                        <input type="text" name="username" placeholder="Username..." class="form-control">
+                        <h3 id="form-title">Change Username and Password</h3>
                     </div>
-                    <div class="input-group mb-2">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                        </div>
-                            <input type="password" name="password" placeholder="Password..." class="form-control" >
+                    <hr>
+                    <div class="d-flex justify-content-center form_container">
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="username" placeholder="Username..." class="form-control">
+                            </div>
+                            <div class="input-group mb-2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                </div>
+                                    <input type="password" name="password" placeholder="Password..." class="form-control" >
+                            </div>
+
+                                <div class="d-flex justify-content-center mt-3 login_container">
+                                    <button type='submit' class='buttonDesignPositive'>Submit</button>
+                                </div>
+                        </form>
+
                     </div>
-
-                        <div class="d-flex justify-content-center mt-3 login_container">
-                            <button type='submit' class='buttonDesignPositive'>Submit</button>
-                        </div>
-                </form>
-
+                </div>
             </div>
-
+        </div>
+</body>
 </html>

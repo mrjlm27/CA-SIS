@@ -35,7 +35,7 @@ h3 {
 }
  
 
-a {
+/* a {
     border-radius: 13px;
     color: white;
     background-color: gray;
@@ -45,18 +45,18 @@ a {
     text-decoration: none;
     justify-content: space-evenly;
     align-items: center;
-}
+} */
 
 .buttonDesignNegative {
-    font-family: "Rubik", sans-serif;
-    text-align: center;
-    /* border: 10px solid black; */
-    border-radius: 13px;
-    color: white;
-    background-color: #D0581C;
-    border-color: #D0581C;
-    width: 100px;
-    height: 39px;
+        border-radius: 13px;
+        color: white;
+        background-color: #D0581C;
+        border-color: #D0581C;
+        margin-bottom: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 100px;
+        height: 39px;
 }
 
 #cancelButton, #submitButton {

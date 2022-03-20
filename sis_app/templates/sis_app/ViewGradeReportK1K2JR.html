@@ -1,297 +1,346 @@
+<!DOCTYPE html>
 {% load static %}
+<html>
+<head>
+	<title>Camelean Acacdemy</title>
+	
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;500&family=Rubik:wght@300;400&display=swap" rel="stylesheet">
 
-{%block content %}
-
-{% block styles %}
-
-{% endblock %}
-
-<h1 class="pageHeading">Grade Report</h1>
-
-<h2 class="pageHeading">Yearly Averages</h2>
-<div class="table-container">
-    <table class = "table table-borderless">
-        <thead class= "border-bottom font-weight-bold">
-            <tr>
-                <th>Reading</th>
-                <th>Mathematics</th>
-                <th>Language</th>
-                <th>Science</th>
-                <th>Penmanship</th>
-                <th>Year Average</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td data-heading="Reading">{{grade_report.final_reading}}</td>
-                <td data-heading="Mathematics">{{grade_report.final_mathematics}}</td>
-                <td data-heading="Language">{{grade_report.final_language}}</td>
-                <td data-heading="Science">{{grade_report.final_science}}</td>
-                <td data-heading="Penmanship">{{grade_report.final_penmanship}}</td>
-                <td data-heading="Year Average">{{grade_report.year_average}}</td>
-            </tr>
-        </tbody>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
-    </table>
-</div>
+	<link rel="stylesheet" href="{% static "styles/viewGradeReport.css" %}" type="text/css">
+</head>
 
-<h2>For Grading Period {{grade_report.grading_period}} School Year (SY) {{grade_report.school_year}}</h2>
-<h3 class="pageHeading">Academic Learning Areas</h3>
-<div class="table-container">
-    <table class = "table table-borderless">
-        <thead class= "border-bottom font-weight-bold">
-            <tr>
-                <th>Reading</th>
-                <th>Mathematics</th>
-                <th>Language</th>
-                <th>Science</th>
-                <th>Penmanship</th>
-                <th>General Average</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td data-heading="Reading">{{grade_report.reading_grade}}</td>
-                <td data-heading="Mathematics">{{grade_report.mathematics_grade}}</td>
-                <td data-heading="Language">{{grade_report.language_grade}}</td>
-                <td data-heading="Science">{{grade_report.science_grade}}</td>
-                <td data-heading="Penmanship">{{grade_report.penmanship_grade}}</td>
-                <td data-heading="General Average">{{grade_report.sem_average}}</td>
-            </tr>
-        </tbody>
-    
-    </table>
-</div>
+<body>
+    <div class="navbar">
+        <div class="table-container">
+            <table class="navbarTable">
+                <thead class= "border-bottom font-weight-bold">
+                    <h1 class="navbarHeader">Camelean<br>Academy</h1>
+                </thead>
 
-<h2 class="pageHeading">Cognitive Domains</h2>
-<h3 class="pageHeading">Reading Readiness</h3>
-<div class="table-container">
-    <table class = "table table-borderless">
-        <thead class= "border-bottom font-weight-bold">
-            <tr>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Identifies basic colors and shapes: {{grade_report.readingreadiness1}}</td>
-            </tr>
-            <tr>
-                <td>Identifies his/her name in a list: {{grade_report.readingreadiness2}}</td>
-            </tr>
-            <tr>
-                <td>Identifies and names letters of the alphabet: {{grade_report.readingreadiness3}}</td>
-            </tr>
-            <tr>
-                <td>Identifies and reproduces letter sounds: {{grade_report.readingreadiness4}}</td>
-            </tr>
-            <tr>
-                <td>Reads with correct pronounciation of sight words: {{grade_report.readingreadiness5}}</td>
-            </tr>
-            <tr>
-                <td>Reads phrases and sentences using familiar words: {{grade_report.readingreadiness6}}</td>
-            </tr>
-            <tr>
-                <td>Reads short stories: {{grade_report.readingreadiness7}}</td>
-            </tr>
-            <tr>
-                <td>Follows one-step direction and instruction: {{grade_report.readingreadiness8}}</td>
-            </tr>
-            <tr>
-                <td>Relates and remembers details of pictures, events, or stories: {{grade_report.readingreadiness9}}</td>
-            </tr>
-            <tr>
-                <td>Arranges 2 to 4 pictures of related events in correct sequence: {{grade_report.readingreadiness10}}</td>
-            </tr>
-            <tr>
-                <td>Completes a logic sequence: {{grade_report.readingreadiness11}}</td>
-            </tr>
-            <tr>
-                <td>Draws conclusion and predicts outcome: {{grade_report.readingreadiness12}}</td>
-            </tr>
-            <tr>
-                <td>Grasps the main idea of a picture or of a selection: {{grade_report.readingreadiness13}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<h3 class="pageHeading">Mathematics Readiness</h3>
-<div class="table-container">
-    <table class = "table table-borderless">
-        <thead class= "border-bottom font-weight-bold">
-            <tr>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Knows the concept of sequencing numbers (before, between, after) 0-20, 21-50, 51-100: {{grade_report.math1}}</td>
-            </tr>
-            <tr>
-                <td>Compares and orders objects according to size, height, length, quantity, etc.: {{grade_report.math2}}</td>
-            </tr>
-            <tr>
-                <td>Identifies/draws set of familiar objects: {{grade_report.math3}}</td>
-            </tr>
-            <tr>
-                <td>Identifies/recognizes/writes numeral consisting 0-50 elements/51-100 elements: {{grade_report.math4}}</td>
-            </tr>
-            <tr>
-                <td>Identifies the ordinal position of objects from first to fifth/sixth to tenth: {{grade_report.math5}}</td>
-            </tr>
-            <tr>
-                <td>Solves addition wtih 1-digit equations (ex. 9+3 = 12): {{grade_report.math6}}</td>
-            </tr>
-            <tr>
-                <td>Solves subtraction with 1-digit equations: {{grade_report.math7}}</td>
-            </tr>
-            <tr>
-                <td>Solves 2-digit equations: {{grade_report.math8}}</td>
-            </tr>
-            <tr>
-                <td>Chooses the correct equation (+ or -) for a given situation: {{grade_report.math9}}</td>
-            </tr>
-            <tr>
-                <td>Writes the correct equation (+ or -) for a given situation: {{grade_report.math10}}</td>
-            </tr>
-            <tr>
-                <td>Solves simple word problems (+ or -): {{grade_report.math11}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<h3 class="pageHeading">Language Readiness</h3>
-<div class="table-container">
-    <table class = "table table-borderless">
-        <thead class= "border-bottom font-weight-bold">
-            <tr>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Has an adequate English speaking vocabulary at his/her level: {{grade_report.language1}}</td>
-            </tr>
-            <tr>
-                <td>Pronounces CVC words and sight words correctly and clearly: {{grade_report.language2}}</td>
-            </tr>
-            <tr>
-                <td>Speaks in complete thought patterns: {{grade_report.language3}}</td>
-            </tr>
-            <tr>
-                <td>Communicates ideas orally: {{grade_report.language4}}</td>
-            </tr>
-            <tr>
-                <td>Observes correct phrasing and intonation patterns: {{grade_report.language5}}</td>
-            </tr>
-            <tr>
-                <td>Uses appropriate English expressions and correct grammar in familiar situations: {{grade_report.language6}}</td>
-            </tr>
-            <tr>
-                <td>Writes CVC words and sight words: {{grade_report.language7}}</td>
-            </tr>
-            <tr>
-                <td>Converses with ease on particular topics: {{grade_report.language8}}</td>
-            </tr>
-            <tr>
-                <td>Recites days of the week: {{grade_report.language9}}</td>
-            </tr>
-            <tr>
-                <td>Recites months of the year in order: {{grade_report.language10}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-
-<h3 class="pageHeading">Science Readiness</h3>
-<div class="table-container">
-    <table class = "table table-borderless">
-        <thead class= "border-bottom font-weight-bold">
-            <tr>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Knows how to take care of one's body: {{grade_report.science1}}</td>
-            </tr>
-            <tr>
-                <td>Knows how to take care of one's environment: {{grade_report.science2}}</td>
-            </tr>
-            <tr>
-                <td>Classifies animals according to their habitat (Land, water, at home, and on leaves): {{grade_report.science3}}</td>
-            </tr>
-            <tr>
-                <td>Classifies animals according to their body covering, color, size, number of legs, and movements: {{grade_report.science4}}</td>
-            </tr>
-            <tr>
-                <td>Classifies objects according to their color, size, shape (solid, liquid, gas) and texture: {{grade_report.science5}}</td>
-            </tr>
-            <tr>
-                <td>Identifies different weather conditions: {{grade_report.science6}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<h3 class="pageHeading">Science Readiness</h3>
-<div class="table-container">
-    <table class = "table table-borderless">
-        <thead class= "border-bottom font-weight-bold">
-            <tr>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Follows direciton paths (tracing down broken lines with proper strokes): {{grade_report.penmanship1}}</td>
-            </tr>
-            <tr>
-                <td>Traces one's namet: {{grade_report.penmanship2}}</td>
-            </tr>
-            <tr>
-                <td>Writes one's name: {{grade_report.penmanship3}}</td>
-            </tr>
-            <tr>
-                <td>Writes words (1st)/ phrases(2nd)/ sentences(3rd) properly {{grade_report.penmanship4}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<h3 class="pageHeading">Attendance</h3>
-<div class="table-container">
-    <table class = "table table-borderless">
-        <thead class= "border-bottom font-weight-bold">
-            <tr>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Number of School Days: {{grade_report.school_days}}</td>
-            </tr>
-            <tr>
-                <td>Number of Absences: {{grade_report.absences}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<div class="formContainer">
-    <div class="formGroup">
-        <form action="" method="post" autocomplete="off">
-                {% csrf_token %}
-                {{ form.as_p }}
-
-                <div class="buttonContainer">
-
-                    <a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Cancel</a>
-
-                    <button type='submit' class='buttonDesignPositive'>Submit</button>
-
-                </div>
-        </form>
+                <tbody>
+                    <tr class="navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a></td>
+                    </tr>
+                    <tr class="navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:edit_acc' %}">Edit Account Credentials</a></td>
+                    </tr>
+                    <tr class="navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_form' user.id %}">Edit Student Information</a></td>
+                    </tr>
+                    <tr class="navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_paymentview' %}">View Payments</a></td>
+                    </tr>
+                    <tr class="navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:viewGradeReport' %}">View Grade Report</a></td>
+                    </tr>
+                    <tr class="navbarTr">
+                    <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
-{% comment %} <a class="buttonDesignNegative" href="{% url 'sis_app:student_enrollment_form' %}">Update</a> {% endcomment %}
+    <div class="gradeReportBody">
+        <h1 class="gradeReportHeading">Grade Report</h1>
+        <hr id="gradeReportHR">
 
-{% endblock content %}
+        <div class="yearlyTable">
+            <h2 class="pageHeading">Yearly Averages</h2>
+            <div class="table-container">
+                <table class = "table table-borderless">
+                    <thead class= "border-bottom font-weight-bold">
+                        <tr>
+                            <th>Reading</th>
+                            <th>Mathematics</th>
+                            <th>Language</th>
+                            <th>Science</th>
+                            <th>Penmanship</th>
+                            <th>Year Average</th>
+                        </tr>
+                    </thead>
+                    <tbody class="gradesBody">
+                        <tr>
+                            <td data-heading="Reading">{{grade_report.final_reading}}</td>
+                            <td data-heading="Mathematics">{{grade_report.final_mathematics}}</td>
+                            <td data-heading="Language">{{grade_report.final_language}}</td>
+                            <td data-heading="Science">{{grade_report.final_science}}</td>
+                            <td data-heading="Penmanship">{{grade_report.final_penmanship}}</td>
+                            <td data-heading="Year Average">{{grade_report.year_average}}</td>
+                        </tr>
+                    </tbody>
+                
+                </table>
+            </div>
+        </div>
+            <div class="gradingPeriodTable">
+            <h2>For Grading Period {{grade_report.grading_period}} School Year (SY) {{grade_report.school_year}}</h2>
+            <h3 class="pageHeading">Academic Learning Areas</h3>
+            <div class="table-container">
+                <table class = "table table-borderless">
+                    <thead class= "border-bottom font-weight-bold">
+                        <tr>
+                            <th>Reading</th>
+                            <th>Mathematics</th>
+                            <th>Language</th>
+                            <th>Science</th>
+                            <th>Penmanship</th>
+                            <th>General Average</th>
+                        </tr>
+                    </thead>
+                    <tbody class="gradesBody">
+                        <tr>
+                            <td data-heading="Reading">{{grade_report.reading_grade}}</td>
+                            <td data-heading="Mathematics">{{grade_report.mathematics_grade}}</td>
+                            <td data-heading="Language">{{grade_report.language_grade}}</td>
+                            <td data-heading="Science">{{grade_report.science_grade}}</td>
+                            <td data-heading="Penmanship">{{grade_report.penmanship_grade}}</td>
+                            <td data-heading="General Average">{{grade_report.sem_average}}</td>
+                        </tr>
+                    </tbody>
+                
+                </table>
+            </div>
+
+            <h2 class="pageHeading">Cognitive Domains</h2>
+            <hr id="miniHR">
+            <h3 class="pageHeading">Reading Readiness</h3>
+            <div class="table-container">
+                <table class = "table table-borderless">
+                    <thead class= "border-bottom font-weight-bold">
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody class="gradesBody">
+                        <tr>
+                            <td>Identifies basic colors and shapes: {{grade_report.readingreadiness1}}</td>
+                        </tr>
+                        <tr>
+                            <td>Identifies his/her name in a list: {{grade_report.readingreadiness2}}</td>
+                        </tr>
+                        <tr>
+                            <td>Identifies and names letters of the alphabet: {{grade_report.readingreadiness3}}</td>
+                        </tr>
+                        <tr>
+                            <td>Identifies and reproduces letter sounds: {{grade_report.readingreadiness4}}</td>
+                        </tr>
+                        <tr>
+                            <td>Reads with correct pronounciation of sight words: {{grade_report.readingreadiness5}}</td>
+                        </tr>
+                        <tr>
+                            <td>Reads phrases and sentences using familiar words: {{grade_report.readingreadiness6}}</td>
+                        </tr>
+                        <tr>
+                            <td>Reads short stories: {{grade_report.readingreadiness7}}</td>
+                        </tr>
+                        <tr>
+                            <td>Follows one-step direction and instruction: {{grade_report.readingreadiness8}}</td>
+                        </tr>
+                        <tr>
+                            <td>Relates and remembers details of pictures, events, or stories: {{grade_report.readingreadiness9}}</td>
+                        </tr>
+                        <tr>
+                            <td>Arranges 2 to 4 pictures of related events in correct sequence: {{grade_report.readingreadiness10}}</td>
+                        </tr>
+                        <tr>
+                            <td>Completes a logic sequence: {{grade_report.readingreadiness11}}</td>
+                        </tr>
+                        <tr>
+                            <td>Draws conclusion and predicts outcome: {{grade_report.readingreadiness12}}</td>
+                        </tr>
+                        <tr>
+                            <td>Grasps the main idea of a picture or of a selection: {{grade_report.readingreadiness13}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="pageHeading">Mathematics Readiness</h3>
+            <div class="table-container">
+                <table class = "table table-borderless">
+                    <thead class= "border-bottom font-weight-bold">
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody class="gradesBody">
+                        <tr>
+                            <td>Knows the concept of sequencing numbers (before, between, after) 0-20, 21-50, 51-100: {{grade_report.math1}}</td>
+                        </tr>
+                        <tr>
+                            <td>Compares and orders objects according to size, height, length, quantity, etc.: {{grade_report.math2}}</td>
+                        </tr>
+                        <tr>
+                            <td>Identifies/draws set of familiar objects: {{grade_report.math3}}</td>
+                        </tr>
+                        <tr>
+                            <td>Identifies/recognizes/writes numeral consisting 0-50 elements/51-100 elements: {{grade_report.math4}}</td>
+                        </tr>
+                        <tr>
+                            <td>Identifies the ordinal position of objects from first to fifth/sixth to tenth: {{grade_report.math5}}</td>
+                        </tr>
+                        <tr>
+                            <td>Solves addition wtih 1-digit equations (ex. 9+3 = 12): {{grade_report.math6}}</td>
+                        </tr>
+                        <tr>
+                            <td>Solves subtraction with 1-digit equations: {{grade_report.math7}}</td>
+                        </tr>
+                        <tr>
+                            <td>Solves 2-digit equations: {{grade_report.math8}}</td>
+                        </tr>
+                        <tr>
+                            <td>Chooses the correct equation (+ or -) for a given situation: {{grade_report.math9}}</td>
+                        </tr>
+                        <tr>
+                            <td>Writes the correct equation (+ or -) for a given situation: {{grade_report.math10}}</td>
+                        </tr>
+                        <tr>
+                            <td>Solves simple word problems (+ or -): {{grade_report.math11}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="pageHeading">Language Readiness</h3>
+            <div class="table-container">
+                <table class = "table table-borderless">
+                    <thead class= "border-bottom font-weight-bold">
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody class="gradesBody">
+                        <tr>
+                            <td>Has an adequate English speaking vocabulary at his/her level: {{grade_report.language1}}</td>
+                        </tr>
+                        <tr>
+                            <td>Pronounces CVC words and sight words correctly and clearly: {{grade_report.language2}}</td>
+                        </tr>
+                        <tr>
+                            <td>Speaks in complete thought patterns: {{grade_report.language3}}</td>
+                        </tr>
+                        <tr>
+                            <td>Communicates ideas orally: {{grade_report.language4}}</td>
+                        </tr>
+                        <tr>
+                            <td>Observes correct phrasing and intonation patterns: {{grade_report.language5}}</td>
+                        </tr>
+                        <tr>
+                            <td>Uses appropriate English expressions and correct grammar in familiar situations: {{grade_report.language6}}</td>
+                        </tr>
+                        <tr>
+                            <td>Writes CVC words and sight words: {{grade_report.language7}}</td>
+                        </tr>
+                        <tr>
+                            <td>Converses with ease on particular topics: {{grade_report.language8}}</td>
+                        </tr>
+                        <tr>
+                            <td>Recites days of the week: {{grade_report.language9}}</td>
+                        </tr>
+                        <tr>
+                            <td>Recites months of the year in order: {{grade_report.language10}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <h3 class="pageHeading">Science Readiness</h3>
+            <div class="table-container">
+                <table class = "table table-borderless">
+                    <thead class= "border-bottom font-weight-bold">
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody class="gradesBody">
+                        <tr>
+                            <td>Knows how to take care of one's body: {{grade_report.science1}}</td>
+                        </tr>
+                        <tr>
+                            <td>Knows how to take care of one's environment: {{grade_report.science2}}</td>
+                        </tr>
+                        <tr>
+                            <td>Classifies animals according to their habitat (Land, water, at home, and on leaves): {{grade_report.science3}}</td>
+                        </tr>
+                        <tr>
+                            <td>Classifies animals according to their body covering, color, size, number of legs, and movements: {{grade_report.science4}}</td>
+                        </tr>
+                        <tr>
+                            <td>Classifies objects according to their color, size, shape (solid, liquid, gas) and texture: {{grade_report.science5}}</td>
+                        </tr>
+                        <tr>
+                            <td>Identifies different weather conditions: {{grade_report.science6}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="pageHeading">Science Readiness</h3>
+            <div class="table-container">
+                <table class = "table table-borderless">
+                    <thead class= "border-bottom font-weight-bold">
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody class="gradesBody">
+                        <tr>
+                            <td>Follows direciton paths (tracing down broken lines with proper strokes): {{grade_report.penmanship1}}</td>
+                        </tr>
+                        <tr>
+                            <td>Traces one's namet: {{grade_report.penmanship2}}</td>
+                        </tr>
+                        <tr>
+                            <td>Writes one's name: {{grade_report.penmanship3}}</td>
+                        </tr>
+                        <tr>
+                            <td>Writes words (1st)/ phrases(2nd)/ sentences(3rd) properly {{grade_report.penmanship4}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="pageHeading">Attendance</h3>
+            <div class="table-container">
+                <table class = "table table-borderless">
+                    <thead class= "border-bottom font-weight-bold">
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody class="gradesBody">
+                        <tr>
+                            <td>Number of School Days: {{grade_report.school_days}}</td>
+                        </tr>
+                        <tr>
+                            <td>Number of Absences: {{grade_report.absences}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    <h3 class="pageHeading">Acknowledgement</h3>
+    <hr>
+        <div class="formContainer">
+            <div class="formGroup">
+                <form action="" method="post" autocomplete="off">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                </form>
+            </div>
+        </div>
+        
+        
+        <div class="buttonContainer">
+
+            <a href="{% url 'sis_app:home' %}" class="cancelButton">Cancel</a>
+
+            <button class="submitButton">Submit</button>
+
+        </div>
+
+    </div>
+</body>

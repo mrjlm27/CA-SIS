@@ -4,7 +4,7 @@ html {
 	margin-left: 20px;
 }
 
-h1 {
+.pageHeading {
 	font-family: 'M PLUS 1p', sans-serif;
 	font-weight: 800;
 }
@@ -47,6 +47,55 @@ h3, .Mother, .Siblings {
 	font-weight: 300;
 }
 
-/* .signature {
-	margin: 100px;
-} */
+/* NAVBAR */
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #D0581C;
+    margin:0;
+    /* padding:0; */
+    color: #FFFFFF;
+
+    height: 212px;
+    width: 358px;
+    
+    font-weight: 200;
+    font-size: 48px;
+    text-align: center;
+}
+
+table {
+    background-color: #FBB023;
+    height: 812px;
+    width: 358px;
+
+    margin:0;
+    padding:0;
+    position: relative;
+}
+
+tr {
+    text-align: center;
+    font-size: 30px;
+}
+
+a:visited,
+a:link {
+    color: #434530;
+}
+
+a:hover {
+    color:white;
+    text-decoration: none;
+}
+
+.navbar {
+    margin:0;
+    padding:0;
+}
+
+body {
+    display: flex;
+}
