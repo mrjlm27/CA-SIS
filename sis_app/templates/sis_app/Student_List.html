@@ -75,6 +75,7 @@
                         <th>Enrollment Status</th>
                         <th>Last Enrolled</th>
                         <th>Generate Transcript of Records</th>
+                        <th>Edit Student Information</th>
                         <th>Edit Account Credentials</th>
                         <th></th>
                     </tr>
@@ -87,6 +88,7 @@
                         <td data-heading="Enrollment Status">{{student.enrollment_status}}</td>
                         <td data-heading="Last Enrolled">{{student.student_schoolyear_start}}</td>
                         <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:generate_tor' student.id %}">Generate TOR</a></td>
+                        <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:student_form' student.id %}">Edit Student Info</a></td>
                         <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:admin_account_edit' student.id %}">Edit Credentials</a></td>
                     </tr>
                     {% endfor %}
@@ -97,6 +99,7 @@
         {% comment %} <a class="buttonDesignNegative" href="{% url 'sis_app:student_form' %}">Register a student</a> {% endcomment %}
         <div class="buttonContainer">
             <a class="buttonDesignNegative-elements" id = "deleteButton" href="{% url 'sis_app:delete_students_page' %}" class = 'delete'>Delete Students</a>
+            <a class="buttonDesignNegative-elements" id = "deleteButton" href="{% url 'sis_app:toggle_registration' %}" class = 'delete'>{{caption}}</a>
         </div>
     </div>
 </body>

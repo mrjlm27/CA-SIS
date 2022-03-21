@@ -11,6 +11,7 @@ urlpatterns=[
     path('editAccount', views.EditAccountCred, name='edit_acc'),
     path('studentList',views.StudentList, name="student_list"),
     path('studentForm/<int:id>',views.studentForm, name="student_form"),
+    path('studentFormMidYr/<int:id>',views.disabledstudentForm, name="disabled_student_form"),
     path('RegistrationList',views.RegistrationList, name="registration_list"),
     path('GenerateAccount/<int:id>',views.GenerateAccount, name="generate_account"),
     path('paymentForm',views.paymentForm, name="payment_form"),
@@ -31,5 +32,6 @@ urlpatterns=[
     path('Admin_EditAccount/<int:id>',views.EditAccountCred_admin, name = "admin_account_edit"),
     path('Delete_Button',views.deleteStudentsPage, name = "delete_students_page"),
     path('Delete_Students',views.deleteStudents, name = "delete_students"),
+    path('ToggleRegistration',views.toggleRegistration, name = "toggle_registration"),
     path('logout', views.logout, name="log_out"),
 ]

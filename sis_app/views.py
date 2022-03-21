@@ -34,6 +34,9 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 
 
+# GLOBAL VARIABLES
+toggle = True #used for enabling/disabling student registration
+
 # def hello_world(request):
 #     return render(request, 'sis_app/hello_world.html')
 @login_required(login_url='sis_app:log_in')
@@ -122,19 +125,50 @@ def EditAccountCred_admin(request,id):
 @login_required(login_url='sis_app:log_in')
 def StudentList(request):
     if request.user.is_superuser:
+        global toggle
+        print(toggle)
         students = Student.objects.all()
-
         myFilter = StudentFilter(request.GET, queryset=students)
         students = myFilter.qs
-
-
-        context = {'studentList' : students, 'myFilter': myFilter}
+        # toggle = 
+        if toggle == True: #toggle is a global variable
+            caption = 'Disable Registration'
+        else:
+            caption = 'Enable Registration'
+        context = {'studentList' : students, 'myFilter': myFilter, 'caption':caption}
         return render(request,"sis_app/Student_List.html", context)
     else:
         return redirect('sis_app:home')
 
-# @login_required(login_url='sis_app:log_in')
-# def toggleRegistration(request):
+
+@login_required(login_url='sis_app:log_in')
+def toggleRegistration(request):
+    if request.user.is_superuser:
+        # global toggle
+        # print(toggle)
+        # students = Student.objects.all()
+        # myFilter = StudentFilter(request.GET, queryset=students)
+        # students = myFilter.qs
+        # if toggle == True: #toggle is a global variable
+        #     caption = 'Disable Registration'
+        #     toggle = False
+        # else:
+        #     caption = 'Enable Registration'
+        #     toggle = True
+        # context = {'studentList' : students, 'myFilter': myFilter, 'caption':caption}
+        # return render(request,"sis_app/Student_List.html", context)
+        global toggle
+        if toggle == True: #toggle is a global variable
+            # caption = 'Disable Registration'
+            toggle = False
+        else:
+            # caption = 'Enable Registration'
+            toggle = True
+        # context = {'caption':caption}
+        return render(request,"sis_app/home_admin.html")
+    else:
+        return redirect('sis_app:home')
+
 
 
 def studentForm(request,id=0):
@@ -159,6 +193,33 @@ def studentForm(request,id=0):
     context = {'form': form_class}
     context = {'form':form_class, 'student':model}
     return render(request, 'sis_app/Student_Form.html', context)
+
+def disabledstudentForm(request,id=0):
+    model = Student
+    form_class = StudentFormDisabled
+    if request.method == "GET":
+        if id == 0: 
+            form = StudentFormDisabled()
+        else:
+            student = Student.objects.get(pk=id)
+            f_name = student.student_firstname
+            l_name = student.student_lastname
+            grade_level = student.student_grade_level
+            form = StudentFormDisabled(instance=student)
+            context = {'form':form, 'f_name':f_name, 'l_name':l_name, 'grade_level':grade_level}
+        return render(request,"sis_app/Student_Form_disabled.html",context)
+    else:
+        if id == 0:
+            form = StudentFormDisabled(request.POST)
+        else:
+            student = Student.objects.get(pk=id)
+            form = StudentFormDisabled(request.POST,instance=student)
+        if form.is_valid():
+            form.save()
+        return redirect('sis_app:log_in')
+    # context = {'form': form_class}
+    # context = {'form':form_class, 'student':model}
+    # return render(request, 'sis_app/Student_Form_disabled.html', context)
 
 # def editStudentForm(request,id):
 

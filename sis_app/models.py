@@ -21,6 +21,8 @@ class Account(models.Model):
     password = models.CharField(max_length=128)#passwords should be stored hashed 
     class Meta:
         abstract=True # Don't use this line if you want Contact to have its own table
+class Toggle(models.Model):
+    toggleReg = models.BooleanField(default = True)
 
 class Student(Account):
     student_firstname = models.CharField(max_length=128, default=None)#
