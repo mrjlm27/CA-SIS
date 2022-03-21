@@ -133,6 +133,10 @@ def StudentList(request):
     else:
         return redirect('sis_app:home')
 
+# @login_required(login_url='sis_app:log_in')
+# def toggleRegistration(request):
+
+
 def studentForm(request,id=0):
     model = Student
     form_class = StudentForm
