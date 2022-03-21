@@ -1,3 +1,4 @@
+/* NAVBAR */
 .navbarHeader {
     display: flex;
     justify-content: center;
@@ -8,7 +9,7 @@
     /* padding:0; */
     color: #FFFFFF;
 
-    height: 212px;
+    height: 20vh;
     width: 358px;
     
     font-weight: 200;
@@ -18,12 +19,11 @@
 
 .navbarTable {
     background-color: #FBB023;
-    height: 812px;
+    height: 80vh;
     width: 358px;
 
     margin:0;
     padding:0;
-    position: relative;
 }
 
 .navbarTr {
@@ -44,6 +44,7 @@ a:hover {
 .navbar {
     margin:0;
     padding:0;
+    position:fixed;
 }
 
 /* ---BODY--- */
@@ -52,8 +53,11 @@ body {
     display: flex;
 }
 
+.homepage {
+    margin-left: 444px;
+}
+
 h2 {
-    padding-left: 86px;
     padding-top: 79px;
 
     font-weight: 700;
@@ -66,13 +70,9 @@ h2 {
     height:15px;
 
     margin-top: 27px;
-    margin-left: 86px;
+    margin-left: 0;
 }
 
-.table1,
-.table2 {
-    padding-left: 86px;
-}
 
 .table2{
     margin-top: 150px;

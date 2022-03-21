@@ -1,75 +1,20 @@
-h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: #D0581C;
-    margin:0;
-    /* padding:0; */
-    color: #FFFFFF;
-
-    height: 25vh;
-    width: 358px;
-    
-    font-weight: 200;
-    font-size: 48px;
-    text-align: center;
+html {
+    height: 100%;
 }
 
-.navbarTable {
-    background-color: #FBB023;
-    height: 75vh;
-    width: 358px;
-
-    margin:0;
-    padding:0;
-    position: relative;
-}
-
-.navbarTr {
-    text-align: center;
-    font-size: 30px;
-}
-
-a:visited,
-a:link {
-    color: #434530;
-    text-decoration: none;
-}
-
-a:hover {
-    color:white;
-    text-decoration: none;
-}
-
-.navbar {
-    margin:0;
-    padding:0;
-}
-
-body {
-    display: flex;
-}
-
-h2 {
-    padding-left: 86px;
-    padding-top: 79px;
-
-    font-weight: 700;
-    font-size: 48px;
-}
-
-#baseHR {
+#changeHR {
     background-color:#D0581C;
     width:196px;
     height:15px;
 
     margin-top: 27px;
     margin-left: 86px;
-  }
+}
 
-.table, .form-container {
-    padding-left: 86px;
+h3 {
+    padding-top: 80px;
+    font-family: 'M PLUS 1p', sans-serif;
+    font-weight: 800;
 }
 
 .buttonDesignPositive{
@@ -94,7 +39,6 @@ h2 {
     touch-action: manipulation;
     white-space: nowrap;
     width: 300px;
-    margin-left: 10px;
 }
 
 .buttonDesignPositive:not([disabled]):focus {
@@ -104,3 +48,56 @@ h2 {
 .buttonDesignPositive:not([disabled]):hover {
     box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
   }
+
+/* NAVBAR */
+.navbarHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #D0581C;
+    margin:0;
+    /* padding:0; */
+    color: #FFFFFF;
+
+    height: 20vh;
+    width: 358px;
+    
+    font-weight: 200;
+    font-size: 48px;
+    text-align: center;
+}
+
+.navbarTable {
+    background-color: #FBB023;
+    height: 80vh;
+    width: 358px;
+
+    margin:0;
+    padding:0;
+}
+
+.navbarTr {
+    text-align: center;
+    font-size: 30px;
+}
+
+a:visited,
+a:link {
+    color: #434530;
+}
+
+a:hover {
+    color:white;
+    text-decoration: none;
+}
+
+.navbar {
+    margin:0;
+    padding:0;
+    position:fixed;
+}
+
+body {
+    display: flex;
+}
