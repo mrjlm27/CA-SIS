@@ -8,7 +8,7 @@ h1 {
     /* padding:0; */
     color: #FFFFFF;
 
-    height: 212px;
+    height: 25vh;
     width: 358px;
     
     font-weight: 200;
@@ -18,7 +18,7 @@ h1 {
 
 table {
     background-color: #FBB023;
-    height: 812px;
+    height: 75vh;
     width: 358px;
 
     margin:0;
@@ -26,17 +26,9 @@ table {
     position: relative;
 }
 
-tbody{
-    width: 358px;
-}
-
 tr {
     text-align: center;
-    font-size: 26px;
-}
-
-td {
-    padding: 20px
+    font-size: 30px;
 }
 
 a:visited,
