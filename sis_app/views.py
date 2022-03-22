@@ -170,8 +170,7 @@ def toggleRegistration(request):
         return redirect('sis_app:home')
 
 
-
-def studentForm(request,id=0):
+def RegstudentForm(request,id = 0):
     model = Student
     form_class = StudentForm
     if request.method == "GET":
@@ -194,32 +193,83 @@ def studentForm(request,id=0):
     context = {'form':form_class, 'student':model}
     return render(request, 'sis_app/Student_Form.html', context)
 
-def disabledstudentForm(request,id=0):
-    model = Student
-    form_class = StudentFormDisabled
-    if request.method == "GET":
-        if id == 0: 
-            form = StudentFormDisabled()
+@login_required(login_url='sis_app:log_in')
+def studentForm(request,id=0):
+    global toggle
+    print(toggle)
+    if toggle == True:
+        model = Student
+        form_class = StudentForm
+        if request.method == "GET":
+            if id == 0: 
+                form = StudentForm()
+            else:
+                student = Student.objects.get(pk=id)
+                form = StudentForm(instance=student)
+            return render(request,"sis_app/Student_Form.html",{'form':form})
         else:
-            student = Student.objects.get(pk=id)
-            f_name = student.student_firstname
-            l_name = student.student_lastname
-            grade_level = student.student_grade_level
-            form = StudentFormDisabled(instance=student)
-            context = {'form':form, 'f_name':f_name, 'l_name':l_name, 'grade_level':grade_level}
-        return render(request,"sis_app/Student_Form_disabled.html",context)
-    else:
-        if id == 0:
-            form = StudentFormDisabled(request.POST)
+            if id == 0:
+                form = StudentForm(request.POST)
+            else:
+                student = Student.objects.get(pk=id)
+                form = StudentForm(request.POST,instance=student)
+            if form.is_valid():
+                form.save()
+            return redirect('sis_app:log_in')
+        context = {'form': form_class}
+        context = {'form':form_class, 'student':model}
+        return render(request, 'sis_app/Student_Form.html', context)
+    elif toggle == False:
+        model = Student
+        form_class = StudentFormDisabled
+        if request.method == "GET":
+            if id == 0: 
+                form = StudentFormDisabled()
+            else:
+                student = Student.objects.get(pk=id)
+                f_name = student.student_firstname
+                l_name = student.student_lastname
+                grade_level = student.student_grade_level
+                form = StudentFormDisabled(instance=student)
+                context = {'form':form, 'f_name':f_name, 'l_name':l_name, 'grade_level':grade_level}
+            return render(request,"sis_app/Student_Form_disabled.html",context)
         else:
-            student = Student.objects.get(pk=id)
-            form = StudentFormDisabled(request.POST,instance=student)
-        if form.is_valid():
-            form.save()
-        return redirect('sis_app:log_in')
-    # context = {'form': form_class}
-    # context = {'form':form_class, 'student':model}
-    # return render(request, 'sis_app/Student_Form_disabled.html', context)
+            if id == 0:
+                form = StudentFormDisabled(request.POST)
+            else:
+                student = Student.objects.get(pk=id)
+                form = StudentFormDisabled(request.POST,instance=student)
+            if form.is_valid():
+                form.save()
+            return redirect('sis_app:log_in')
+
+
+# def disabledstudentForm(request,id=0):
+#     model = Student
+#     form_class = StudentFormDisabled
+#     if request.method == "GET":
+#         if id == 0: 
+#             form = StudentFormDisabled()
+#         else:
+#             student = Student.objects.get(pk=id)
+#             f_name = student.student_firstname
+#             l_name = student.student_lastname
+#             grade_level = student.student_grade_level
+#             form = StudentFormDisabled(instance=student)
+#             context = {'form':form, 'f_name':f_name, 'l_name':l_name, 'grade_level':grade_level}
+#         return render(request,"sis_app/Student_Form_disabled.html",context)
+#     else:
+#         if id == 0:
+#             form = StudentFormDisabled(request.POST)
+#         else:
+#             student = Student.objects.get(pk=id)
+#             form = StudentFormDisabled(request.POST,instance=student)
+#         if form.is_valid():
+#             form.save()
+#         return redirect('sis_app:log_in')
+#     # context = {'form': form_class}
+#     # context = {'form':form_class, 'student':model}
+#     # return render(request, 'sis_app/Student_Form_disabled.html', context)
 
 # def editStudentForm(request,id):
 
