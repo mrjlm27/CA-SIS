@@ -91,10 +91,11 @@ body,
 		}
 
 		h2 {
-			font-family: 'Rubik', sans-serif;
-			font-weight: 800;
-			margin-top: 30px;
-			text-align: center;
+			padding-left: 86px;
+			padding-top: 79px;
+		
+			font-weight: 700;
+			font-size: 48px;
 		}
 
 		h5 {
