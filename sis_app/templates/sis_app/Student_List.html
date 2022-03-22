@@ -88,7 +88,7 @@
                         <td data-heading="Enrollment Status">{{student.enrollment_status}}</td>
                         <td data-heading="Last Enrolled">{{student.student_schoolyear_start}}</td>
                         <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:generate_tor' student.id %}">Generate TOR</a></td>
-                        <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:student_form' student.id %}">Edit Student Info</a></td>
+                        <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:reg_student_form' student.id %}">Edit Student Info</a></td>
                         <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:admin_account_edit' student.id %}">Edit Credentials</a></td>
                     </tr>
                     {% endfor %}
