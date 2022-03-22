@@ -19,27 +19,27 @@
 <body>
     <div class="navbar">
         <div class="table-container">
-            <table>
+            <table  class = "navbarTable">
                 <thead class= "border-bottom font-weight-bold">
                     <h1>Camelean<br>Academy</h1>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr class = "navbarTr">
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a></td>
                     </tr>
-                    <tr id="EAC">
+                    <tr id="EAC" class = "navbarTr">
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:edit_acc' %}">Edit Account Credentials</a></td>
                     </tr>
-                    <tr>
+                    <tr class = "navbarTr">
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_form' user.id %}">Edit Student Information</a></td>
                     </tr>
-                    <tr>
+                    <tr class = "navbarTr">
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_paymentview' %}">View Payments</a></td>
                     </tr>
-                    <tr>
+                    <tr class = "navbarTr">
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:viewGradeReport' %}">View Grade Report</a></td>
                     </tr>
-                    <tr>
+                    <tr class = "navbarTr">
                     <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
                     </tr>
                 </tbody>
