@@ -170,24 +170,19 @@ class GradeReport(models.Model):
     #General Fields For All Students
     tor_id = models.ForeignKey(TranscriptOfRecord, on_delete=models.CASCADE, null=True, blank = True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank = True)
-    # years =[
-    # ('2022', '2022'),
-    # ('2023', '2023'),
-    # ('2024', '2024'),
-    # ('2025', '2025'),
-    # ('2026', '2026'),
-    # ('2027', '2027'),
-    # ('2028', '2028'),
-    # ('2029', '2029'),
-    # ('2030', '2030'),
-    # ]
     school_year = models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)
-    # school_year = models.CharField(max_length=10, choices=years)
     period =[
     ('1','1'),
     ('2', '2'),
     ('3', '3'),
     ]
+    gradelevel_choices = [
+        ('Nursery','Nursery'),
+        ('Kinder 1', 'Kinder 1'),
+        ('Kinder 2 Junior', 'Kinder 2 Junior'), 
+        ('Kinder 2 Senior', 'Kinder 2 Senior'),
+    ]
+    gradelevel = models.CharField(default='Nursery', max_length=30, choices=gradelevel_choices)
     grading_period = models.CharField(default='1', max_length=10, choices=period)
     sem_average = models.FloatField(null=True, blank=True, default= None)
     year_average = models.FloatField(null=True, blank=True, default= None)
@@ -256,7 +251,7 @@ class GradeReport(models.Model):
     filipino4 = models.IntegerField(null=True, blank=True, default= None)
     school_days = models.IntegerField(null=True, blank=True, default= None)
     absences = models.IntegerField(null=True, blank=True, default= None)
-    gr_acknowledgement = models.BooleanField(null=True, blank=True, default = None)
+    gr_acknowledgement = models.BooleanField(default = False)
     
     #For Nursery Grade Reports
     nursery_evaluation_choices =[
