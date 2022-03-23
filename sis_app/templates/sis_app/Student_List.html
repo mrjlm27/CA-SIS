@@ -70,6 +70,7 @@
             <table class = "table table-borderless">
                 <thead class= "border-bottom font-weight-bold">
                     <tr>
+                        <th>Student ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Enrollment Status</th>
@@ -83,6 +84,7 @@
                 <tbody>
                     {% for student in studentList %}
                     <tr>
+                        <td data-heading="First Name">{{student.id}}</td>
                         <td data-heading="First Name">{{student.student_firstname}}</td>
                         <td data-heading="Last Name">{{student.student_lastname}}</td>
                         <td data-heading="Enrollment Status">{{student.enrollment_status}}</td>
