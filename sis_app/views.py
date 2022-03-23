@@ -368,18 +368,21 @@ def paymentForm(request,id=0):
                 s_id = form.cleaned_data['payment_s_account_id']
                 payments = Payment.objects.filter(payment_s_account_id = s_id)
     
-                paymentstudentid = Payment.objects.latest('payment_s_account_id')
+                #paymentstudentid = Payment.objects.latest('payment_s_account_id')
+                sy_end = form.cleaned_data['school_year_end']
+                paymentstudentid = Payment.objects.filter(payment_s_account_id = s_id).filter(school_year_end = sy_end).last()
                 studentID = paymentstudentid.getstudentid()
                 studentIDobject = Student.objects.get(pk = studentID)
                 enrollment_plan = studentIDobject.student_enrollment_plan
         
                 #Subtract payment amount field from the most recent outstanding balance
               
-                school_year_end = form.cleaned_data['paymentdate_date']
                 school_year_end = paymentstudentid.school_year_end
+                sy_end = form.cleaned_data['school_year_end']
                 #print(current_year)
-                payments_in_year = Payment.objects.filter(payment_s_account_id = s_id).filter(school_year_end = school_year_end)
-
+                payments_in_year = Payment.objects.filter(payment_s_account_id = s_id).filter(school_year_end = sy_end)
+                print(payments_in_year)
+                print(paymentstudentid.outstandingbalance)
                 if paymentstudentid.outstandingbalance == 1000000 and len(payments_in_year)==1:
                     if enrollment_plan == "Annually":
                         paymentstudentid.outstandingbalance = annual
@@ -403,12 +406,8 @@ def paymentForm(request,id=0):
                 print(paymentstudentid.outstandingbalance)
 
                 updateEnrollmentStatus(request, s_id.id)
-                return redirect('/paymentList')
-            else:
-                # messages.error(request, "error")
-                #messages.info(request, "Testing")
-                return render(request, 'sis_app/Payment_Form.html', {'form':form})
 
+            return redirect('/paymentList')
     else:
             return redirect('sis_app:home')
 
