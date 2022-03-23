@@ -350,6 +350,12 @@ class LogInForm(forms.ModelForm):
 #         }
 
 YEAR_CHOICES= [tuple([x,x]) for x in range(2022,2035)]
+gradelevel_choices = [
+        ('Nursery','Nursery'),
+        ('Kinder 1', 'Kinder 1'),
+        ('Kinder 2 Junior', 'Kinder 2 Junior'), 
+        ('Kinder 2 Senior', 'Kinder 2 Senior'),
+    ]
 
 class PaymentForm(forms.ModelForm):
     class Meta:
@@ -501,10 +507,11 @@ class GradeReportFormK2SR(forms.ModelForm):
         'readingreadiness8', 'readingreadiness9', 'readingreadiness10', 'readingreadiness11', 'readingreadiness12', 'readingreadiness13',
         'science1','science2','science3' ,'science4','science5','science6', 'language1', 'language2', 'language3', 'language4', 'language5', 'language6',
         'language7', 'language8', 'language9', 'language10', 'math1', 'math2', 'math3', 'math4', 'math5', 'math6', 'math7', 'math8', 'math9', 'math10', 'math11',
-        'penmanship1', 'penmanship2', 'penmanship3', 'penmanship4', 'filipino1', 'filipino2', 'filipino3', 'filipino4', 'school_days', 'absences')
+        'penmanship1', 'penmanship2', 'penmanship3', 'penmanship4', 'filipino1', 'filipino2', 'filipino3', 'filipino4', 'school_days', 'absences', 'gradelevel')
         labels = {
             'school_year':'School Year',
             'grading_period':'Grading Period',
+            'gradelevel':'Grade Level',
             'readingreadiness1': 'Identifies basic colors and shapes',
             'readingreadiness2': 'Identifies his/her name in a list',
             'readingreadiness3': 'Identifies and names letters of the alphabet',
@@ -559,6 +566,7 @@ class GradeReportFormK2SR(forms.ModelForm):
 
         widgets = {
             'school_year':forms.Select(choices=YEAR_CHOICES),
+            'gradelevel':forms.Select(attrs={'class': 'form-control'}),
             'readingreadiness1': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness2': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness3': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -616,7 +624,7 @@ class GradeReportFormK2SR(forms.ModelForm):
 class GradeReportFormK1K2JR(forms.ModelForm):
     class Meta:
         model=GradeReport
-        fields = ('school_year','grading_period','readingreadiness1', 'readingreadiness2', 'readingreadiness3', 'readingreadiness4', 'readingreadiness5', 'readingreadiness6', 'readingreadiness7',
+        fields = ('school_year','grading_period', 'gradelevel', 'readingreadiness1', 'readingreadiness2', 'readingreadiness3', 'readingreadiness4', 'readingreadiness5', 'readingreadiness6', 'readingreadiness7',
         'readingreadiness8', 'readingreadiness9', 'readingreadiness10', 'readingreadiness11', 'readingreadiness12', 'readingreadiness13',
         'science1','science2','science3' ,'science4','science5','science6', 'language1', 'language2', 'language3', 'language4', 'language5', 'language6',
         'language7', 'language8', 'language9', 'language10', 'math1', 'math2', 'math3', 'math4', 'math5', 'math6', 'math7', 'math8', 'math9', 'math10', 'math11',
@@ -624,6 +632,7 @@ class GradeReportFormK1K2JR(forms.ModelForm):
         labels = {
             'school_year':'School Year',
             'grading_period':'Grading Period',
+            'gradelevel':'Grade Level',
             'readingreadiness1': 'Identifies basic colors and shapes',
             'readingreadiness2': 'Identifies his/her name in a list',
             'readingreadiness3': 'Identifies and names letters of the alphabet',
@@ -674,6 +683,7 @@ class GradeReportFormK1K2JR(forms.ModelForm):
 
         widgets = {
             'school_year':forms.Select(choices=YEAR_CHOICES),
+            'gradelevel':forms.Select(attrs={'class': 'form-control'}),
             'readingreadiness1': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness2': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness3': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -738,11 +748,12 @@ class GradeReportFormN(forms.ModelForm):
         'N_motor_skills5', 'N_motor_skills6', 'N_motor_skills7', 'N_motor_skills8', 'N_motor_skills9', 'N_motor_skills10', 'N_motor_skills11', 'N_motor_skills12', 
         'N_motor_skills13', 'N_creative_domain1', 'N_creative_domain2', 'N_creative_domain3', 'N_creative_domain4', 'N_creative_domain5', 'N_good_moral_valueformation1', 
         'N_good_moral_valueformation2', 'N_good_moral_valueformation3', 'N_good_moral_valueformation4', 'N_good_moral_valueformation5', 'N_good_moral_valueformation6', 
-        'N_good_moral_valueformation7', 'N_good_moral_valueformation8', 'N_good_moral_valueformation9', 'school_days', 'absences')
+        'N_good_moral_valueformation7', 'N_good_moral_valueformation8', 'N_good_moral_valueformation9', 'school_days', 'absences', 'gradelevel')
         
         labels = {
             'school_year':'School Year',
             'grading_period':'Grading Period',
+            'gradelevel': 'Grade Level',
             'Nlanguage1': 'CAN GIVE FIRST/LAST NAME',
             'Nlanguage2': 'HAS CLEAR PRONOUNCIATION',
             'Nlanguage3': 'SPEAKS IN SENTENCES',
@@ -826,6 +837,7 @@ class GradeReportFormN(forms.ModelForm):
 
         widgets = {
             'school_year':forms.Select(choices=YEAR_CHOICES),
+            'gradelevel':forms.Select(attrs={'class': 'form-control'}),
             'Nlanguage1': forms.Select(attrs={'class': 'form-control'}),
             'Nlanguage2': forms.Select(attrs={'class': 'form-control'}),
             'Nlanguage3': forms.Select(attrs={'class': 'form-control'}),
