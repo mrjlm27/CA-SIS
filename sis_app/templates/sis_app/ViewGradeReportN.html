@@ -1,492 +1,492 @@
-<!DOCTYPE html>
 {% load static %}
-<html>
+{%block content %}
+{% load crispy_forms_tags %}
+
+{% block styles %}
+<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"> -->
+
+</style>
+
+{% load static %}
 <head>
-	<title>Camelean Acacdemy</title>
-	
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+ 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;500&family=Rubik:wght@300;400&display=swap" rel="stylesheet">
-
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
-	<link rel="stylesheet" href="{% static "styles/viewGradeReport.css" %}" type="text/css">
+ 
+    <link rel="stylesheet" href="{% static "styles/GRForm.css" %}" type="text/css">
 </head>
+
+{% endblock %}
 
 <body>
     <div class="navbar">
-        <div class="table-container">
-            <table class="navbarTable">
+        <div class="navbar-table-container">
+            <table class = "navbarTable">
                 <thead class= "border-bottom font-weight-bold">
-                    <h1 class="navbarHeader">Camelean<br>Academy</h1>
+                    <h1 class = "navbarHeader">
+                        Camelean Academy
+                    </h1>
                 </thead>
-
                 <tbody>
-                    <tr class="navbarTr">
+                    <tr class = "navbarTr">
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a></td>
                     </tr>
-                    <tr class="navbarTr">
-                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:edit_acc' %}">Edit Account Credentials</a></td>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:registration_list' %}">Registration List</a></td>
                     </tr>
-                    <tr class="navbarTr">
-                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_form' user.id %}">Edit Student Information</a></td>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_list' %}">View Student List</a></td>
                     </tr>
-                    <tr class="navbarTr">
-                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_paymentview' %}">View Payments</a></td>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:payment_list' %}">View Payment Records</a></td>
                     </tr>
-                    <tr class="navbarTr">
-                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:viewGradeReport' %}">View Grade Report</a></td>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_enrollment' %}">View Student Enrollment Report</a></td>
                     </tr>
-                    <tr class="navbarTr">
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_nursery' %}">Generate Grade Reports<br> Nursery</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_k1k2jr' %}">Generate Grade Reports<br> K1 Jr. & K2 Jr.</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_kinder2senior' %}">Generate Grade Reports<br> K2 Sr.</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
                     <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
                     </tr>
                 </tbody>
+            
             </table>
         </div>
     </div>
+    
+    <div class = "elements">
+        <h2 class="pageHeading">Encode Student Grades</h2>
+        <hr id = "baseHR">
+        <h2 class="pageHeading">{{student_name}}</h2>
 
-    <div class="gradeReportBody">
-        <h1 class="gradeReportHeading">Grade Report</h1>
-        <hr id="gradeReportHR">
+            <div class="formContainer">
+                <div class="formGroup">
+                    <form action="" method="post" autocomplete="off">
+                            {% csrf_token %}
+                            {% comment %} {{ form.as_p }} {% endcomment %}
 
-        <div class="yearlyTable">
-            <h2 class="pageHeading">Yearly Averages</h2>
-            <div class="table-container">
-                <table class = "table table-borderless">
-                    <thead class= "border-bottom font-weight-bold">
-                        <tr>
-                            <th>Language</th>
-                            <th>Reading Readiness</th>
-                            <th>Number Readiness</th>
-                            <th>Science</th>
-                            <th>Interpersonal Skills</th>
-                            <th>Motor Skills</th>
-                            <th>Creative Domain</th>
-                            <th>Good Moral and Value Formation</th>
-                            <th>Year Average</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td data-heading="Language">{{grade_report.N_final_language}}</td>
-                            <td data-heading="Reading Readiness">{{grade_report.N_final_reading_readiness}}</td>
-                            <td data-heading="Number Readiness">{{grade_report.N_final_number_readiness}}</td>
-                            <td data-heading="Science">{{grade_report.N_final_science}}</td>
-                            <td data-heading="Interpersonal Skills">{{grade_report.N_final_interpersonal_skills}}</td>
-                            <td data-heading="Motor Skills">{{grade_report.N_final_motor_skills}}</td>
-                            <td data-heading="Creative Domain">{{grade_report.N_final_creative_domain}}</td>
-                            <td data-heading="Good Moral and Value Formation">{{grade_report.N_final_good_moral_valueformation}}</td>
-                            <td data-heading="Year Average">{{grade_report.N_year_average}}</td>
-                        </tr>
-                    </tbody>
-                
-                </table>
+                            <div class="row"> <!--1st row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.school_year|as_crispy_field }}
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    {{ form.grading_period|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">LANGUAGE</h3>
+
+                            <div class="row"> <!--2nd row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.Nlanguage1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.Nlanguage2|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--3rd row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.Nlanguage3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.Nlanguage4|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--4th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.Nlanguage5|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.Nlanguage6|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--5th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.Nlanguage7|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.Nlanguage8|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--6th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.Nlanguage9|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.Nlanguage10|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">READING READINESS</h3>
+
+                            <div class="row"> <!--R1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_reading_readiness1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_reading_readiness2|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--R2 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_reading_readiness3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_reading_readiness4|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--R3 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_reading_readiness5|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_reading_readiness6|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--R4 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_reading_readiness7|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_reading_readiness8|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--R5 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_reading_readiness9|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_reading_readiness10|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--R6 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_reading_readiness11|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_reading_readiness12|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--R7 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_reading_readiness13|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">NUMBER READINESS</h3>
+
+                            <div class="row"> <!--R1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_number_readiness1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_number_readiness2|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--R2 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_number_readiness3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_number_readiness4|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--R3 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_number_readiness5|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_number_readiness6|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--R4 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_number_readiness7|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_number_readiness8|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">SCIENCE</h3>
+
+                            <div class="row"> <!--s1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_science1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_science2|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--S2 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_science3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_science4|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--S3 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_science5|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_science6|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">INTERPERSONAL SKILLS</h3>
+
+                            <div class="row"> <!--IS1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills2|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--IS1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills2|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--IS2 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills4|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--IS3 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills5|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills6|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--IS4 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills7|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills8|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--IS5 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills9|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills10|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="row"> <!--IS6 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills11|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills12|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <div class="row"> <!--IS7 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_interpersonal_skills13|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">MOTOR SKILLS</h3>
+                            
+                            <div class="row"> <!--MS1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_motor_skills1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_motor_skills2|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <div class="row"> <!--MS1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_motor_skills3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_motor_skills4|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <div class="row"> <!--MS1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_motor_skills5|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_motor_skills6|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <div class="row"> <!--MS1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_motor_skills7|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_motor_skills8|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <div class="row"> <!--MS1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_motor_skills9|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_motor_skills10|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <div class="row"> <!--MS1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_motor_skills11|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_motor_skills12|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <div class="row"> <!--MS1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_motor_skills13|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">CREATIVE DOMAIN</h3>
+                            
+                            <div class="row"> <!--CD1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_creative_domain1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_creative_domain2|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <div class="row"> <!--CD2 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_creative_domain3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_creative_domain4|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <div class="row"> <!--CD3 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_creative_domain5|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">GOOD MORAL VALUE FORMATION</h3>
+                            
+                            <div class="row"> <!--GMVF1 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_good_moral_valueformation1|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_good_moral_valueformation2|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <div class="row"> <!--GMVF2 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_good_moral_valueformation3|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_good_moral_valueformation4|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <div class="row"> <!--GMVF3 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_good_moral_valueformation5|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_good_moral_valueformation6|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <div class="row"> <!--GMVF4 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_good_moral_valueformation7|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.N_good_moral_valueformation8|as_crispy_field }}
+                                </div>
+                            </div>
+                            
+                            <div class="row"> <!--GMVF5 row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.N_good_moral_valueformation9|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <h3 class="Student">ATTENDANCE</h3>
+
+                            <div class="row"> <!--25th row-->
+                                <div class="form-group col-md-6">
+                                    {{ form.school_days|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form.absences|as_crispy_field }}
+                                </div>
+                            </div>
+
+                            <div class="buttonContainer">
+
+                                <a class="buttonDesignNegative-elements" href="{% url 'sis_app:grade_report_nursery' %}" id='cancelButton'>Cancel</a>
+
+                                <button type='submit' class='buttonDesignPositive'>Submit</button>
+
+                            </div>
+                    </form>
+                </div>
             </div>
         </div>
-
-        <div class="gradingPeriodTable">
-            <h2>For Grading Period {{grade_report.grading_period}} School Year (SY) {{grade_report.school_year}}</h2>
-            <h3 class="pageHeading">Academic Learning Areas</h3>
-            <div class="table-container">
-                <table class = "table table-borderless">
-                    <thead class= "border-bottom font-weight-bold">
-                        <tr>
-                            <th>Language</th>
-                            <th>Reading Readiness</th>
-                            <th>Number Readiness</th>
-                            <th>Science</th>
-                            <th>Interpersonal Skills</th>
-                            <th>Motor Skills</th>
-                            <th>Creative Domain</th>
-                            <th>Good Moral and Value Formation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td data-heading="Language">{{grade_report.N_language}}</td>
-                            <td data-heading="Reading Readiness">{{grade_report.N_reading_readiness}}</td>
-                            <td data-heading="Number Readiness">{{grade_report.N_number_readiness}}</td>
-                            <td data-heading="Science">{{grade_report.N_science}}</td>
-                            <td data-heading="Interpersonal Skills">{{grade_report.N_interpersonal_skills}}</td>
-                            <td data-heading="Motor Skills">{{grade_report.N_motor_skills}}</td>
-                            <td data-heading="Creative Domain">{{grade_report.N_creative_domain}}</td>
-                            <td data-heading="Good Moral and Value Formation">{{grade_report.N_good_moral_valueformation}}</td>
-                        </tr>
-                    </tbody>
-                
-                </table>
-            </div>
-        </div>
-
-        <h2 class="pageHeading">Cognitive Domains</h2>
-        <hr id="miniHR">
-        <h3 class="pageHeading">Language</h3>
-        <div class="table-container">
-            <table class = "table table-borderless">
-                <thead class= "border-bottom font-weight-bold">
-                    <tr>
-                    </tr>
-                </thead>
-                <tbody class="gradesBody">
-                    <tr>
-                        <td>CAN GIVE FIRST/LAST NAME: {{grade_report.Nlanguage1}}</td>
-                    </tr>
-                    <tr>
-                        <td>HAS CLEAR PRONOUNCIATION: {{grade_report.Nlanguage2}}</td>
-                    </tr>
-                    <tr>
-                        <td>SPEAKS IN SENTENCES: {{grade_report.Nlanguage3}}</td>
-                    </tr>
-                    <tr>
-                        <td>EXPRESSES IDEAS VERBALLY: {{grade_report.Nlanguage4}}</td>
-                    </tr>
-                    <tr>
-                        <td>RECITES (confident in front of a group): {{grade_report.Nlanguage5}}</td>
-                    </tr>
-                    <tr>
-                        <td>REPEATS PARTS OF SONGS, RHYMES AND FINGER PLAYS: {{grade_report.Nlanguage6}}</td>
-                    </tr>
-                    <tr>
-                        <td>FOLLOWS SIMPLE DIRECTIONS: {{grade_report.Nlanguage7}}</td>
-                    </tr>
-                    <tr>
-                        <td>NAMES CONCRETE OBJECTS IN ENVIRONMENT AND ON PICTURES: {{grade_report.Nlanguage8}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN IDENTIFY CORRECT USAGE OF PRONOUNS (HE, SHE, IT, THEY AND WE): {{grade_report.Nlanguage9}}</td>
-                    </tr>
-                    <tr>
-                        <td>FOLLOWS SIMPLE RULES IN A GAME: {{grade_report.Nlanguage10}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h3 class="pageHeading">Reading Readiness</h3>
-        <div class="table-container">
-            <table class = "table table-borderless">
-                <thead class= "border-bottom font-weight-bold">
-                    <tr>
-                    </tr>
-                </thead>
-                <tbody class="gradesBody">
-                    <tr>
-                        <td>CAN IDENTIFY PICTURES: {{grade_report.N_reading_readiness1}}</td>
-                    </tr>
-                    <tr>
-                        <td>SHOWS INTEREST IN STORIES: {{grade_report.N_reading_readiness2}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN RECOGNIZE / NAME LETTERS: {{grade_report.N_reading_readiness3}}</td>
-                    </tr>
-                    <tr>
-                        <td>DISTINGUISHES SOUNDS OF LETTERS: {{grade_report.N_reading_readiness4}}</td>
-                    </tr>
-                    <tr>
-                        <td>TELLS A STORY ABOUT SIMPLE PICTURES: {{grade_report.N_reading_readiness5}}</td>
-                    </tr>
-                    <tr>
-                        <td>HAS SUFFICIENT VOCABULARY WORDS: {{grade_report.N_reading_readiness6}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN WRITE LETTERS: {{grade_report.N_reading_readiness7}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN BLEND CV, VC, CVC: {{grade_report.N_reading_readiness8}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN FOLLOW INSTRUCTION: {{grade_report.N_reading_readiness9}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN READ A PHRASE: {{grade_report.N_reading_readiness10}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN READ SIMPLE SENTENCES: {{grade_report.N_reading_readiness11}}</td>
-                    </tr>
-                    <tr>
-                        <td>DISTINGUISHES INITIAL AND FINAL SOUND OF LETTER: {{grade_report.N_reading_readiness12}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN IDENTIFY 5 VOWELS (long and short): {{grade_report.N_reading_readiness13}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h3 class="pageHeading">Number Readiness</h3>
-        <div class="table-container">
-            <table class = "table table-borderless">
-                <thead class= "border-bottom font-weight-bold">
-                    <tr>
-                    </tr>
-                </thead>
-                <tbody class="gradesBody">
-                    <tr>
-                        <td>CAN RECOGNIZE / NAME BASIC SHAPES: {{grade_report.N_number_readiness1}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN RECOGNIZE AND NAME BASIC COLORS: {{grade_report.N_number_readiness2}}</td>
-                    </tr>
-                    <tr>
-                        <td>SORT OBJECTS INTO 2 TO 3 GIVEN CATEGORIES (color, shape, size): {{grade_report.N_number_readiness3}}</td>
-                    </tr>
-                    <tr>
-                        <td>UNDERSTANDS big/small; tall/short; long/short, etc.: {{grade_report.N_number_readiness4}}</td>
-                    </tr>
-                    <tr>
-                        <td>ROTECOUNTS: {{grade_report.N_number_readiness5}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN COUNT ACTUAL OBJECTS: {{grade_report.N_number_readiness6}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN RECOGNIZE NUMBERS: {{grade_report.N_number_readiness7}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN WRITE NUMBERS 1-10/11-20/20-50/50-100: {{grade_report.N_number_readiness8}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h3 class="pageHeading">Science</h3>
-        <div class="table-container">
-            <table class = "table table-borderless">
-                <thead class= "border-bottom font-weight-bold">
-                    <tr>
-                    </tr>
-                </thead>
-                <tbody class="gradesBody">
-                    <tr>
-                        <td>CAN NAME BODY PARTS: {{grade_report.N_science1}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN IDENTIFY THE 5 SENSES: {{grade_report.N_science2}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN IDENTIFY DIFFERENT ANIMALS (farm, zoo and domestic): {{grade_report.N_science3}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN DIFFERENTIATE LIVING FROM NON-LIVING THINGS: {{grade_report.N_science4}}</td>
-                    </tr>
-                    <tr>
-                        <td>KNOWS HOW TO TAKE CARE OF ONE'S BODY: {{grade_report.N_science5}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN IDENTIFY DIFFERENT WEATHER CONDITIONS: {{grade_report.N_science6}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h2 class="pageHeading">Affective Domain</h2>
-        <hr id="miniHR">
-        <h3 class="pageHeading">Interpersonal Skills</h3>
-        <div class="table-container">
-            <table class = "table table-borderless">
-                <thead class= "border-bottom font-weight-bold">
-                    <tr>
-                    </tr>
-                </thead>
-                <tbody class="gradesBody">
-                    <tr>
-                        <td>IS CONSCIENTIOUS AND INDUSTRIOUS: {{grade_report.N_interpersonal_skills1}}</td>
-                    </tr>
-                    <tr>
-                        <td>IS ATTENTIVE: {{grade_report.N_interpersonal_skills2}}</td>
-                    </tr>
-                    <tr>
-                        <td>IS NEAT AND CLEAN: {{grade_report.N_interpersonal_skills3}}</td>
-                    </tr>
-                    <tr>
-                        <td>FINISHES ASSINED WORK: {{grade_report.N_interpersonal_skills4}}</td>
-                    </tr>
-                    <tr>
-                        <td>TAKES CARE OF MATERIALS AFTER USE: {{grade_report.N_interpersonal_skills5}}</td>
-                    </tr>
-                    <tr>
-                        <td>TAKES CARE OF BELONGINGS AND THOSE OF OTHERS: {{grade_report.N_interpersonal_skills6}}</td>
-                    </tr>
-                    <tr>
-                        <td>SELF RELIANT IN TOILETING AND WASHING: {{grade_report.N_interpersonal_skills7}}</td>
-                    </tr>
-                    <tr>
-                        <td>FOLLOWS SIMPLE DIRECTIONS: {{grade_report.N_interpersonal_skills8}}</td>
-                    </tr>
-                    <tr>
-                        <td>SHARES AND WAITS FOR HIS/HER TURN: {{grade_report.N_interpersonal_skills9}}</td>
-                    </tr>
-                    <tr>
-                        <td>PLAYS COOPERATIVELY: {{grade_report.N_interpersonal_skills10}}</td>
-                    </tr>
-                    <tr>
-                        <td>WORKS INDEPENDENTLY: {{grade_report.N_interpersonal_skills11}}</td>
-                    </tr>
-                    <tr>
-                        <td>ASSERTS SELF: {{grade_report.N_interpersonal_skills12}}</td>
-                    </tr>
-                    <tr>
-                        <td>IS FRIENDLY: {{grade_report.N_interpersonal_skills13}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h3 class="pageHeading">Motor Skills</h3>
-        <div class="table-container">
-            <table class = "table table-borderless">
-                <thead class= "border-bottom font-weight-bold">
-                    <tr>
-                    </tr>
-                </thead>
-                <tbody class="gradesBody">
-                    <tr>
-                        <td>CAN CATCH AND ROLL THE BALL: {{grade_report.N_motor_skills1}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN JUMP: {{grade_report.N_motor_skills2}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN CLIMB THE SLIDE: {{grade_report.N_motor_skills3}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN DO BUNNY HOP: {{grade_report.N_motor_skills4}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN RUN: {{grade_report.N_motor_skills5}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN DO LOG ROLL: {{grade_report.N_motor_skills6}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN MANIPULATE THE CLAY: {{grade_report.N_motor_skills7}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN HANDLE WRITING/DRAWING MATERIALS PROPERLY: {{grade_report.N_motor_skills8}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN COLOR PICTURES WITHIN THE LINE: {{grade_report.N_motor_skills9}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN TRACE LINES/PICTURES: {{grade_report.N_motor_skills10}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN STRING BEADS: {{grade_report.N_motor_skills11}}</td>
-                    </tr>
-                    <tr>
-                        <td>CAN APPLY GLUE ON PAPER: {{grade_report.N_motor_skills12}}</td>
-                    </tr>
-                    <tr>
-                        <td>HANDLES SCISSORS CORRECTLY: {{grade_report.N_motor_skills13}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h2 class="pageHeading">Creative Domain</h2>
-        <div class="table-container">
-            <table class = "table table-borderless">
-                <thead class= "border-bottom font-weight-bold">
-                    <tr>
-                    </tr>
-                </thead>
-                <tbody class="gradesBody">
-                    <tr>
-                        <td>SINGS WITH THE GROUP: {{grade_report.N_creative_domain1}}</td>
-                    </tr>
-                    <tr>
-                        <td>RESPONDS TO RHYTHM: {{grade_report.N_creative_domain2}}</td>
-                    </tr>
-                    <tr>
-                        <td>ENJOYS LISTENING TO VARIOUS FORMS OF MUSIC: {{grade_report.N_creative_domain3}}</td>
-                    </tr>
-                    <tr>
-                        <td>SHOWS INTEREST IN IMAGINATIVE PLAY / DRAMATIZATION: {{grade_report.N_creative_domain4}}</td>
-                    </tr>
-                    <tr>
-                        <td>EXPRESSES IDEAS THROUGH THE USE OF ART IN DIFFERENT MEDIA: {{grade_report.N_creative_domain5}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h2 class="pageHeading">Good Moral and Value Formation</h2>
-        <div class="table-container">
-            <table class = "table table-borderless">
-                <thead class= "border-bottom font-weight-bold">
-                    <tr>
-                    </tr>
-                </thead>
-                <tbody class="gradesBody">
-                    <tr>
-                        <td>RESPECTS RIGHTS AND FEELINGS OF OTHERS: {{grade_report.N_good_moral_valueformation1}}</td>
-                    </tr>
-                    <tr>
-                        <td>KIND AND HELPFUL: {{grade_report.N_good_moral_valueformation2}}</td>
-                    </tr>
-                    <tr>
-                        <td>SHARES WITH OTHERS: {{grade_report.N_good_moral_valueformation3}}</td>
-                    </tr>
-                    <tr>
-                        <td>ACCEPTS CORRECTION IN GOOD SPIRIT: {{grade_report.N_good_moral_valueformation4}}</td>
-                    </tr>
-                    <tr>
-                        <td>SHOWS EMOTIONAL CONTROL: {{grade_report.N_good_moral_valueformation5}}</td>
-                    </tr>
-                    <tr>
-                        <td>EXHIBITS COURTEOUS HABITS: {{grade_report.N_good_moral_valueformation6}}</td>
-                    </tr>
-                    <tr>
-                        <td>BEHAVES PROPERLY DURING PRAYER TIME: {{grade_report.N_good_moral_valueformation7}}</td>
-                    </tr>
-                    <tr>
-                        <td>BEGINS TO UNDERSTAND ABOUT GOD: {{grade_report.N_good_moral_valueformation8}}</td>
-                    </tr>
-                    <tr>
-                        <td>IS POLITE: {{grade_report.N_good_moral_valueformation9}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h3 class="pageHeading">Attendance</h3>
-        <div class="table-container">
-            <table class = "table table-borderless">
-                <thead class= "border-bottom font-weight-bold">
-                    <tr>
-                    </tr>
-                </thead>
-                <tbody class="gradesBody">
-                    <tr>
-                        <td>Number of School Days: {{grade_report.school_days}}</td>
-                    </tr>
-                    <tr>
-                        <td>Number of Absences: {{grade_report.absences}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h3 class="pageHeading">Acknowledgement</h3>
-        <hr>
-        <div class="formContainer">
-            <div class="formGroup">
-                <form action="" method="post" autocomplete="off">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-
-                        <div class="buttonContainer">
-
-                            <a class="cancelButton" href="{% url 'sis_app:home' %}">Cancel</a>
-
-                            <button class="submitButton">Submit</button>
-
-                        </div>
-                </form>
-            </div>
-        </div>
-    </div>
 </body>
-</html>
+
+{% endblock content %}
