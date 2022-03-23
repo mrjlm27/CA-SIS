@@ -471,7 +471,7 @@ def EnrollmentStatusAndPaymentPlan(request):
 def StudentPaymentView(request):
     user_id = request.user.id
     student = Student.objects.get(pk = user_id)
-    paymentstudentid = Payment.objects.filter(payment_s_account_id = user_id).latest('payment_s_account_id')
+    paymentstudentid = Payment.objects.filter(payment_s_account_id = user_id).last()
     student_payments = Payment.objects.filter(payment_s_account_id = user_id)
     sy_start = student.student_schoolyear_start
     sy_end = sy_start + 1
