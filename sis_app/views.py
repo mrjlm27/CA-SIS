@@ -340,76 +340,137 @@ def updateEnrollmentStatus(request, id):
         test.save()
 
 @login_required(login_url='sis_app:log_in')
-def paymentForm(request,id=0):
-    if request.user.is_superuser:
-        model = Payment
-        form_class = PaymentForm
-        if request.method == "GET":
-            if id == 0: 
-                form = PaymentForm()
-            else:
-                payment = Payment.objects.get(pk=id)
-                form = PaymentForm(instance=payment)
-            return render(request,"sis_app/Payment_Form.html",{'form':form})
-        else:
-            #Values for Varying Student Enrollment Plan
-            annual = 37999
-            biannual = 38998
-            quarterly = 41663
-
-            if id == 0:
-                form = PaymentForm(request.POST)
-            else:
-                payment = Payment.objects.get(pk=id)
-                form = PaymentForm(request.POST,instance=payment)
-            if form.is_valid():
-                form.save()
-
-                s_id = form.cleaned_data['payment_s_account_id']
-                payments = Payment.objects.filter(payment_s_account_id = s_id)
-    
-                #paymentstudentid = Payment.objects.latest('payment_s_account_id')
-                sy_end = form.cleaned_data['school_year_end']
-                paymentstudentid = Payment.objects.filter(payment_s_account_id = s_id).filter(school_year_end = sy_end).last()
-                studentID = paymentstudentid.getstudentid()
-                studentIDobject = Student.objects.get(pk = studentID)
-                enrollment_plan = studentIDobject.student_enrollment_plan
+def paymentForm(request, id):
+    # model = Payment
+    # form_class = PaymentForm
+    annual = 37999
+    biannual = 38998
+    quarterly = 41663 
+    if request.method == "GET":
+        form = PaymentForm
+        return render(request,"sis_app/Payment_Form.html",{'form':form})
+    else:
+        student = Student.objects.get(pk=id)
+        sy_end = student.student_schoolyear_start
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # payments = Payment.objects.filter(payment_s_account_id = id)
+            # sy_end = form.cleaned_data['school_year_end']
+            # paymentstudentid = Payment.objects.filter(payment_s_account_id = id).last()
+            paymentstudentid = Payment.objects.latest('id')
+            paymentstudentid.payment_s_account_id = student
+            paymentstudentid.save()
+            paymentstudentid.school_year_end = sy_end
+            paymentstudentid.save()
+            studentID = paymentstudentid.getstudentid()
+            studentIDobject = Student.objects.get(pk = studentID)
+            enrollment_plan = studentIDobject.student_enrollment_plan
         
-                #Subtract payment amount field from the most recent outstanding balance
+            #Subtract payment amount field from the most recent outstanding balance
               
-                school_year_end = paymentstudentid.school_year_end
-                sy_end = form.cleaned_data['school_year_end']
-                #print(current_year)
-                payments_in_year = Payment.objects.filter(payment_s_account_id = s_id).filter(school_year_end = sy_end)
-                print(payments_in_year)
-                print(paymentstudentid.outstandingbalance)
-                if paymentstudentid.outstandingbalance == 1000000 and len(payments_in_year)==1:
-                    if enrollment_plan == "Annually":
-                        paymentstudentid.outstandingbalance = annual
-                    elif enrollment_plan == "Bi-Annually":
-                        paymentstudentid.outstandingbalance = biannual
-                    else:
-                        paymentstudentid.outstandingbalance = quarterly
-                    paymentstudentid.save()
+            # school_year_end = paymentstudentid.school_year_end
+            # sy_end = form.cleaned_data['school_year_end']
+            payments_in_year = Payment.objects.filter(payment_s_account_id = id).filter(school_year_end = sy_end)
+            print(payments_in_year)
+            print(paymentstudentid.outstandingbalance)
+            if paymentstudentid.outstandingbalance == 1000000 and len(payments_in_year)==1:
+                if enrollment_plan == "Annually":
+                    paymentstudentid.outstandingbalance = annual
+                elif enrollment_plan == "Bi-Annually":
+                    paymentstudentid.outstandingbalance = biannual
                 else:
-                    o_balance_list = []
-                    for payment in payments_in_year:
-                        o_balance_list.append(payment.outstandingbalance)
-                    paymentstudentid.outstandingbalance = min(o_balance_list)
-                    paymentstudentid.save()
-                payment_amount = form.cleaned_data['payment_amount']
-        
-                print(paymentstudentid.outstandingbalance)
-                paymentstudentid.outstandingbalance = paymentstudentid.outstandingbalance - payment_amount
-        
+                    paymentstudentid.outstandingbalance = quarterly
                 paymentstudentid.save()
-                print(paymentstudentid.outstandingbalance)
+            else:
+                o_balance_list = []
+                for payment in payments_in_year:
+                    o_balance_list.append(payment.outstandingbalance)
+                paymentstudentid.outstandingbalance = min(o_balance_list)
+                paymentstudentid.save()
+            payment_amount = form.cleaned_data['payment_amount']
+    
+            print(paymentstudentid.outstandingbalance)
+            paymentstudentid.outstandingbalance = paymentstudentid.outstandingbalance - payment_amount
+    
+            paymentstudentid.save()
+            print(paymentstudentid.outstandingbalance)
 
-                updateEnrollmentStatus(request, s_id.id)
+            updateEnrollmentStatus(request, id)
 
             return redirect('/paymentList')
-    else:
-            return redirect('sis_app:home')
+        else:
+            return redirect('sis_app:student_paymentview')
+# def paymentForm(request,id=0):
+#     if request.user.is_superuser:
+#         model = Payment
+#         form_class = PaymentForm
+#         if request.method == "GET":
+#             if id == 0: 
+#                 form = PaymentForm()
+#             else:
+#                 payment = Payment.objects.get(pk=id)
+#                 form = PaymentForm(instance=payment)
+#             return render(request,"sis_app/Payment_Form.html",{'form':form})
+#         else:
+#             #Values for Varying Student Enrollment Plan
+#             annual = 37999
+#             biannual = 38998
+#             quarterly = 41663
+
+#             if id == 0:
+#                 form = PaymentForm(request.POST)
+#             else:
+#                 payment = Payment.objects.get(pk=id)
+#                 form = PaymentForm(request.POST,instance=payment)
+#             if form.is_valid():
+#                 form.save()
+
+#                 s_id = form.cleaned_data['payment_s_account_id']
+#                 payments = Payment.objects.filter(payment_s_account_id = s_id)
+    
+#                 #paymentstudentid = Payment.objects.latest('payment_s_account_id')
+#                 sy_end = form.cleaned_data['school_year_end']
+#                 paymentstudentid = Payment.objects.filter(payment_s_account_id = s_id).filter(school_year_end = sy_end).last()
+#                 studentID = paymentstudentid.getstudentid()
+#                 studentIDobject = Student.objects.get(pk = studentID)
+#                 enrollment_plan = studentIDobject.student_enrollment_plan
+        
+#                 #Subtract payment amount field from the most recent outstanding balance
+              
+#                 school_year_end = paymentstudentid.school_year_end
+#                 sy_end = form.cleaned_data['school_year_end']
+#                 #print(current_year)
+#                 payments_in_year = Payment.objects.filter(payment_s_account_id = s_id).filter(school_year_end = sy_end)
+#                 print(payments_in_year)
+#                 print(paymentstudentid.outstandingbalance)
+#                 if paymentstudentid.outstandingbalance == 1000000 and len(payments_in_year)==1:
+#                     if enrollment_plan == "Annually":
+#                         paymentstudentid.outstandingbalance = annual
+#                     elif enrollment_plan == "Bi-Annually":
+#                         paymentstudentid.outstandingbalance = biannual
+#                     else:
+#                         paymentstudentid.outstandingbalance = quarterly
+#                     paymentstudentid.save()
+#                 else:
+#                     o_balance_list = []
+#                     for payment in payments_in_year:
+#                         o_balance_list.append(payment.outstandingbalance)
+#                     paymentstudentid.outstandingbalance = min(o_balance_list)
+#                     paymentstudentid.save()
+#                 payment_amount = form.cleaned_data['payment_amount']
+        
+#                 print(paymentstudentid.outstandingbalance)
+#                 paymentstudentid.outstandingbalance = paymentstudentid.outstandingbalance - payment_amount
+        
+#                 paymentstudentid.save()
+#                 print(paymentstudentid.outstandingbalance)
+
+#                 updateEnrollmentStatus(request, s_id.id)
+
+#             return redirect('/paymentList')
+#     else:
+#             return redirect('sis_app:home')
 
 @login_required(login_url='sis_app:log_in')
 def paymentList(request):

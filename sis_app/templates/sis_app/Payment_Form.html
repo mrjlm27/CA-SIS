@@ -40,11 +40,14 @@
             {% endif %} {% endcomment %}
             <form action="" method="post" autocomplete="off">
                     {% csrf_token %}
+
                     {% comment %} {{ form.as_p }} {% endcomment %}
                     
-                    <div class="form-group col">
+                    {% comment %} <div class="form-group col">
                         {{ form.payment_s_account_id|as_crispy_field }}
-                    </div>
+                    </div> {% endcomment %}
+                    {% comment %} <div><input type="hidden" name="studentid" 
+                    id="inputID" value="India" ></div> {% endcomment %}
                     
                     <div class="form-group col">
                         {{ form.paymentdate_date|as_crispy_field }}
@@ -54,9 +57,11 @@
                         {{ form.payment_amount|as_crispy_field }}
                     </div>
 
-                    <div class="form-group col">
+                    {% comment %} <div class="form-group col">
                         {{ form.school_year_end|as_crispy_field }}
-                    </div>
+                    </div> {% endcomment %}
+                    <div><input type="hidden" name="school_year" 
+                        id="inputID" value="India" ></div>
 
                     <div class="buttonContainer">
 

@@ -101,14 +101,14 @@ class Teacher(Account):
     t_name = models.CharField(max_length=128)
 
 class Payment(models.Model):
-    payment_s_account_id = models.ForeignKey(Student, on_delete=models.CASCADE, null = False)
+    payment_s_account_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
     paymentdate_date = models.DateField(default = datetime.date.today(), null = False)
     payment_amount = models.IntegerField(null = False, validators=[MinValueValidator(0)], error_messages={"invalid":"Invalid"})
     outstandingbalance = models.IntegerField(default = 0)
     
     payment_sy_end = 0
     outstandingbalance = models.IntegerField(default = 1000000)
-    school_year_end=models.IntegerField(('year'), validators=[MinValueValidator(2000)], default=None, error_messages={"invalid":"Invalid"})#
+    school_year_end=models.IntegerField(('year'), null = True)#
 
     # tuitionfee = models.IntegerField(default = 50000)
 

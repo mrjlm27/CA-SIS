@@ -102,7 +102,7 @@
             </table>
         </div>
         <div class="buttonContainer">
-            <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:payment_form' %}">Encode a Payment</a>
+            {% comment %} <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:payment_form' %}">Encode a Payment</a> {% endcomment %}
             <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:reset_BA' %}">reset Bi-Annual Payments</a>
             <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:reset_Q' %}">reset Quarterly Payments</a>
             <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:reset_ALL' %}">reset ALL Payments</a>

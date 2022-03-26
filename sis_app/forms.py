@@ -354,27 +354,27 @@ YEAR_CHOICES= [tuple([x,x]) for x in range(2022,2035)]
 class PaymentForm(forms.ModelForm):
     class Meta:
         model=Payment
-        fields = ('payment_s_account_id','paymentdate_date','payment_amount','school_year_end')
+        fields = ('paymentdate_date','payment_amount',)
         labels = {
-            'payment_s_account_id': 'Input Student ID',
+            # 'payment_s_account_id': 'Input Student ID',
             'paymentdate_date': 'Date of Payment',
             'payment_amount': 'Amount of Payment',
-            'school_year_end': 'End of School Year',
+            # 'school_year_end': 'End of School Year',
         }
         widgets = {
-            'payment_s_account_id': forms.Select(attrs={'class': 'form-control'}),
+            # 'payment_s_account_id': forms.Select(attrs={'class': 'form-control'}),
             'paymentdate_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
             'payment_amount': forms.NumberInput(attrs={'class': 'form-control'}),
-            'school_year_end': forms.NumberInput(attrs={'class': 'form-control'}),
+            # 'school_year_end': forms.NumberInput(attrs={'class': 'form-control'}),
         }
         # error_messages = {
         #     'payment_amount': {
         #         'invalid': _("Student ID does not exist"),
         #     },
         # }
-    def __init__(self, *args, **kwargs):
-        super(PaymentForm, self).__init__(*args, **kwargs)
-        self.fields['payment_s_account_id'].widget = forms.TextInput()
+    # def __init__(self, *args, **kwargs):
+    #     super(PaymentForm, self).__init__(*args, **kwargs)
+    #     self.fields['payment_s_account_id'].widget = forms.TextInput()
 
 class GradeReportForm(forms.ModelForm):
     class Meta:
