@@ -400,7 +400,11 @@ def paymentForm(request, id):
 
             return redirect('/paymentList')
         else:
-            return redirect('sis_app:student_paymentview')
+            messages.error(request, 'error')
+            # return redirect('sis_app:student_paymentview')
+            return redirect(f'/paymentForm/{id}')
+        # return HttpResponseRedirect("/paymentForm/{id}".format(id=id))
+
 # def paymentForm(request,id=0):
 #     if request.user.is_superuser:
 #         model = Payment

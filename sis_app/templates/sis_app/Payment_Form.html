@@ -56,6 +56,13 @@
                     <div class="form-group col">
                         {{ form.payment_amount|as_crispy_field }}
                     </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="text-danger">
+                                Invalid Form Submission. Please take note of the following:
+                            </div>
+                        {% endfor %}
+                    {% endif %}
 
                     {% comment %} <div class="form-group col">
                         {{ form.school_year_end|as_crispy_field }}
