@@ -119,7 +119,8 @@ class Payment(models.Model):
     paymentdate_date = models.DateField(default = datetime.date.today(), null = False)
     payment_amount = models.IntegerField(null = False, validators=[MinValueValidator(0)], error_messages={"invalid":"Invalid"})
     outstandingbalance = models.IntegerField(default = 0)
-    
+    enrollment_type = models.CharField(max_length=20, default='Annually')
+
     payment_sy_end = 0
     outstandingbalance = models.IntegerField(default = 1000000)
     school_year_end=models.IntegerField(('year'), null = True)#

@@ -396,6 +396,11 @@ def paymentForm(request, id):
             paymentstudentid.save()
             print(paymentstudentid.outstandingbalance)
 
+            payments = Payment.objects.latest('id')
+            student = Student.objects.get(pk=id)
+            payments.enrollment_type = student.student_enrollment_plan
+            payments.save()
+
             updateEnrollmentStatus(request, id)
 
             return redirect('/paymentList')
@@ -1497,7 +1502,6 @@ def viewGradeReport(request):
             x = 'True'
         else:
             x = 'False'
-        print(x)
         grade_report.gr_acknowledgement = x
         grade_report.save()
         print(grade_report.gr_acknowledgement)
