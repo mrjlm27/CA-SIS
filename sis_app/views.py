@@ -1027,8 +1027,10 @@ def GradeReportFormNursery(request, id):
                 
                 report.N_year_average = yearaverage
                 report.save()
-
+            report.gradelevel = student.student_grade_level
+            report.save()
             return redirect('sis_app:grade_report_nursery')
+
         context = {'form':form_class}
         return render(request, 'sis_app/GradeReportForm_Nursery.html', context)
     else:
@@ -1237,6 +1239,8 @@ def GradeReportFormKinder1Kinder2Junior(request, id):
                 yearaverage = average/averagecounter
             
             report.year_average = yearaverage
+            report.save()
+            report.gradelevel = student.student_grade_level
             report.save()
 
             return redirect('sis_app:grade_report_k1k2jr')
@@ -1470,6 +1474,8 @@ def GradeReportFormKinder2Senior(request, id):
                 yearaverage = average/averagecounter
             
             report.year_average = yearaverage
+            report.save()
+            report.gradelevel = student.student_grade_level
             report.save()
 
             return redirect('sis_app:grade_report_kinder2senior')
