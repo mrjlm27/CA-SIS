@@ -10,6 +10,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # class Student(models.Model):
 
+
 def current_year():
     return datetime.date.today().year
 
@@ -42,9 +43,22 @@ class Student(Account):
     ('Not Enrolled','Not Enrolled'),
     ('Enrolled', 'Enrolled'),
     ]#
+    # sy = [
+    #     (2022,2022),
+    #     (2023,2023),
+    #     (2024,2024),
+    #     (2025,2025),
+    #     (2026,2026),
+    #     (2027,2027),
+    #     (2028,2028),
+    #     (2029,2029),
+    #     (2030,2030),
+    # ]
+    sy = [tuple([x,x]) for x in range(2022,2035)]
+
     enrollment_status = models.CharField(max_length=20, choices=status,default='Not Enrolled')#
     #student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)#
-    student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000)], default=None)#
+    student_schoolyear_start=models.IntegerField(choices=sy, default=None)#
     student_address = models.CharField(max_length=300, default=None)
     student_religion = models.CharField(max_length=128, default=None)
     student_nationality = models.CharField(max_length=128, default=None)
@@ -170,7 +184,8 @@ class GradeReport(models.Model):
     #General Fields For All Students
     tor_id = models.ForeignKey(TranscriptOfRecord, on_delete=models.CASCADE, null=True, blank = True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank = True)
-    school_year = models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)
+    sy = [tuple([x,x]) for x in range(2022,2035)]
+    school_year = models.IntegerField(choices=sy, default=None)
     period =[
     ('1','1'),
     ('2', '2'),
