@@ -911,7 +911,11 @@ class AcknowledgementForm(forms.ModelForm):
         model=GradeReport
         fields =  ('gr_acknowledgement',)
 
-        widgets = {'gr_acknowledgement': forms.CheckboxInput(attrs={'class': 'form-control'}),}
+        widgets = {'gr_acknowledgement': forms.CheckboxInput(attrs={'class': 'form-control','required':True}),}
 
         labels = {'gr_acknowledgement': "Please click on the box to acknowledge that you have seen the student's report card",
         }
+
+        def __init__(self,*args,**kwargs):
+            super(AcknowledgementForm,self).__init__(*args, **kwargs)
+            self.fields['gr_acknowledgement'].required=True

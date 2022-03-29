@@ -32,6 +32,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
+from django.shortcuts import render_to_response
 
 
 # GLOBAL VARIABLES
@@ -1506,14 +1508,14 @@ def viewGradeReport(request):
             x = request.POST.get('gr_acknowledgement')
             if x == 'on':
                 x = 'True'
-            else:
-                x = 'False'
             grade_report.gr_acknowledgement = x
             grade_report.save()
-            print(grade_report.gr_acknowledgement)
-            return redirect('sis_app:home')  
-        print(grade_report)
-        context = {"grade_report":grade_report, 'form':form_class}
+            # try:
+            #     grade_report.save()
+            # except IntegrityError:
+            #     return render_to_response("sis_app/ViewGradeReportN.html", {{'message'}})
+            # return redirect('sis_app:home')  
+        context = {"grade_report":grade_report, 'form':form_class, "student":student_instance}
         if student_instance.student_grade_level == "Nursery":
             return render(request, "sis_app/ViewGradeReportN.html", context)
         elif student_instance.student_grade_level == "Kinder 1" or student_instance.student_grade_level == "Kinder 2 Junior":

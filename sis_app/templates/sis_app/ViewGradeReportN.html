@@ -49,6 +49,8 @@
 
     <div class="gradeReportBody">
         <h1 class="gradeReportHeading">Grade Report</h1>
+        <br>
+        <h2 class="pageHeading">{{student.student_firstname}} {{student.student_lastname}}</h2>
         <hr id="gradeReportHR">
 
         <div class="yearlyTable">
@@ -476,7 +478,6 @@
                 <form action="" method="post" autocomplete="off">
                         {% csrf_token %}
                         {{ form.as_p }}
-
                         <div class="buttonContainer">
 
                             <a class="cancelButton" href="{% url 'sis_app:home' %}">Cancel</a>
