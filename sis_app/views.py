@@ -1,6 +1,7 @@
 from asyncore import read
 from audioop import avg
 from email import header
+from http.client import HTTPResponse
 from multiprocessing import context
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.http import HttpResponse
@@ -1510,14 +1511,15 @@ def viewGradeReport(request):
                 x = 'True'
             grade_report.gr_acknowledgement = x
             grade_report.save()
+            return redirect('sis_app:home')
             # try:
             #     grade_report.save()
             # except IntegrityError:
             #     return render_to_response("sis_app/ViewGradeReportN.html", {{'message'}})
-            # return redirect('sis_app:home')  
+            # return redirect('sis_app:home')
         context = {"grade_report":grade_report, 'form':form_class, "student":student_instance}
         if student_instance.student_grade_level == "Nursery":
-            return render(request, "sis_app/ViewGradeReportN.html", context)
+           return render(request, "sis_app/ViewGradeReportN.html", context)
         elif student_instance.student_grade_level == "Kinder 1" or student_instance.student_grade_level == "Kinder 2 Junior":
             return render(request, "sis_app/ViewGradeReportK1K2JR.html", context)
         elif student_instance.student_grade_level == "Kinder 2 Senior":
