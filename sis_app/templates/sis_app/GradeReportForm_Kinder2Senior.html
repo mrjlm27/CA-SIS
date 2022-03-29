@@ -331,6 +331,14 @@
 
                             <br>
 
+                        
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="text-danger">
+                                        Invalid input found. Please input a non-negative number. Grades should also not exceed a value of 100.
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
                             {% comment %} <div class="buttonContainer">
 
                                 <a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_kinder2senior' %}">Cancel</a>

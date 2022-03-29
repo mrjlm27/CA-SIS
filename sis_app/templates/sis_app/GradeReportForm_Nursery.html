@@ -475,6 +475,13 @@
                                     {{ form.absences|as_crispy_field }}
                                 </div>
                             </div>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="text-danger">
+                                        Invalid input. Please input a non-negative number.
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
 
                             <div class="buttonContainer">
 

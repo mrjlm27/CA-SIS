@@ -308,6 +308,13 @@
 
                         <br>
 
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="text-danger">
+                                    Invalid input found. Please input a non-negative number. Grades should also not exceed a value of 100.
+                                </div>
+                            {% endfor %}
+                        {% endif %}
 
                         <div class="buttonContainer">
 

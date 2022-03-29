@@ -1034,7 +1034,8 @@ def GradeReportFormNursery(request, id):
                 report.gradelevel = student.student_grade_level
                 report.save()
                 return redirect('sis_app:grade_report_nursery')
-
+            else:
+                messages.error(request, 'error')
         context = {'form':form_class}
         return render(request, 'sis_app/GradeReportForm_Nursery.html', context)
     else:
@@ -1248,6 +1249,8 @@ def GradeReportFormKinder1Kinder2Junior(request, id):
                 report.save()
 
                 return redirect('sis_app:grade_report_k1k2jr')
+            else:
+                messages.error(request, 'error')
         context = {'form':form_class}
         return render(request, 'sis_app/GradeReportForm_K1K2JR.html', context)
     else:
@@ -1485,6 +1488,8 @@ def GradeReportFormKinder2Senior(request, id):
                 report.save()
 
                 return redirect('sis_app:grade_report_kinder2senior')
+            else:
+                messages.error(request, 'error')
         context = {'form':form_class}
         return render(request, 'sis_app/GradeReportForm_Kinder2Senior.html', context)
     else:
