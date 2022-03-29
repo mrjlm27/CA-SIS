@@ -608,7 +608,7 @@ class GradeReportFormK2SR(forms.ModelForm):
             'filipino4': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
-            'school_year': forms.DateInput(attrs={'class': 'form-control'}),
+            # 'school_year': forms.DateInput(attrs={'class': 'form-control'}),
             'grading_period': forms.Select(attrs={'class': 'form-control'}),
         }
 
@@ -719,7 +719,7 @@ class GradeReportFormK1K2JR(forms.ModelForm):
             'penmanship4': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
-            'school_year': forms.DateInput(attrs={'class': 'form-control'}),
+            # 'school_year': forms.DateInput(attrs={'class': 'form-control'}),
             'grading_period': forms.Select(attrs={'class': 'form-control'}),
         }
 
@@ -904,7 +904,7 @@ class GradeReportFormN(forms.ModelForm):
             'N_good_moral_valueformation9': forms.Select(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
-            'school_year': forms.DateInput(attrs={'class': 'form-control'}),
+            # 'school_year': forms.DateInput(attrs={'class': 'form-control'}),
             'grading_period': forms.Select(attrs={'class': 'form-control'}),
         }
 

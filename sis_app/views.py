@@ -397,6 +397,10 @@ def paymentForm(request, id):
             print(paymentstudentid.outstandingbalance)
 
             updateEnrollmentStatus(request, id)
+            payments = Payment.objects.latest('id')
+            student = Student.objects.get(pk=id)
+            payments.enrollment_type = student.student_enrollment_plan
+            payments.save()
 
             return redirect('/paymentList')
         else:
@@ -1062,192 +1066,192 @@ def GradeReportFormKinder1Kinder2Junior(request, id):
                 form = GradeReportForm(request.POST)
             if form.is_valid():
                 form.save()
-            report = GradeReport.objects.latest('id')
-            tor_obj = TranscriptOfRecord.objects.get(tor_id=id)
-            report.tor_id = tor_obj
-            report.student = student
-            report.save()
-            
-            #FOR AVERAGES: FIX ERROR (zero over zero) when one subject has no value at all
-            #Reading Readiness Grade
-            readingreadiness = (report.readingreadiness1, report.readingreadiness2, report.readingreadiness3, report.readingreadiness4, report.readingreadiness5, report.readingreadiness6,
-            report.readingreadiness7, report.readingreadiness8, report.readingreadiness9, report.readingreadiness10, report.readingreadiness11, report.readingreadiness12, report.readingreadiness13)
-            readingreadinesslist1 = list(readingreadiness)
-            readingreadinesslist2 = []
-            readingtotal = 0
-            for i in readingreadinesslist1:
-                if i != None:
-                    readingreadinesslist2.append(i)
-            for i in readingreadinesslist2:
-                readingtotal += i
-            readingreadinessaverage =(readingtotal/len(readingreadinesslist2))
-            report.reading_grade = readingreadinessaverage
+                report = GradeReport.objects.latest('id')
+                tor_obj = TranscriptOfRecord.objects.get(tor_id=id)
+                report.tor_id = tor_obj
+                report.student = student
+                report.save()
+                
+                #FOR AVERAGES: FIX ERROR (zero over zero) when one subject has no value at all
+                #Reading Readiness Grade
+                readingreadiness = (report.readingreadiness1, report.readingreadiness2, report.readingreadiness3, report.readingreadiness4, report.readingreadiness5, report.readingreadiness6,
+                report.readingreadiness7, report.readingreadiness8, report.readingreadiness9, report.readingreadiness10, report.readingreadiness11, report.readingreadiness12, report.readingreadiness13)
+                readingreadinesslist1 = list(readingreadiness)
+                readingreadinesslist2 = []
+                readingtotal = 0
+                for i in readingreadinesslist1:
+                    if i != None:
+                        readingreadinesslist2.append(i)
+                for i in readingreadinesslist2:
+                    readingtotal += i
+                readingreadinessaverage =(readingtotal/len(readingreadinesslist2))
+                report.reading_grade = readingreadinessaverage
 
-            print(readingtotal)
-            print(len(readingreadinesslist2))
+                print(readingtotal)
+                print(len(readingreadinesslist2))
 
-            report.save()
-
-
-            #Science Readiness Grade
-            sciencereadiness = (report.science1, report.science2, report.science3, report.science4, report.science5, report.science6)
-            sciencereadinesslist1 = list(sciencereadiness)
-            sciencereadinesslist2 = []
-            sciencetotal = 0
-            for i in sciencereadinesslist1:
-                if i != None:
-                    sciencereadinesslist2.append(i)
-            for i in sciencereadinesslist2:
-                sciencetotal += i
-            sciencereadinessaverage =(sciencetotal/len(sciencereadinesslist2))
-            report.science_grade = sciencereadinessaverage
-            report.save()
+                report.save()
 
 
-            #Language Readiness Grade
-            languagereadiness = (report.language1, report.language2, report.language3, report.language4, report.language5, report.language6, report.language7, 
-            report.language8, report.language9, report.language10)
-            languagereadinesslist1 = list(languagereadiness)
-            languagereadinesslist2 = []
-            languagetotal = 0
-            for i in languagereadinesslist1:
-                if i != None:
-                    languagereadinesslist2.append(i)
-            for i in languagereadinesslist2:
-                languagetotal += i
-            languagereadinessaverage =(languagetotal/len(languagereadinesslist2))
-            report.language_grade = languagereadinessaverage
-            report.save()
+                #Science Readiness Grade
+                sciencereadiness = (report.science1, report.science2, report.science3, report.science4, report.science5, report.science6)
+                sciencereadinesslist1 = list(sciencereadiness)
+                sciencereadinesslist2 = []
+                sciencetotal = 0
+                for i in sciencereadinesslist1:
+                    if i != None:
+                        sciencereadinesslist2.append(i)
+                for i in sciencereadinesslist2:
+                    sciencetotal += i
+                sciencereadinessaverage =(sciencetotal/len(sciencereadinesslist2))
+                report.science_grade = sciencereadinessaverage
+                report.save()
 
-            #Mathematics Readiness Grade
-            mathreadiness = (report.math1, report.math2, report.math3, report.math4, report.math5, report.math6, report.math7, report.math8,
-            report.math9, report.math10, report.math11)
-            mathreadinesslist1 = list(mathreadiness)
-            mathreadinesslist2 = []
-            mathtotal = 0
-            for i in mathreadinesslist1:
-                if i != None:
-                    mathreadinesslist2.append(i)
-            for i in mathreadinesslist2:
-                mathtotal += i
-            mathreadinessaverage =(mathtotal/len(mathreadinesslist2))
-            report.mathematics_grade = mathreadinessaverage
-            report.save()
 
-            #Penmanship Readiness Grade
-            penmanshipreadiness = (report.penmanship1, report.penmanship2, report.penmanship3, report.penmanship4)
-            penmanshipreadinesslist1 = list(penmanshipreadiness)
-            penmanshipreadinesslist2 = []
-            penmanshiptotal = 0
-            for i in penmanshipreadinesslist1:
-                if i != None:
-                    penmanshipreadinesslist2.append(i)
-            for i in penmanshipreadinesslist2:
-                penmanshiptotal += i
-            penmanshipreadinessaverage =(penmanshiptotal/len(penmanshipreadinesslist2))
-            report.penmanship_grade = penmanshipreadinessaverage
-            report.save()
+                #Language Readiness Grade
+                languagereadiness = (report.language1, report.language2, report.language3, report.language4, report.language5, report.language6, report.language7, 
+                report.language8, report.language9, report.language10)
+                languagereadinesslist1 = list(languagereadiness)
+                languagereadinesslist2 = []
+                languagetotal = 0
+                for i in languagereadinesslist1:
+                    if i != None:
+                        languagereadinesslist2.append(i)
+                for i in languagereadinesslist2:
+                    languagetotal += i
+                languagereadinessaverage =(languagetotal/len(languagereadinesslist2))
+                report.language_grade = languagereadinessaverage
+                report.save()
 
-            #Sem Average (Average of all academic subject grades)
-            semaverage = (report.reading_grade, report.mathematics_grade, report.language_grade, report.science_grade, report.penmanship_grade)
-            semaveragelist1 = list(semaverage)
-            semaveragelist2 = []
-            semaveragetotal = 0
-            for i in semaveragelist1:
-                if i != None:
-                    semaveragelist2.append(i)
-            for i in semaveragelist2:
-                semaveragetotal += i
-            semaverage1 =(semaveragetotal/len(semaveragelist2))
-            report.sem_average = semaverage1
-            report.save()
+                #Mathematics Readiness Grade
+                mathreadiness = (report.math1, report.math2, report.math3, report.math4, report.math5, report.math6, report.math7, report.math8,
+                report.math9, report.math10, report.math11)
+                mathreadinesslist1 = list(mathreadiness)
+                mathreadinesslist2 = []
+                mathtotal = 0
+                for i in mathreadinesslist1:
+                    if i != None:
+                        mathreadinesslist2.append(i)
+                for i in mathreadinesslist2:
+                    mathtotal += i
+                mathreadinessaverage =(mathtotal/len(mathreadinesslist2))
+                report.mathematics_grade = mathreadinessaverage
+                report.save()
 
-            # Filter objects to specific student 
-            x = GradeReport.objects.select_related().filter(student = id)
+                #Penmanship Readiness Grade
+                penmanshipreadiness = (report.penmanship1, report.penmanship2, report.penmanship3, report.penmanship4)
+                penmanshipreadinesslist1 = list(penmanshipreadiness)
+                penmanshipreadinesslist2 = []
+                penmanshiptotal = 0
+                for i in penmanshipreadinesslist1:
+                    if i != None:
+                        penmanshipreadinesslist2.append(i)
+                for i in penmanshipreadinesslist2:
+                    penmanshiptotal += i
+                penmanshipreadinessaverage =(penmanshiptotal/len(penmanshipreadinesslist2))
+                report.penmanship_grade = penmanshipreadinessaverage
+                report.save()
 
-            #Filter objects to specific student and school year
-            sy = form.cleaned_data['school_year']
-            filteredsy = x.filter(school_year = sy)
+                #Sem Average (Average of all academic subject grades)
+                semaverage = (report.reading_grade, report.mathematics_grade, report.language_grade, report.science_grade, report.penmanship_grade)
+                semaveragelist1 = list(semaverage)
+                semaveragelist2 = []
+                semaveragetotal = 0
+                for i in semaveragelist1:
+                    if i != None:
+                        semaveragelist2.append(i)
+                for i in semaveragelist2:
+                    semaveragetotal += i
+                semaverage1 =(semaveragetotal/len(semaveragelist2))
+                report.sem_average = semaverage1
+                report.save()
 
-            # (FINAL RATING) Average of all reading grade per school year
-            averagecounter = 0
-            average = 0
-            for i in filteredsy:
-                average += i.reading_grade
-                averagecounter += 1
-            else:
-                yearaverage = average/averagecounter
-            
-            report.final_reading = yearaverage
-            report.save()
+                # Filter objects to specific student 
+                x = GradeReport.objects.select_related().filter(student = id)
 
-            # (FINAL RATING) Average of all mathematics grade per school year
-            averagecounter = 0
-            average = 0
-            for i in filteredsy:
-                average += i.mathematics_grade
-                averagecounter += 1
-            else:
-                yearaverage = average/averagecounter
-            
-            report.final_mathematics = yearaverage
-            report.save()
+                #Filter objects to specific student and school year
+                sy = form.cleaned_data['school_year']
+                filteredsy = x.filter(school_year = sy)
 
-            # (FINAL RATING) Average of all language grade per school year
-            averagecounter = 0
-            average = 0
-            for i in filteredsy:
-                average += i.language_grade
-                averagecounter += 1
-            else:
-                yearaverage = average/averagecounter
-            
-            report.final_language = yearaverage
-            report.save()
+                # (FINAL RATING) Average of all reading grade per school year
+                averagecounter = 0
+                average = 0
+                for i in filteredsy:
+                    average += i.reading_grade
+                    averagecounter += 1
+                else:
+                    yearaverage = average/averagecounter
+                
+                report.final_reading = yearaverage
+                report.save()
 
-            # (FINAL RATING) Average of all science grade per school year
-            averagecounter = 0
-            average = 0
-            for i in filteredsy:
-                average += i.science_grade
-                averagecounter += 1
-            else:
-                yearaverage = average/averagecounter
-            
-            report.final_science = yearaverage
-            report.save()
+                # (FINAL RATING) Average of all mathematics grade per school year
+                averagecounter = 0
+                average = 0
+                for i in filteredsy:
+                    average += i.mathematics_grade
+                    averagecounter += 1
+                else:
+                    yearaverage = average/averagecounter
+                
+                report.final_mathematics = yearaverage
+                report.save()
 
-            # (FINAL RATING) Average of all penmanship grade per school year
-            averagecounter = 0
-            average = 0
-            for i in filteredsy:
-                average += i.penmanship_grade
-                averagecounter += 1
-            else:
-                yearaverage = average/averagecounter
-            
-            report.final_penmanship = yearaverage
-            report.save()
+                # (FINAL RATING) Average of all language grade per school year
+                averagecounter = 0
+                average = 0
+                for i in filteredsy:
+                    average += i.language_grade
+                    averagecounter += 1
+                else:
+                    yearaverage = average/averagecounter
+                
+                report.final_language = yearaverage
+                report.save()
 
-            # (FINAL RATING) Average of all of a student's grades per school year
-            averagecounter = 0
-            average = 0
-            for i in filteredsy:
-                average += i.sem_average
-                averagecounter += 1
-            else:
-                yearaverage = average/averagecounter
-            
-            report.year_average = yearaverage
-            report.save()
-            report.gradelevel = student.student_grade_level
-            report.save()
+                # (FINAL RATING) Average of all science grade per school year
+                averagecounter = 0
+                average = 0
+                for i in filteredsy:
+                    average += i.science_grade
+                    averagecounter += 1
+                else:
+                    yearaverage = average/averagecounter
+                
+                report.final_science = yearaverage
+                report.save()
 
-            return redirect('sis_app:grade_report_k1k2jr')
-        context = {'form':form_class}
-        return render(request, 'sis_app/GradeReportForm_K1K2JR.html', context)
-    else:
-        return redirect('sis_app:home')
+                # (FINAL RATING) Average of all penmanship grade per school year
+                averagecounter = 0
+                average = 0
+                for i in filteredsy:
+                    average += i.penmanship_grade
+                    averagecounter += 1
+                else:
+                    yearaverage = average/averagecounter
+                
+                report.final_penmanship = yearaverage
+                report.save()
+
+                # (FINAL RATING) Average of all of a student's grades per school year
+                averagecounter = 0
+                average = 0
+                for i in filteredsy:
+                    average += i.sem_average
+                    averagecounter += 1
+                else:
+                    yearaverage = average/averagecounter
+                
+                report.year_average = yearaverage
+                report.save()
+                report.gradelevel = student.student_grade_level
+                report.save()
+
+                return redirect('sis_app:grade_report_k1k2jr')
+            context = {'form':form_class}
+            return render(request, 'sis_app/GradeReportForm_K1K2JR.html', context)
+        else:
+            return redirect('sis_app:home')
 
 #GradeReport List for Kinder 2 Senior students only
 @login_required(login_url='sis_app:log_in')
