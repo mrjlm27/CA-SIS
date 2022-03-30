@@ -35,4 +35,5 @@ urlpatterns=[
     path('Delete_Students',views.deleteStudents, name = "delete_students"),
     path('ToggleRegistration',views.toggleRegistration, name = "toggle_registration"),
     path('logout', views.logout, name="log_out"),
+    path('announcement_form',views.announcement_form, name='announcement_form')
 ]

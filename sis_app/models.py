@@ -17,6 +17,10 @@ def current_year():
 def max_value_current_year(value):
     return MaxValueValidator(current_year())(value)  
 
+class Announcement(models.Model):
+    header = models.CharField(max_length = 100, default = None)
+    announcement = models.TextField(max_length = 1500, default = None)
+
 class Account(models.Model):
     username = models.CharField(max_length=128)
     password = models.CharField(max_length=128)#passwords should be stored hashed 

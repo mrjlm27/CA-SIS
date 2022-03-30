@@ -2,6 +2,19 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from .models import *
 
+
+class AnnouncementForm(forms.ModelForm):
+    class Meta:
+        model = Announcement
+        fields = ('header','announcement')
+        labels = {
+            'header':'Header',
+            'announcement':'Announcement Caption/Spiel'
+        }
+        widgets = {
+            'header':forms.TextInput(attrs={'class': 'form-control'}),
+            'announcement':forms.Textarea(attrs={'name':'body', 'rows':'10', 'cols':'45'})
+        }
 class StudentForm(forms.ModelForm):
     student_schoolyear_start:forms.TypedChoiceField(coerce=int, choices=year_choices, initial=current_year)
     class Meta:
@@ -83,7 +96,7 @@ class StudentForm(forms.ModelForm):
         widgets = {
             'student_schoolyear_start': forms.Select(attrs={'class': 'form-control', 'background-color': 'red'}),
             'student_grade_level': forms.Select(attrs={'class': 'form-control'}),
-            'student_birthday': forms.DateInput(attrs={'class': 'form-control'}),
+            'student_birthday': forms.SelectDateWidget(attrs={'class': 'form-control'}),
 
             'student_firstname': forms.TextInput(attrs={'class': 'form-control'}),
             'student_lastname': forms.TextInput( attrs={'class': 'form-control'}),
@@ -238,7 +251,7 @@ class StudentFormDisabled(forms.ModelForm):
         }
 
         widgets = {
-            'student_birthday': forms.DateInput(attrs={'class': 'form-control'}),
+            'student_birthday': forms.SelectDateWidget(attrs={'class': 'form-control'}),
 
             'student_address': forms.TextInput(attrs={'class': 'form-control'}),
 

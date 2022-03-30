@@ -41,10 +41,8 @@ toggle = True #used for enabling/disabling student registration
 #     return render(request, 'sis_app/hello_world.html')
 @login_required(login_url='sis_app:log_in')
 def Home(request):
-    # student = Student.objects.get()
-    user_id = request.user.id
-    user = User.objects.get(pk=user_id)
-    context={'user':user}
+    announcement = Announcement.objects.latest('id')
+    context={'announcement':announcement}
     if request.user.is_superuser:
         return render(request,'sis_app/home_admin.html',context)
     else:
@@ -66,6 +64,27 @@ def LogInScreen(request):
             messages.error(request, "Username or Password is incorrect")
     context = {'id':id}
     return render(request, 'sis_app/LogIn.html', context)
+
+@login_required(login_url='sis_app:log_in')
+def announcement_form(request, id=0):
+    model = Announcement
+    form_class = AnnouncementForm
+    if request.method == "GET":
+        if id == 0: 
+            form = AnnouncementForm()
+        else:
+            announcement = Announcement.objects.get(pk=id)
+            form = AnnouncementForm(instance=announcement)
+        return render(request,"sis_app/home_announcement_form.html",{'form':form})
+    else:
+        if id == 0:
+            form = AnnouncementForm(request.POST)
+        else:
+            announcement = Announcement.objects.get(pk=id)
+            form = AnnouncementForm(request.POST,instance=announcement)
+        if form.is_valid():
+            form.save()
+        return redirect('sis_app:home')
 
 @login_required(login_url='sis_app:log_in')
 def EditAccountCred(request):
