@@ -32,6 +32,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # GLOBAL VARIABLES
@@ -41,12 +42,21 @@ toggle = True #used for enabling/disabling student registration
 #     return render(request, 'sis_app/hello_world.html')
 @login_required(login_url='sis_app:log_in')
 def Home(request):
-    announcement = Announcement.objects.latest('id')
-    context={'announcement':announcement}
-    if request.user.is_superuser:
-        return render(request,'sis_app/home_admin.html',context)
-    else:
-        return render(request,'sis_app/home.html',context) 
+    # announcement_list = Announcement.objects.all()
+    # print(len(announcement_list))
+    try:
+        announcement = Announcement.objects.latest('id')
+        context={'announcement':announcement}
+        if request.user.is_superuser:
+            return render(request,'sis_app/home_admin.html',context)
+        else:
+            return render(request,'sis_app/home.html',context)
+    except ObjectDoesNotExist:
+        if request.user.is_superuser:
+            return render(request,'sis_app/home_admin_no_announcements.html')
+        else:
+            return render(request, 'sis_app/home_no_announcements.html')
+
 
 
 def LogInScreen(request):
