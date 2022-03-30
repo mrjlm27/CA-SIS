@@ -57,56 +57,40 @@
         </div>
     </div>
     <div class = "elements">
-        <h2 class="pageHeading">View Students</h2>
+        <h2 class="pageHeading">View GradeReports of {{student.student_firstname}} {{student.student_lastname}}</h2>
         <hr id="baseHR">
         <div class="form-container">
-            <form method="get" style=>
-                {{myFilter.form}}
-                <button class="buttonDesignPositive" type="submit" class = 'filterButton'>Search</button>
-            </form>
         </div>
 
         <div class="table-container">
             <table class = "table table-borderless">
                 <thead class= "border-bottom font-weight-bold">
                     <tr>
-                        <th>Student ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Enrollment Status</th>
-                        <th>Last Enrolled</th>
-                        <th>Generate Transcript of Records</th>
-                        <th>Edit Student Information</th>
-                        <th>Edit Account Credentials</th>
-                        <th>Encode a Payment</th>
+                        <th>School Year</th>
+                        <th>Grade Level</th>
+                        <th>Period</th>
                         <th>View GradeReport</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for student in studentList %}
+                    {% for gradereport in GradeReportList %}
                     <tr>
-                        <td data-heading="First Name">{{student.id}}</td>
-                        <td data-heading="First Name">{{student.student_firstname}}</td>
-                        <td data-heading="Last Name">{{student.student_lastname}}</td>
-                        <td data-heading="Enrollment Status">{{student.enrollment_status}}</td>
-                        <td data-heading="Last Enrolled">{{student.student_schoolyear_start}}</td>
-                        <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:generate_tor' student.id %}">Generate TOR</a></td>
-                        <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:reg_student_form' student.id %}">Edit Student Info</a></td>
-                        <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:admin_account_edit' student.id %}">Edit Credentials</a></td>
-                        <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:payment_form' student.id %}">Encode a Payment</a></td>
-                        <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:gradereport_admin' student.id %}">View GradeReports</a></td>
+                        <td data-heading="First Name">{{gradereport.school_year}}</td>
+                        <td data-heading="Last Name">{{gradereport.gradelevel}}</td>
+                        <td data-heading="Enrollment Status">{{gradereport.grading_period}}</td>
+                        <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:viewGradeReportAdmin2' gradereport.id %}">View GradeReport</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             
             </table>
         </div>
-        {% comment %} <a class="buttonDesignNegative" href="{% url 'sis_app:student_form' %}">Register a student</a> {% endcomment %}
         <div class="buttonContainer">
-            <a class="buttonDesignNegative-elements" id = "deleteButton" href="{% url 'sis_app:delete_students_page' %}" class = 'delete'>Delete Students</a>
-            <a class="buttonDesignNegative-elements" id = "deleteButton" href="{% url 'sis_app:toggle_registration' %}" class = 'delete'>{{caption}}</a>
+
+            <a class="buttonDesignNegative-elements" href="{% url 'sis_app:student_list' %}" id='cancelButton'>Cancel</a>
+
+
         </div>
     </div>
 </body>
-    {% comment %} <a class="buttonDesignNegative" href="{% url 'sis_app:student_form' %}">Register a student</a> {% endcomment %}
 </html>

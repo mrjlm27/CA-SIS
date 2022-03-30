@@ -143,6 +143,29 @@ def StudentList(request):
     else:
         return redirect('sis_app:home')
 
+@login_required(login_url='sis_app:log_in')
+def viewGradeReportAdmin(request, id):
+    if request.user.is_superuser:
+        student = Student.objects.get(pk=id)
+        gradereports = GradeReport.objects.select_related().filter(student = student)
+        context = {'student' : student, 'GradeReportList': gradereports}
+        return render(request,"sis_app/ViewGradeReportAdmin.html", context)
+    else:
+        return redirect('sis_app:home')
+
+@login_required(login_url='sis_app:log_in')
+def viewGradeReportAdmin2(request, id):
+    if request.user.is_superuser:
+        grade_report = GradeReport.objects.get(pk=id)
+        student = grade_report.student.pk
+        student_instance = Student.objects.get(pk = student)
+        context = {"grade_report":grade_report, "student":student_instance}
+        if student_instance.student_grade_level == "Nursery":
+            return render(request, "sis_app/ViewGradeReportNAdmin.html", context)
+        elif student_instance.student_grade_level == "Kinder 1" or student_instance.student_grade_level == "Kinder 2 Junior":
+            return render(request, "sis_app/ViewGradeReportK1K2JRAdmin.html", context)
+        elif student_instance.student_grade_level == "Kinder 2 Senior":
+            return render(request, "sis_app/ViewGradeReportK2SRAdmin.html", context)
 
 @login_required(login_url='sis_app:log_in')
 def toggleRegistration(request):
@@ -824,7 +847,6 @@ def GradeReportFormNursery(request, id):
 
             # Filter objects to specific student 
             x = GradeReport.objects.select_related().filter(student = id)
-
             #Filter objects to specific student and school year
             sy = form.cleaned_data['school_year']
             filteredsy = x.filter(school_year = sy)
