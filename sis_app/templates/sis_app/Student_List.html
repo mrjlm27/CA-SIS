@@ -108,7 +108,15 @@
             <a class="buttonDesignNegative-elements" id = "deleteButton" href="{% url 'sis_app:delete_students_page' %}" class = 'delete'>Delete Students</a>
             <a class="buttonDesignNegative-elements" id = "deleteButton" href="{% url 'sis_app:toggle_registration' %}" class = 'delete'>{{caption}}</a>
         </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="text-danger">
+                    No Quarter 3 Grade Reports for that student. Please Generate a Quarter 3 Grade Report.
+                    </div>
+            {% endfor %}
+        {% endif %}
     </div>
 </body>
     {% comment %} <a class="buttonDesignNegative" href="{% url 'sis_app:student_form' %}">Register a student</a> {% endcomment %}
 </html>
+
