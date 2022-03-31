@@ -230,8 +230,16 @@ def RegstudentForm(request,id = 0):
         if form.is_valid():
             form.save()
         else:
-            messages.error(request, 'error', extra_tags='reginvalidemail')
-            return redirect(f'/RegstudentForm/{id}')
+            a = form.errors.as_data()
+            if 'student_sibling_age' and 'student_guardianemail' in a.keys():
+                messages.error(request, 'error', extra_tags='both')
+                return redirect(f'/RegstudentForm/{id}')
+            elif 'student_sibling_age' in a.keys():
+                messages.error(request, 'error', extra_tags='age')
+                return redirect(f'/RegstudentForm/{id}')
+            elif 'student_guardianemail' in a.keys():
+                messages.error(request, 'error', extra_tags='invalidemail')
+                return redirect(f'/RegstudentForm/{id}')  
         messages.success(request, 'Account Successfully Created. Please wait for account details in your registered email')
         return redirect('sis_app:log_in')   
     context = {'form': form_class}
@@ -241,7 +249,6 @@ def RegstudentForm(request,id = 0):
 @login_required(login_url='sis_app:log_in')
 def studentForm(request,id=0):
     global toggle
-    print(toggle)
     if toggle == True:
         model = Student
         form_class = StudentForm
@@ -262,8 +269,16 @@ def studentForm(request,id=0):
                 form.save()
                 return redirect('sis_app:home')   
             else:
-                messages.error(request, 'error', extra_tags='invalidemail')
-                return redirect(f'/studentForm/{id}')
+                a = form.errors.as_data()
+                if len(a.keys()) == 2:
+                    messages.error(request, 'error', extra_tags='both')
+                    return redirect(f'/RegstudentForm/{id}')
+                if len(a.keys()) == 1 and 'student_sibling_age' in a.keys():
+                    messages.error(request, 'error', extra_tags='age')
+                    return redirect(f'/RegstudentForm/{id}')
+                if len(a.keys()) == 1 and 'student_guardianemail' in a.keys():
+                    messages.error(request, 'error', extra_tags='invalidemail')
+                    return redirect(f'/Reg  studentForm/{id}')      
         context = {'form': form_class}
         context = {'form':form_class, 'student':model}
         return render(request, 'sis_app/Student_Form.html', context)
@@ -291,9 +306,17 @@ def studentForm(request,id=0):
                 form.save()
                 return redirect('sis_app:home')  
             else:
-                messages.error(request, 'error',extra_tags='invalidemail')
-                return redirect(f'/studentForm/{id}')
-             
+                a = form.errors.as_data()
+                if len(a.keys()) == 2:
+                    messages.error(request, 'error', extra_tags='both')
+                    return redirect(f'/studentForm/{id}')
+                if len(a.keys()) == 1 and 'student_sibling_age' in a.keys():
+                    messages.error(request, 'error', extra_tags='age')
+                    return redirect(f'/studentForm/{id}')
+                if len(a.keys()) == 1 and 'student_guardianemail' in a.keys():
+                    messages.error(request, 'error', extra_tags='invalidemail')
+                    return redirect(f'/studentForm/{id}')   
+                
 
 
 # def disabledstudentForm(request,id=0):

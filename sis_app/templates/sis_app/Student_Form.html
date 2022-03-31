@@ -32,12 +32,16 @@
                         <h3 class="Student">STUDENT</h3>
                         {% if messages %}
                             {% for message in messages %}
-                                {%if "invalidemail" in message.tags %}
+                                {%if "both" in message.tags %}
                                 <div class="text-danger">
                                     Invalid email. Please enter a valid email.
+                                    "Sibling's Age" should be a number.
                                     </div>
-                                
-                                 {%elif "reginvalidemail" in message.tags %}
+                                {%elif "age" in message.tags %}
+                                <div class="text-danger">
+                                    "Sibling's Age" should be a number.
+                                    </div>
+                                {%elif "invalidemail" in message.tags%}
                                 <div class="text-danger">
                                     Invalid email. Please enter a valid email.
                                     </div>
