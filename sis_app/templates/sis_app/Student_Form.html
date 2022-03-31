@@ -30,6 +30,13 @@
                         {% csrf_token %}
 
                         <h3 class="Student">STUDENT</h3>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="text-danger">
+                                    Invalid email. Please enter a valid email.
+                                    </div>
+                            {% endfor %}
+                        {% endif %}
                         
                         <div class="row"> <!--1st row-->
                             <div class="form-group col-md-4">

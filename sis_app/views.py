@@ -217,7 +217,11 @@ def RegstudentForm(request,id = 0):
             form = StudentForm(request.POST,instance=student)
         if form.is_valid():
             form.save()
-        return redirect('sis_app:log_in')
+        else:
+            messages.error(request, 'error')
+            return redirect(f'/RegstudentForm/{id}')
+        messages.success(request, 'Account Successfully Created. Please wait for account details in your registered email')
+        return redirect('sis_app:log_in')   
     context = {'form': form_class}
     context = {'form':form_class, 'student':model}
     return render(request, 'sis_app/Student_Form.html', context)
