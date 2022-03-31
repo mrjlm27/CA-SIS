@@ -85,9 +85,9 @@
                 {% for message in messages %}
                     {%if "username" in message.tags %}
                         <li class= "text-danger"> Please choose another username.</li> 
-                    {%endif%}
+                    
 
-                    {%if "password" in message.tags %}
+                    {%elif "password" in message.tags %}
                     <div class="text-danger">
                         Invalid Password. Please take note of the following:
                         <ul>
