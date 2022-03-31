@@ -2,6 +2,7 @@ from asyncore import read
 from audioop import avg
 from email import header
 from multiprocessing import context
+from django.forms import ValidationError
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -33,6 +34,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.password_validation import validate_password
 
 
 # GLOBAL VARIABLES
@@ -106,16 +108,26 @@ def EditAccountCred(request):
         user = User.objects.get(username=old_u,password=old_p)
         new_username = request.POST.get('username')
         new_password = request.POST.get('password')
-        # user.set_username(new_username)
-        user_id = request.user.id
-        student_entity = Student.objects.get(pk = user_id)
-        student_entity.username = new_username
-        student_entity.password = make_password(new_password)
-        student_entity.save()
-        user.username = new_username
-        user.set_password(new_password)
-        user.save()
-        return redirect('sis_app:log_in')
+        if User.objects.filter(username=new_username).exists():
+                messages.error(request,'username taken', extra_tags='username')
+                return redirect(f'/editAccount')
+        else:
+            try:
+                validate_password(new_password)
+                # user.set_username(new_username)
+                user_id = request.user.id
+                student_entity = Student.objects.get(pk = user_id)
+                student_entity.username = new_username
+                student_entity.password = make_password(new_password)
+                student_entity.save()
+                user.username = new_username
+                user.set_password(new_password)
+                user.save()
+                messages.success(request, 'Account Details successfully changed. Please login again.')
+                return redirect('sis_app:log_in')
+            except ValidationError:
+                messages.error(request, 'error', extra_tags='password')
+                return redirect(f'/editAccount')
     context={}
     return render(request, 'sis_app/Account_Edit.html', context)
 
