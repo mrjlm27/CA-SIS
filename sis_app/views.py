@@ -230,7 +230,7 @@ def RegstudentForm(request,id = 0):
         if form.is_valid():
             form.save()
         else:
-            messages.error(request, 'error')
+            messages.error(request, 'error', extra_tags='reginvalidemail')
             return redirect(f'/RegstudentForm/{id}')
         messages.success(request, 'Account Successfully Created. Please wait for account details in your registered email')
         return redirect('sis_app:log_in')   
@@ -260,7 +260,10 @@ def studentForm(request,id=0):
                 form = StudentForm(request.POST,instance=student)
             if form.is_valid():
                 form.save()
-            return redirect('sis_app:log_in')
+                return redirect('sis_app:home')   
+            else:
+                messages.error(request, 'error', extra_tags='invalidemail')
+                return redirect(f'/studentForm/{id}')
         context = {'form': form_class}
         context = {'form':form_class, 'student':model}
         return render(request, 'sis_app/Student_Form.html', context)
@@ -286,7 +289,11 @@ def studentForm(request,id=0):
                 form = StudentFormDisabled(request.POST,instance=student)
             if form.is_valid():
                 form.save()
-            return redirect('sis_app:log_in')
+                return redirect('sis_app:home')  
+            else:
+                messages.error(request, 'error',extra_tags='invalidemail')
+                return redirect(f'/studentForm/{id}')
+             
 
 
 # def disabledstudentForm(request,id=0):
