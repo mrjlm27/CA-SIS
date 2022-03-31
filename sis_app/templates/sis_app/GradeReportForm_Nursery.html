@@ -78,7 +78,13 @@
                     <form action="" method="post" autocomplete="off">
                             {% csrf_token %}
                             {% comment %} {{ form.as_p }} {% endcomment %}
-
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="text-danger">
+                                        Invalid input. Please input a non-negative number.
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
                             <div class="row"> <!--1st row-->
                                 <div class="form-group col-md-6">
                                     {{ form.school_year|as_crispy_field }}
@@ -478,13 +484,7 @@
                                     {{ form.absences|as_crispy_field }}
                                 </div>
                             </div>
-                            {% if messages %}
-                                {% for message in messages %}
-                                    <div class="text-danger">
-                                        Invalid input. Please input a non-negative number.
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
+
 
                             <div class="buttonContainer">
 

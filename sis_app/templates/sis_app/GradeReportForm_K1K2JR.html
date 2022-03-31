@@ -71,12 +71,19 @@
     <hr id = "baseHR">
     <h2 class="pageHeading">{{student_name}}</h2>
 
+
         <div class="formContainer">
             <div class="formGroup">
                 <form action="" method="post" autocomplete="off">
                         {% csrf_token %}
                         {% comment %} {{ form.as_p }} {% endcomment %}
-                        
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="text-danger">
+                                    Invalid input found. Please input a non-negative number. Grades should also not exceed a value of 100.
+                                </div>
+                            {% endfor %}
+                        {% endif %}
                         <div class="row"> <!--1st row-->
                             <div class="form-group col-md-6">
                                 {{ form.school_year|as_crispy_field }}
@@ -311,13 +318,7 @@
 
                         <br>
 
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="text-danger">
-                                    Invalid input found. Please input a non-negative number. Grades should also not exceed a value of 100.
-                                </div>
-                            {% endfor %}
-                        {% endif %}
+
 
                         <div class="buttonContainer">
 
