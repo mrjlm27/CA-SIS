@@ -35,7 +35,7 @@ urlpatterns=[
     path('Delete_Students',views.deleteStudents, name = "delete_students"),
     path('ToggleRegistration',views.toggleRegistration, name = "toggle_registration"),
     path('logout', views.logout, name="log_out"),
-    path('announcement_form',views.announcement_form, name='announcement_form')
+    path('announcement_form',views.announcement_form, name='announcement_form'),
     path('GradeReportAdmin/<int:id>', views.viewGradeReportAdmin, name="gradereport_admin"),
     path('ViewGradeReportAdmin2/<int:id>',views.viewGradeReportAdmin2, name = "viewGradeReportAdmin2"),
 ]
