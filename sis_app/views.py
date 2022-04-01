@@ -140,26 +140,35 @@ def EditAccountCred_admin(request,id):
             user_entity = User.objects.get(pk = id)
             new_username = request.POST.get('username')
             new_password = request.POST.get('password')
+            if User.objects.filter(username=new_username).exists():
+                messages.error(request,'username taken', extra_tags='username')
+                return redirect(f'/Admin_EditAccount/{id}')
+            else:
             # user.set_username(new_username)
-            student_entity = Student.objects.get(pk = id)
-            student_entity.username = new_username
-            student_entity.password = new_password
+                try:
+                    validate_password(new_password)
+                    student_entity = Student.objects.get(pk = id)
+                    student_entity.username = new_username
+                    student_entity.password = new_password
 
-            #sending new user and pass to student via email
-            send_mail(
-                        'CAMELEAN ACADEMY SIS CHANGE OF USERNAME AND PASSWORD',
-                        "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON LOGGING IN".format(student_entity.username, student_entity.password),
-                        None,
-                        ['gmgtechdev@gmail.com'],#this is the recipient(change this to email of student later)[student_entity.email]
-                        fail_silently=False,
-                    )
+                    #sending new user and pass to student via email
+                    send_mail(
+                                'CAMELEAN ACADEMY SIS CHANGE OF USERNAME AND PASSWORD',
+                                "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON LOGGING IN".format(student_entity.username, student_entity.password),
+                                None,
+                                [student_entity.student_guardianemail],#this is the recipient(change this to email of student later)[student_entity.email]
+                                fail_silently=False,
+                            )   
 
-            student_entity.password = make_password(new_password)
-            student_entity.save()
-            user_entity.username = new_username
-            user_entity.set_password(new_password)
-            user_entity.save()
-            return redirect('sis_app:student_list')
+                    student_entity.password = make_password(new_password)
+                    student_entity.save()
+                    user_entity.username = new_username
+                    user_entity.set_password(new_password)
+                    user_entity.save()
+                    return redirect('sis_app:student_list')
+                except ValidationError:
+                    messages.error(request, 'error', extra_tags='password')
+                    return redirect(f'/Admin_EditAccount/{id}')
         context={}
         return render(request, 'sis_app/Admin_Account_Edit.html', context)
     else:
