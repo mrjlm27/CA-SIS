@@ -91,6 +91,16 @@ class StudentForm(forms.ModelForm):
 
         required = {
             'student_likes': False,
+            'student_sibling_age': False,
+            'student_sibling_name': False,
+            'student_sibling_gender': False,
+            'student_sibling_school': False,
+            'student_religion': False,
+            'student_oconsiderations': False,
+            'student_f_natureofbusiness': False,
+            'student_m_natureofbusiness': False,
+            'student_m_otelno': False,
+            'student_f_otelno': False, 
         }
 
         widgets = {
@@ -248,6 +258,16 @@ class StudentFormDisabled(forms.ModelForm):
 
         required = {
             'student_likes': False,
+            'student_sibling_age': False,
+            'student_sibling_name': False,
+            'student_sibling_gender': False,
+            'student_sibling_school': False,
+            'student_religion': False,
+            'student_oconsiderations': False,
+            'student_f_natureofbusiness': False,
+            'student_m_natureofbusiness': False,
+            'student_m_otelno': False,
+            'student_f_otelno': False, 
         }
 
         widgets = {
