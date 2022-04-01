@@ -82,6 +82,7 @@
                         <th>Edit Student Information</th>
                         <th>Edit Account Credentials</th>
                         <th>Encode a Payment</th>
+                        <th>View GradeReport</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -96,7 +97,7 @@
                         <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:reg_student_form' student.id %}">Edit Student Info</a></td>
                         <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:admin_account_edit' student.id %}">Edit Credentials</a></td>
                         <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:payment_form' student.id %}">Encode a Payment</a></td>
-
+                        <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:gradereport_admin' student.id %}">View GradeReports</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

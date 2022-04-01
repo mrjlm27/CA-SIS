@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;500&family=Rubik:wght@300;400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static "styles\pList.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "styles/sList.css" %}" type="text/css">
 
 </head>
 
@@ -26,9 +26,6 @@
                 <tbody>
                     <tr class = "navbarTr">
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a></td>
-                    </tr>
-                    <tr class = "navbarTr">
-                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:announcement_form' %}">Make an Announcement</a></td>
                     </tr>
                     <tr class = "navbarTr">
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:registration_list' %}">Registration List</a></td>
@@ -60,44 +57,28 @@
         </div>
     </div>
     <div class = "elements">
-        <h2 class="pageHeading">View Payments</h2>
-
-        <hr id = "baseHR">
-
+        <h2 class="pageHeading">View GradeReports of {{student.student_firstname}} {{student.student_lastname}}</h2>
+        <hr id="baseHR">
         <div class="form-container">
-            <form method="get" style=>
-                {{myPFilter.form}}
-                <button class="buttonDesignPositive" type="submit">Search</button>
-            </form>
         </div>
 
         <div class="table-container">
             <table class = "table table-borderless">
                 <thead class= "border-bottom font-weight-bold">
                     <tr>
-                        <th>Student ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Date of Payment</th>
-                        <th>Amount of Payment</th>
-                        <th>Enrollment Type</th>
-                        <th>Outstanding Balance</th>
-                        <th>Enrollment Status</th>
-                        <th></th>
-                        <th></th>
+                        <th>School Year</th>
+                        <th>Grade Level</th>
+                        <th>Period</th>
+                        <th>View GradeReport</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for payment in paymentList %}
+                    {% for gradereport in GradeReportList %}
                     <tr>
-                        <td data-heading="Student ID">{{payment.getstudentid}}</td>
-                        <td data-heading="First Name">{{payment.getstudentfirstname}}</td>
-                        <td data-heading="Last Name">{{payment.getstudentlastname}}</td>
-                        <td data-heading="Date of Payment">{{payment.paymentdate_date}}</td>
-                        <td data-heading="Amount of Payment">{{payment.payment_amount}}</td>
-                        <td data-heading="Enrollment Type">{{payment.enrollment_type}}</td>
-                        <td data-heading="Outstanding Balance">{{payment.outstandingbalance}}</td>
-                        <td data-heading="Enrollment Status">{{payment.getstudentenrollmentstatus}}</td>
+                        <td data-heading="First Name">{{gradereport.school_year}}</td>
+                        <td data-heading="Last Name">{{gradereport.gradelevel}}</td>
+                        <td data-heading="Enrollment Status">{{gradereport.grading_period}}</td>
+                        <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:viewGradeReportAdmin2' gradereport.id %}">View GradeReport</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -105,10 +86,10 @@
             </table>
         </div>
         <div class="buttonContainer">
-            {% comment %} <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:payment_form' %}">Encode a Payment</a> {% endcomment %}
-            <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:reset_BA' %}">reset Bi-Annual Payments</a>
-            <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:reset_Q' %}">reset Quarterly Payments</a>
-            <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:reset_ALL' %}">reset ALL Payments</a>
+
+            <a class="buttonDesignNegative-elements" href="{% url 'sis_app:student_list' %}" id='cancelButton'>Cancel</a>
+
+
         </div>
     </div>
 </body>

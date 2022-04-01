@@ -1,6 +1,7 @@
 from asyncore import read
 from audioop import avg
 from email import header
+from http.client import HTTPResponse
 from multiprocessing import context
 from django.forms import ValidationError
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
@@ -35,6 +36,8 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.password_validation import validate_password
+from django.db import IntegrityError
+from django.shortcuts import render_to_response
 
 
 # GLOBAL VARIABLES
@@ -181,6 +184,29 @@ def StudentList(request):
     else:
         return redirect('sis_app:home')
 
+@login_required(login_url='sis_app:log_in')
+def viewGradeReportAdmin(request, id):
+    if request.user.is_superuser:
+        student = Student.objects.get(pk=id)
+        gradereports = GradeReport.objects.select_related().filter(student = student)
+        context = {'student' : student, 'GradeReportList': gradereports}
+        return render(request,"sis_app/ViewGradeReportAdmin.html", context)
+    else:
+        return redirect('sis_app:home')
+
+@login_required(login_url='sis_app:log_in')
+def viewGradeReportAdmin2(request, id):
+    if request.user.is_superuser:
+        grade_report = GradeReport.objects.get(pk=id)
+        student = grade_report.student.pk
+        student_instance = Student.objects.get(pk = student)
+        context = {"grade_report":grade_report, "student":student_instance}
+        if student_instance.student_grade_level == "Nursery":
+            return render(request, "sis_app/ViewGradeReportNAdmin.html", context)
+        elif student_instance.student_grade_level == "Kinder 1" or student_instance.student_grade_level == "Kinder 2 Junior":
+            return render(request, "sis_app/ViewGradeReportK1K2JRAdmin.html", context)
+        elif student_instance.student_grade_level == "Kinder 2 Senior":
+            return render(request, "sis_app/ViewGradeReportK2SRAdmin.html", context)
 
 @login_required(login_url='sis_app:log_in')
 def toggleRegistration(request):
@@ -470,6 +496,11 @@ def paymentForm(request, id):
     
             paymentstudentid.save()
             print(paymentstudentid.outstandingbalance)
+
+            payments = Payment.objects.latest('id')
+            student = Student.objects.get(pk=id)
+            payments.enrollment_type = student.student_enrollment_plan
+            payments.save()
 
             updateEnrollmentStatus(request, id)
             payments = Payment.objects.latest('id')
@@ -1571,30 +1602,37 @@ def GradeReportFormKinder2Senior(request, id):
 @login_required(login_url='sis_app:log_in')
 def viewGradeReport(request):
     user_id = request.user.id
-    student_instance = Student.objects.get(pk = user_id)
-    grade_report = GradeReport.objects.filter(student = student_instance).latest('pk')
     model = GradeReport
     form_class = AcknowledgementForm
-    if request.method == 'POST':
-        x = request.POST.get('gr_acknowledgement')
-        if x == 'on':
-            x = 'True'
-        else:
-            x = 'False'
-        print(x)
-        grade_report.gr_acknowledgement = x
-        grade_report.save()
-        print(grade_report.gr_acknowledgement)
-        return redirect('sis_app:home')  
-    print(grade_report)
-    context = {"grade_report":grade_report, 'form':form_class}
-    if student_instance.student_grade_level == "Nursery":
-        return render(request, "sis_app/ViewGradeReportN.html", context)
-    elif student_instance.student_grade_level == "Kinder 1" or student_instance.student_grade_level == "Kinder 2 Junior":
-        return render(request, "sis_app/ViewGradeReportK1K2JR.html", context)
-    elif student_instance.student_grade_level == "Kinder 2 Senior":
-        return render(request, "sis_app/ViewGradeReportK2SR.html", context)
-
+    student_instance = Student.objects.get(pk = user_id)
+    try:
+        grade_report = GradeReport.objects.filter(student = student_instance).latest('pk')
+    except GradeReport.DoesNotExist:
+        grade_report = None
+        return render(request, 'sis_app/ViewGradeReport_Error.html') 
+    
+    if student_instance.enrollment_status == "Enrolled":
+        if request.method == 'POST':
+            x = request.POST.get('gr_acknowledgement')
+            if x == 'on':
+                x = 'True'
+            grade_report.gr_acknowledgement = x
+            grade_report.save()
+            return redirect('sis_app:home')
+            # try:
+            #     grade_report.save()
+            # except IntegrityError:
+            #     return render_to_response("sis_app/ViewGradeReportN.html", {{'message'}})
+            # return redirect('sis_app:home')
+        context = {"grade_report":grade_report, 'form':form_class, "student":student_instance}
+        if student_instance.student_grade_level == "Nursery":
+           return render(request, "sis_app/ViewGradeReportN.html", context)
+        elif student_instance.student_grade_level == "Kinder 1" or student_instance.student_grade_level == "Kinder 2 Junior":
+            return render(request, "sis_app/ViewGradeReportK1K2JR.html", context)
+        elif student_instance.student_grade_level == "Kinder 2 Senior":
+            return render(request, "sis_app/ViewGradeReportK2SR.html", context)
+    elif student_instance.enrollment_status == "Not Enrolled":
+        return render(request, 'sis_app/ViewGradeReport_Error_Enrollment.html')
     
 
 #make another generateTable functions here to cater to the different grade levels

@@ -24,22 +24,31 @@
                 </thead>
 
                 <tbody>
-                    <tr class="navbarTr">
+                    <tr class = "navbarTr">
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a></td>
                     </tr>
-                    <tr class="navbarTr">
-                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:edit_acc' %}">Edit Account Credentials</a></td>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:registration_list' %}">Registration List</a></td>
                     </tr>
-                    <tr class="navbarTr">
-                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_form' user.id %}">Edit Student Information</a></td>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_list' %}">View Student List</a></td>
                     </tr>
-                    <tr class="navbarTr">
-                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_paymentview' %}">View Payments</a></td>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:payment_list' %}">View Payment Records</a></td>
                     </tr>
-                    <tr class="navbarTr">
-                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:viewGradeReport' %}">View Grade Report</a></td>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_enrollment' %}">View Student Enrollment Report</a></td>
                     </tr>
-                    <tr class="navbarTr">
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_nursery' %}">Generate Grade Reports<br> Nursery</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_k1k2jr' %}">Generate Grade Reports<br> K1 Jr. & K2 Jr.</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_kinder2senior' %}">Generate Grade Reports<br> K2 Sr.</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
                     <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
                     </tr>
                 </tbody>
@@ -472,7 +481,24 @@
         </div>
 
         <h3 class="pageHeading">Acknowledgement</h3>
-        <hr>
+        <tbody class="gradesBody">
+            <div class="table-container">
+                <table class = "table table-borderless">
+                    <thead class= "border-bottom font-weight-bold">
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody class="gradesBody">
+                        <tr>
+                            <td>{% ifequal grade_report.gr_acknowledgement True %} <p style="color:green">This Grade Report has been Acknowledged</p>
+                                {% endifequal %}
+                                {% ifequal grade_report.gr_acknowledgement False %} <p style="color:red">This Grade Report has NOT been Acknowledged yet </p>
+                                {% endifequal %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         <div class="formContainer">
             <div class="formGroup">
                 <form action="" method="post" autocomplete="off">
@@ -480,9 +506,7 @@
                         {{ form.as_p }}
                         <div class="buttonContainer">
 
-                            <a class="cancelButton" href="{% url 'sis_app:home' %}">Cancel</a>
-
-                            <button class="submitButton">Submit</button>
+                            <a class="cancelButton" onclick="history.back()">Cancel</a>
 
                         </div>
                 </form>

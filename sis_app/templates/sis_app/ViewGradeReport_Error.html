@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Camelean Acacdemy</title>
+	
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;500&family=Rubik:wght@300;400&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+	<link rel="stylesheet" href="{% static "styles/viewGradeReport.css" %}" type="text/css">
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="table-container">
+            <table class="navbarTable">
+                <thead class= "border-bottom font-weight-bold">
+                    <h1 class="navbarHeader">Camelean<br>Academy</h1>
+                </thead>
+
+                <tbody>
+                    <tr class="navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a></td>
+                    </tr>
+                    <tr class="navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:edit_acc' %}">Edit Account Credentials</a></td>
+                    </tr>
+                    <tr class="navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_form' user.id %}">Edit Student Information</a></td>
+                    </tr>
+                    <tr class="navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:student_paymentview' %}">View Payments</a></td>
+                    </tr>
+                    <tr class="navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:viewGradeReport' %}">View Grade Report</a></td>
+                    </tr>
+                    <tr class="navbarTr">
+                    <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="gradeReportBody">
+        <h1 class="gradeReportHeading">No current grade report for this student</h1>
+        <hr id="gradeReportHR">
+    </div>
+</body>

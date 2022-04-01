@@ -649,7 +649,6 @@ class GradeReportFormK2SR(forms.ModelForm):
             'filipino4': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
-            # 'school_year': forms.DateInput(attrs={'class': 'form-control'}),
             'grading_period': forms.Select(attrs={'class': 'form-control'}),
         }
 
@@ -761,7 +760,6 @@ class GradeReportFormK1K2JR(forms.ModelForm):
             'penmanship4': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
-            # 'school_year': forms.DateInput(attrs={'class': 'form-control'}),
             'grading_period': forms.Select(attrs={'class': 'form-control'}),
         }
 
@@ -947,7 +945,6 @@ class GradeReportFormN(forms.ModelForm):
             'N_good_moral_valueformation9': forms.Select(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
-            # 'school_year': forms.DateInput(attrs={'class': 'form-control'}),
             'grading_period': forms.Select(attrs={'class': 'form-control'}),
         }
 
@@ -957,7 +954,11 @@ class AcknowledgementForm(forms.ModelForm):
         model=GradeReport
         fields =  ('gr_acknowledgement',)
 
-        widgets = {'gr_acknowledgement': forms.CheckboxInput(attrs={'class': 'form-control'}),}
+        widgets = {'gr_acknowledgement': forms.CheckboxInput(attrs={'class': 'form-control','required':True}),}
 
         labels = {'gr_acknowledgement': "Please click on the box to acknowledge that you have seen the student's report card",
         }
+
+        def __init__(self,*args,**kwargs):
+            super(AcknowledgementForm,self).__init__(*args, **kwargs)
+            self.fields['gr_acknowledgement'].required=True
