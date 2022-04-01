@@ -37,7 +37,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.password_validation import validate_password
 from django.db import IntegrityError
-from django.shortcuts import render_to_response
+# from django.shortcuts import render_to_response
 
 
 # GLOBAL VARIABLES
