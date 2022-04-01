@@ -36,6 +36,9 @@
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a></td>
                     </tr>
                     <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:announcement_form' %}">Make an Announcement</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:registration_list' %}">Registration List</a></td>
                     </tr>
                     <tr class = "navbarTr">
@@ -481,6 +484,13 @@
                                     {{ form.absences|as_crispy_field }}
                                 </div>
                             </div>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="text-danger">
+                                        Invalid input. Please input a non-negative number.
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
 
                             <div class="buttonContainer">
 

@@ -28,6 +28,9 @@
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a></td>
                     </tr>
                     <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:announcement_form' %}">Make an Announcement</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:registration_list' %}">Registration List</a></td>
                     </tr>
                     <tr class = "navbarTr">
@@ -102,7 +105,7 @@
             </table>
         </div>
         <div class="buttonContainer">
-            <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:payment_form' %}">Encode a Payment</a>
+            {% comment %} <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:payment_form' %}">Encode a Payment</a> {% endcomment %}
             <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:reset_BA' %}">reset Bi-Annual Payments</a>
             <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:reset_Q' %}">reset Quarterly Payments</a>
             <a class="buttonDesignNegative-elements" id="filterButton" href="{% url 'sis_app:reset_ALL' %}">reset ALL Payments</a>

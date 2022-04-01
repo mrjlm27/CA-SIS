@@ -2,6 +2,19 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from .models import *
 
+
+class AnnouncementForm(forms.ModelForm):
+    class Meta:
+        model = Announcement
+        fields = ('header','announcement')
+        labels = {
+            'header':'Header',
+            'announcement':'Announcement Caption/Spiel'
+        }
+        widgets = {
+            'header':forms.TextInput(attrs={'class': 'form-control'}),
+            'announcement':forms.Textarea(attrs={'name':'body', 'rows':'10', 'cols':'45'})
+        }
 class StudentForm(forms.ModelForm):
     student_schoolyear_start:forms.TypedChoiceField(coerce=int, choices=year_choices, initial=current_year)
     class Meta:
@@ -78,12 +91,22 @@ class StudentForm(forms.ModelForm):
 
         required = {
             'student_likes': False,
+            'student_sibling_age': False,
+            'student_sibling_name': False,
+            'student_sibling_gender': False,
+            'student_sibling_school': False,
+            'student_religion': False,
+            'student_oconsiderations': False,
+            'student_f_natureofbusiness': False,
+            'student_m_natureofbusiness': False,
+            'student_m_otelno': False,
+            'student_f_otelno': False, 
         }
 
         widgets = {
-            'student_schoolyear_start': forms.TextInput(attrs={'class': 'form-control', 'background-color': 'red'}),
+            'student_schoolyear_start': forms.Select(attrs={'class': 'form-control', 'background-color': 'red'}),
             'student_grade_level': forms.Select(attrs={'class': 'form-control'}),
-            'student_birthday': forms.DateInput(attrs={'class': 'form-control'}),
+            'student_birthday': forms.SelectDateWidget(attrs={'class': 'form-control'}),
 
             'student_firstname': forms.TextInput(attrs={'class': 'form-control'}),
             'student_lastname': forms.TextInput( attrs={'class': 'form-control'}),
@@ -235,10 +258,20 @@ class StudentFormDisabled(forms.ModelForm):
 
         required = {
             'student_likes': False,
+            'student_sibling_age': False,
+            'student_sibling_name': False,
+            'student_sibling_gender': False,
+            'student_sibling_school': False,
+            'student_religion': False,
+            'student_oconsiderations': False,
+            'student_f_natureofbusiness': False,
+            'student_m_natureofbusiness': False,
+            'student_m_otelno': False,
+            'student_f_otelno': False, 
         }
 
         widgets = {
-            'student_birthday': forms.DateInput(attrs={'class': 'form-control'}),
+            'student_birthday': forms.SelectDateWidget(attrs={'class': 'form-control'}),
 
             'student_address': forms.TextInput(attrs={'class': 'form-control'}),
 
@@ -360,27 +393,27 @@ gradelevel_choices = [
 class PaymentForm(forms.ModelForm):
     class Meta:
         model=Payment
-        fields = ('payment_s_account_id','paymentdate_date','payment_amount','school_year_end')
+        fields = ('paymentdate_date','payment_amount',)
         labels = {
-            'payment_s_account_id': 'Input Student ID',
+            # 'payment_s_account_id': 'Input Student ID',
             'paymentdate_date': 'Date of Payment',
             'payment_amount': 'Amount of Payment',
-            'school_year_end': 'End of School Year',
+            # 'school_year_end': 'End of School Year',
         }
         widgets = {
-            'payment_s_account_id': forms.Select(attrs={'class': 'form-control'}),
+            # 'payment_s_account_id': forms.Select(attrs={'class': 'form-control'}),
             'paymentdate_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
             'payment_amount': forms.NumberInput(attrs={'class': 'form-control'}),
-            'school_year_end': forms.NumberInput(attrs={'class': 'form-control'}),
+            # 'school_year_end': forms.NumberInput(attrs={'class': 'form-control'}),
         }
         # error_messages = {
         #     'payment_amount': {
         #         'invalid': _("Student ID does not exist"),
         #     },
         # }
-    def __init__(self, *args, **kwargs):
-        super(PaymentForm, self).__init__(*args, **kwargs)
-        self.fields['payment_s_account_id'].widget = forms.TextInput()
+    # def __init__(self, *args, **kwargs):
+    #     super(PaymentForm, self).__init__(*args, **kwargs)
+    #     self.fields['payment_s_account_id'].widget = forms.TextInput()
 
 class GradeReportForm(forms.ModelForm):
     class Meta:
@@ -446,7 +479,7 @@ class GradeReportForm(forms.ModelForm):
         }
 
         widgets = {
-            'school_year':forms.Select(choices=YEAR_CHOICES),
+            'school_year':forms.Select(attrs={'class': 'form-control'}),
             'readingreadiness1': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness2': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness3': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -565,8 +598,7 @@ class GradeReportFormK2SR(forms.ModelForm):
         }
 
         widgets = {
-            'school_year':forms.Select(choices=YEAR_CHOICES),
-            'gradelevel':forms.Select(attrs={'class': 'form-control'}),
+            'school_year':forms.Select(attrs={'class': 'form-control'}),
             'readingreadiness1': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness2': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness3': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -617,7 +649,7 @@ class GradeReportFormK2SR(forms.ModelForm):
             'filipino4': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
-            'school_year': forms.DateInput(attrs={'class': 'form-control'}),
+            # 'school_year': forms.DateInput(attrs={'class': 'form-control'}),
             'grading_period': forms.Select(attrs={'class': 'form-control'}),
         }
 
@@ -682,8 +714,7 @@ class GradeReportFormK1K2JR(forms.ModelForm):
         }
 
         widgets = {
-            'school_year':forms.Select(choices=YEAR_CHOICES),
-            'gradelevel':forms.Select(attrs={'class': 'form-control'}),
+            'school_year':forms.Select(attrs={'class': 'form-control'}),
             'readingreadiness1': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness2': forms.NumberInput(attrs={'class': 'form-control'}),
             'readingreadiness3': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -730,7 +761,7 @@ class GradeReportFormK1K2JR(forms.ModelForm):
             'penmanship4': forms.NumberInput(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
-            'school_year': forms.DateInput(attrs={'class': 'form-control'}),
+            # 'school_year': forms.DateInput(attrs={'class': 'form-control'}),
             'grading_period': forms.Select(attrs={'class': 'form-control'}),
         }
 
@@ -836,8 +867,7 @@ class GradeReportFormN(forms.ModelForm):
         }
 
         widgets = {
-            'school_year':forms.Select(choices=YEAR_CHOICES),
-            'gradelevel':forms.Select(attrs={'class': 'form-control'}),
+            'school_year':forms.Select(attrs={'class': 'form-control'}),
             'Nlanguage1': forms.Select(attrs={'class': 'form-control'}),
             'Nlanguage2': forms.Select(attrs={'class': 'form-control'}),
             'Nlanguage3': forms.Select(attrs={'class': 'form-control'}),
@@ -917,7 +947,7 @@ class GradeReportFormN(forms.ModelForm):
             'N_good_moral_valueformation9': forms.Select(attrs={'class': 'form-control'}),
             'school_days': forms.NumberInput(attrs={'class': 'form-control'}),
             'absences': forms.NumberInput(attrs={'class': 'form-control'}),
-            'school_year': forms.DateInput(attrs={'class': 'form-control'}),
+            # 'school_year': forms.DateInput(attrs={'class': 'form-control'}),
             'grading_period': forms.Select(attrs={'class': 'form-control'}),
         }
 

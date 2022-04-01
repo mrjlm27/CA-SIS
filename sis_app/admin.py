@@ -16,4 +16,5 @@ admin.site.register(Teacher)
 admin.site.register(Payment)
 admin.site.register(TranscriptOfRecord)
 admin.site.register(GradeReport)
+admin.site.register(Announcement)
 

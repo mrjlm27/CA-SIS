@@ -80,7 +80,7 @@
             <td data-heading="School Year Start">{{sy_start}}</td>
             <td data-heading="School Year End">{{sy_end}}</td>
             <td data-heading="Enrollment Type">
-              {{student.student_enrollment_plan}}
+              {{payment.enrollment_type}}
             </td>
             <td data-heading="Enrollment Status">{{student.enrollment_status}}</td>
             <td data-heading="Outstanding Balance">
@@ -112,7 +112,7 @@
             <td data-heading="Date of Payment">{{payment.paymentdate_date}}</td>
             <td data-heading="School Year Start">{{payment.get_sy_start}}</td>
             <td data-heading="School Year End">{{payment.get_sy_end}}</td>
-            <td data-heading="Enrollment Type">{{payment.getenrollmentplan}}</td>
+            <td data-heading="Enrollment Type">{{payment.enrollment_type}}</td>
             <td data-heading="Amount of Payment">{{payment.payment_amount}}</td>
           </tr>
           {% endfor %}

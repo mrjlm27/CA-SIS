@@ -28,6 +28,9 @@
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Home</a></td>
                     </tr>
                     <tr class = "navbarTr">
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:announcement_form' %}">Make an Announcement</a></td>
+                    </tr>
+                    <tr class = "navbarTr">
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:registration_list' %}">Registration List</a></td>
                     </tr>
                     <tr class = "navbarTr">
@@ -49,7 +52,7 @@
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_kinder2senior' %}">Generate Grade Reports<br> K2 Sr.</a></td>
                     </tr>
                     <tr class = "navbarTr">
-                    <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
                     </tr>
                 </tbody>
             
@@ -78,7 +81,7 @@
                         <th>Generate Transcript of Records</th>
                         <th>Edit Student Information</th>
                         <th>Edit Account Credentials</th>
-                        <th></th>
+                        <th>Encode a Payment</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,6 +95,8 @@
                         <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:generate_tor' student.id %}">Generate TOR</a></td>
                         <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:reg_student_form' student.id %}">Edit Student Info</a></td>
                         <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:admin_account_edit' student.id %}">Edit Credentials</a></td>
+                        <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:payment_form' student.id %}">Encode a Payment</a></td>
+
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -103,7 +108,15 @@
             <a class="buttonDesignNegative-elements" id = "deleteButton" href="{% url 'sis_app:delete_students_page' %}" class = 'delete'>Delete Students</a>
             <a class="buttonDesignNegative-elements" id = "deleteButton" href="{% url 'sis_app:toggle_registration' %}" class = 'delete'>{{caption}}</a>
         </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="text-danger">
+                    No Quarter 3 Grade Reports for that student. Please Generate a Quarter 3 Grade Report.
+                    </div>
+            {% endfor %}
+        {% endif %}
     </div>
 </body>
     {% comment %} <a class="buttonDesignNegative" href="{% url 'sis_app:student_form' %}">Register a student</a> {% endcomment %}
 </html>
+

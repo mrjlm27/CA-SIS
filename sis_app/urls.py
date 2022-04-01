@@ -15,7 +15,7 @@ urlpatterns=[
     # path('studentFormMidYr/<int:id>',views.disabledstudentForm, name="disabled_student_form"),
     path('RegistrationList',views.RegistrationList, name="registration_list"),
     path('GenerateAccount/<int:id>',views.GenerateAccount, name="generate_account"),
-    path('paymentForm',views.paymentForm, name="payment_form"),
+    path('paymentForm/<int:id>',views.paymentForm, name="payment_form"),
     path('paymentList',views.paymentList, name="payment_list"),
     path('resetBiAnnually',views.resetBAEnrollmentStatus, name="reset_BA"),
     path('resetQuarterly',views.resetQEnrollmentStatus, name="reset_Q"),
@@ -35,4 +35,5 @@ urlpatterns=[
     path('Delete_Students',views.deleteStudents, name = "delete_students"),
     path('ToggleRegistration',views.toggleRegistration, name = "toggle_registration"),
     path('logout', views.logout, name="log_out"),
+    path('announcement_form',views.announcement_form, name='announcement_form')
 ]

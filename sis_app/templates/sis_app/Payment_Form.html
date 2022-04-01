@@ -25,26 +25,16 @@
     <hr>
     <div class="formContainer">
         <div class="formGroup">
-            {% comment %} {% if messages %}
-            {% for message in messages %}
-                <div class="text-danger">
-                    Invalid Form Submission. Please take note of the following:
-                    <ul>
-                        <li class="text-danger">Ensure that the item is not existing in the database</li>
-                        <li class="text-danger">Date input must be valid (YY-MM-DD)</li>
-                        <li class="text-danger">Ensure that the expiry date is set to the current or a later date</li>
-                        <li class="text-danger">Threshold Value and Quantity must not exceed 8 characters</li>
-                    </ul>
-                </div>
-            {% endfor %}
-            {% endif %} {% endcomment %}
             <form action="" method="post" autocomplete="off">
                     {% csrf_token %}
+
                     {% comment %} {{ form.as_p }} {% endcomment %}
                     
-                    <div class="form-group col">
+                    {% comment %} <div class="form-group col">
                         {{ form.payment_s_account_id|as_crispy_field }}
-                    </div>
+                    </div> {% endcomment %}
+                    {% comment %} <div><input type="hidden" name="studentid" 
+                    id="inputID" value="India" ></div> {% endcomment %}
                     
                     <div class="form-group col">
                         {{ form.paymentdate_date|as_crispy_field }}
@@ -53,10 +43,19 @@
                     <div class="form-group col">
                         {{ form.payment_amount|as_crispy_field }}
                     </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="text-danger">
+                                Invalid payment amount. Please input a non-negative number.
+                            </div>
+                        {% endfor %}
+                    {% endif %}
 
-                    <div class="form-group col">
+                    {% comment %} <div class="form-group col">
                         {{ form.school_year_end|as_crispy_field }}
-                    </div>
+                    </div> {% endcomment %}
+                    <div><input type="hidden" name="school_year" 
+                        id="inputID" value="India" ></div>
 
                     <div class="buttonContainer">
 

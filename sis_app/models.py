@@ -10,11 +10,16 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # class Student(models.Model):
 
+
 def current_year():
     return datetime.date.today().year
 
 def max_value_current_year(value):
     return MaxValueValidator(current_year())(value)  
+
+class Announcement(models.Model):
+    header = models.CharField(max_length = 100, default = None)
+    announcement = models.TextField(max_length = 1500, default = None)
 
 class Account(models.Model):
     username = models.CharField(max_length=128)
@@ -42,11 +47,24 @@ class Student(Account):
     ('Not Enrolled','Not Enrolled'),
     ('Enrolled', 'Enrolled'),
     ]#
+    # sy = [
+    #     (2022,2022),
+    #     (2023,2023),
+    #     (2024,2024),
+    #     (2025,2025),
+    #     (2026,2026),
+    #     (2027,2027),
+    #     (2028,2028),
+    #     (2029,2029),
+    #     (2030,2030),
+    # ]
+    sy = [tuple([x,x]) for x in range(2022,2035)]
+
     enrollment_status = models.CharField(max_length=20, choices=status,default='Not Enrolled')#
     #student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)#
-    student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000)], default=None)#
+    student_schoolyear_start=models.IntegerField(choices=sy, default=None)#
     student_address = models.CharField(max_length=300, default=None)
-    student_religion = models.CharField(max_length=128, default=None)
+    student_religion = models.CharField(max_length=128, default=None, blank=True)
     student_nationality = models.CharField(max_length=128, default=None)
     student_hobbies = models.TextField(max_length=500, default=None)
     student_likes = models.TextField(max_length=500, default=None)
@@ -54,7 +72,7 @@ class Student(Account):
     student_shm = models.TextField(max_length=500, default=None)
     student_allergies = models.TextField(max_length=500, default=None)
     student_sd = models.TextField(max_length=500, default=None)
-    student_oconsiderations = models.TextField(max_length=500, default=None)
+    student_oconsiderations = models.TextField(max_length=500, default=None, blank=True)
     student_guardianemail = models.EmailField(max_length = 254, default=None)
     student_f_firstname = models.CharField(max_length=128, default=None)
     student_f_lastname = models.CharField(max_length=128, default=None)
@@ -62,24 +80,24 @@ class Student(Account):
     student_f_telno = models.CharField(max_length=128, default=None)
     student_f_address = models.CharField(max_length=300, default=None)
     student_f_occupation = models.CharField(max_length=128, default=None)
-    student_f_employer = models.CharField(max_length=128, default=None)
-    student_f_oaddress = models.CharField(max_length=300, default=None)
-    student_f_otelno = models.CharField(max_length=128, default=None)
-    student_f_natureofbusiness = models.CharField(max_length=128, default=None)
+    student_f_employer = models.CharField(max_length=128, default=None, blank=True)
+    student_f_oaddress = models.CharField(max_length=300, default=None, blank=True)
+    student_f_otelno = models.CharField(max_length=128, default=None, blank=True)
+    student_f_natureofbusiness = models.CharField(max_length=128, default=None, blank=True)
     student_m_firstname = models.CharField(max_length=128, default=None)
     student_m_lastname = models.CharField(max_length=128, default=None)
     student_m_middlename = models.CharField(max_length=128, default=None)
     student_m_telno = models.CharField(max_length=128, default=None)
     student_m_address = models.CharField(max_length=300, default=None)
     student_m_occupation = models.CharField(max_length=128, default=None)
-    student_m_employer = models.CharField(max_length=128, default=None)
-    student_m_oaddress = models.CharField(max_length=300, default=None)
-    student_m_otelno = models.CharField(max_length=128, default=None)
-    student_m_natureofbusiness = models.CharField(max_length=128, default=None)
-    student_sibling_name = models.CharField(max_length=300, default=None)
-    student_sibling_gender = models.CharField(max_length=128, default=None)
-    student_sibling_age = models.IntegerField(default=None)
-    student_sibling_school=models.CharField(max_length=300, default=None)
+    student_m_employer = models.CharField(max_length=128, default=None, blank=True)
+    student_m_oaddress = models.CharField(max_length=300, default=None, blank=True)
+    student_m_otelno = models.CharField(max_length=128, default=None, blank=True)
+    student_m_natureofbusiness = models.CharField(max_length=128, default=None, blank=True)
+    student_sibling_name = models.CharField(max_length=300, default=None, blank=True)
+    student_sibling_gender = models.CharField(max_length=128, default=None, blank=True)
+    student_sibling_age = models.IntegerField(default=None, blank=True)
+    student_sibling_school=models.CharField(max_length=300, default=None, blank=True)
     student_medexp = models.BooleanField(default = False)
     student_rules = models.BooleanField(default = False)
     student_accuracy = models.BooleanField(default = False)
@@ -101,14 +119,16 @@ class Teacher(Account):
     t_name = models.CharField(max_length=128)
 
 class Payment(models.Model):
-    payment_s_account_id = models.ForeignKey(Student, on_delete=models.CASCADE, null = False)
+    payment_s_account_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
     paymentdate_date = models.DateField(default = datetime.date.today(), null = False)
     payment_amount = models.IntegerField(null = False, validators=[MinValueValidator(0)], error_messages={"invalid":"Invalid"})
     outstandingbalance = models.IntegerField(default = 0)
     
     payment_sy_end = 0
     outstandingbalance = models.IntegerField(default = 1000000)
-    school_year_end=models.IntegerField(('year'), validators=[MinValueValidator(2000)], default=None, error_messages={"invalid":"Invalid"})#
+    school_year_end=models.IntegerField(('year'), null = True)
+    enrollment_type = models.CharField(max_length=20, default='Annually')
+#
 
     # tuitionfee = models.IntegerField(default = 50000)
 
@@ -170,7 +190,8 @@ class GradeReport(models.Model):
     #General Fields For All Students
     tor_id = models.ForeignKey(TranscriptOfRecord, on_delete=models.CASCADE, null=True, blank = True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank = True)
-    school_year = models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)
+    sy = [tuple([x,x]) for x in range(2022,2035)]
+    school_year = models.IntegerField(default=None, choices=sy)
     period =[
     ('1','1'),
     ('2', '2'),
@@ -184,73 +205,73 @@ class GradeReport(models.Model):
     ]
     gradelevel = models.CharField(default='Nursery', max_length=30, choices=gradelevel_choices)
     grading_period = models.CharField(default='1', max_length=10, choices=period)
-    sem_average = models.FloatField(null=True, blank=True, default= None)
-    year_average = models.FloatField(null=True, blank=True, default= None)
+    sem_average = models.IntegerField(null=True, blank=True, default= None)
+    year_average = models.IntegerField(null=True, blank=True, default= None)
     
     
     #For K1 to K2 SR Grade Reports
-    reading_grade = models.FloatField(null=True, blank = True)
-    mathematics_grade = models.FloatField(null=True, blank = True)
-    language_grade = models.FloatField(null=True, blank = True)
-    science_grade = models.FloatField(null=True, blank = True)
-    penmanship_grade = models.FloatField(null=True, blank = True)
-    filipino_grade = models.FloatField(null=True, blank = True)
-    final_reading = models.FloatField(null=True, blank=True, default= None)
-    final_mathematics = models.FloatField(null=True, blank=True, default= None)
-    final_language = models.FloatField(null=True, blank=True, default= None)
-    final_science = models.FloatField(null=True, blank=True, default= None)
-    final_penmanship = models.FloatField(null=True, blank=True, default= None)
-    final_filipino = models.FloatField(null=True, blank=True, default= None)
-    readingreadiness1 = models.IntegerField(null=True, blank=True, default= None)
-    readingreadiness2 = models.IntegerField(null=True, blank=True, default= None)
-    readingreadiness3 = models.IntegerField(null=True, blank=True, default= None)
-    readingreadiness4 = models.IntegerField(null=True, blank=True, default= None)
-    readingreadiness5 = models.IntegerField(null=True, blank=True, default= None)
-    readingreadiness6 = models.IntegerField(null=True, blank=True, default= None)
-    readingreadiness7 = models.IntegerField(null=True, blank=True, default= None)
-    readingreadiness8 = models.IntegerField(null=True, blank=True, default= None)
-    readingreadiness9 = models.IntegerField(null=True, blank=True, default= None)
-    readingreadiness10 = models.IntegerField(null=True, blank=True, default= None)
-    readingreadiness11 = models.IntegerField(null=True, blank=True, default= None)
-    readingreadiness12 = models.IntegerField(null=True, blank=True, default= None)
-    readingreadiness13 = models.IntegerField(null=True, blank=True, default= None)
-    science1 = models.IntegerField(null=True, blank=True, default= None)
-    science2 = models.IntegerField(null=True, blank=True, default= None)
-    science3 = models.IntegerField(null=True, blank=True, default= None)
-    science4 = models.IntegerField(null=True, blank=True, default= None)
-    science5 = models.IntegerField(null=True, blank=True, default= None)
-    science6 = models.IntegerField(null=True, blank=True, default= None)
-    language1 = models.IntegerField(null=True, blank=True, default= None)
-    language2 = models.IntegerField(null=True, blank=True, default= None)
-    language3 = models.IntegerField(null=True, blank=True, default= None)
-    language4 = models.IntegerField(null=True, blank=True, default= None)
-    language5 = models.IntegerField(null=True, blank=True, default= None)
-    language6 = models.IntegerField(null=True, blank=True, default= None)
-    language7 = models.IntegerField(null=True, blank=True, default= None)
-    language8 = models.IntegerField(null=True, blank=True, default= None)
-    language9 = models.IntegerField(null=True, blank=True, default= None)
-    language10 = models.IntegerField(null=True, blank=True, default= None)
-    math1 = models.IntegerField(null=True, blank=True, default= None)
-    math2 = models.IntegerField(null=True, blank=True, default= None)
-    math3 = models.IntegerField(null=True, blank=True, default= None)
-    math4 = models.IntegerField(null=True, blank=True, default= None)
-    math5 = models.IntegerField(null=True, blank=True, default= None)
-    math6 = models.IntegerField(null=True, blank=True, default= None)
-    math7 = models.IntegerField(null=True, blank=True, default= None)
-    math8 = models.IntegerField(null=True, blank=True, default= None)
-    math9 = models.IntegerField(null=True, blank=True, default= None)
-    math10 = models.IntegerField(null=True, blank=True, default= None)
-    math11 = models.IntegerField(null=True, blank=True, default= None)
-    penmanship1 = models.IntegerField(null=True, blank=True, default= None)
-    penmanship2 = models.IntegerField(null=True, blank=True, default= None)
-    penmanship3 = models.IntegerField(null=True, blank=True, default= None)
-    penmanship4 = models.IntegerField(null=True, blank=True, default= None)
-    filipino1 = models.IntegerField(null=True, blank=True, default= None)
-    filipino2 = models.IntegerField(null=True, blank=True, default= None)
-    filipino3 = models.IntegerField(null=True, blank=True, default= None)
-    filipino4 = models.IntegerField(null=True, blank=True, default= None)
-    school_days = models.IntegerField(null=True, blank=True, default= None)
-    absences = models.IntegerField(null=True, blank=True, default= None)
+    reading_grade = models.IntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], blank = True)
+    mathematics_grade = models.IntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], blank = True)
+    language_grade = models.IntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], blank = True)
+    science_grade = models.IntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], blank = True)
+    penmanship_grade = models.IntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], blank = True)
+    filipino_grade = models.IntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], blank = True)
+    final_reading = models.IntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, default= None)
+    final_mathematics = models.IntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, default= None)
+    final_language = models.IntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, default= None)
+    final_science = models.IntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, default= None)
+    final_penmanship = models.IntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, default= None)
+    final_filipino = models.IntegerField(null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, default= None)
+    readingreadiness1 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    readingreadiness2 = models.IntegerField(null=True, blank=True,validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    readingreadiness3 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    readingreadiness4 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    readingreadiness5 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    readingreadiness6 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    readingreadiness7 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    readingreadiness8 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    readingreadiness9 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    readingreadiness10 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    readingreadiness11 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    readingreadiness12 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    readingreadiness13 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    science1 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    science2 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    science3 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    science4 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    science5 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    science6 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    language1 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    language2 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    language3 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    language4 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    language5 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    language6 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    language7 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    language8 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    language9 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    language10 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    math1 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    math2 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    math3 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    math4 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    math5 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    math6 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)],  default= None)
+    math7 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    math8 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    math9 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)],  default= None)
+    math10 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    math11 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    penmanship1 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    penmanship2 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    penmanship3 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    penmanship4 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    filipino1 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    filipino2 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    filipino3 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    filipino4 = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)], default= None)
+    school_days = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)], default= None)
+    absences = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)], default= None)
     gr_acknowledgement = models.BooleanField(default = False)
     
     #For Nursery Grade Reports
