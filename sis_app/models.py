@@ -204,7 +204,7 @@ class GradeReport(models.Model):
         ('Kinder 2 Junior', 'Kinder 2 Junior'), 
         ('Kinder 2 Senior', 'Kinder 2 Senior'),
     ]
-    gradelevel = models.CharField(default='Nursery', max_length=30, choices=gradelevel_choices)
+    # gradelevel = models.CharField(default='Nursery', max_length=30, choices=gradelevel_choices)
     grading_period = models.CharField(default='1', max_length=10, choices=period)
     sem_average = models.IntegerField(null=True, blank=True, default= None)
     year_average = models.IntegerField(null=True, blank=True, default= None)

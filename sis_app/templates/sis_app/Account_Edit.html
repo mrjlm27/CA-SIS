@@ -77,28 +77,27 @@
                                     <button type='submit' class='buttonDesignPositive'>Submit</button>
                                 </div>
                         </form>
-
                     </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                            {%if "username" in message.tags %}
+                                <li class= "text-danger"> Please choose another username.</li> 
+                            
+        
+                            {%elif "password" in message.tags %}
+                            <div class="text-danger">
+                                Invalid Password. Please take note of the following:
+                                <ul>
+                                    <li class= "text-danger"> Please enter a password that is at least 8 characters in length.</li>
+                                    <li class= "text-danger"> Please enter a password that has at least 1 number.</li>
+                                    <li class= "text-danger"> Please enter a password that is not common.</li>
+                                </ul>  
+                            {%endif%}
+                        
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
-            {% if messages %}
-                {% for message in messages %}
-                    {%if "username" in message.tags %}
-                        <li class= "text-danger"> Please choose another username.</li> 
-                    
-
-                    {%elif "password" in message.tags %}
-                    <div class="text-danger">
-                        Invalid Password. Please take note of the following:
-                        <ul>
-                            <li class= "text-danger"> Please enter a password that is at least 8 characters in length.</li>
-                            <li class= "text-danger"> Please enter a password that has at least 1 number.</li>
-                            <li class= "text-danger"> Please enter a password that is not common.</li>
-                        </ul>  
-                    {%endif%}
-                    
-                {% endfor %}
-            {% endif %}
         </div>
 
 </body>
