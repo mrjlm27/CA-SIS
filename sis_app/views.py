@@ -37,7 +37,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.password_validation import validate_password
 from django.db import IntegrityError
-# from django.shortcuts import render_to_response
 
 
 # GLOBAL VARIABLES
@@ -298,13 +297,13 @@ def studentForm(request,id=0):
                 a = form.errors.as_data()
                 if len(a.keys()) == 2:
                     messages.error(request, 'error', extra_tags='both')
-                    return redirect(f'/RegstudentForm/{id}')
+                    return redirect(f'/studentForm/{id}')
                 if len(a.keys()) == 1 and 'student_sibling_age' in a.keys():
                     messages.error(request, 'error', extra_tags='age')
-                    return redirect(f'/RegstudentForm/{id}')
+                    return redirect(f'/studentForm/{id}')
                 if len(a.keys()) == 1 and 'student_guardianemail' in a.keys():
                     messages.error(request, 'error', extra_tags='invalidemail')
-                    return redirect(f'/Reg  studentForm/{id}')      
+                    return redirect(f'/studentForm/{id}')      
         context = {'form': form_class}
         context = {'form':form_class, 'student':model}
         return render(request, 'sis_app/Student_Form.html', context)
