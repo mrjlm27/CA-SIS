@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="{% static "styles/login.css" %}" type="text/css">
+	<link rel="stylesheet" href="{% static "styles/lgn.css" %}" type="text/css">
 </head>
 
 <body>
@@ -49,13 +49,11 @@
 								</div>
 							{% csrf_token %}
 						</form>
+						
 
 					</div>
 			
-					<div class="mt-4">
-						<div class="d-flex justify-content-center links">
-							<a class="buttonDesignPositive" href="{% url 'sis_app:reg_student_form' id %}">Register a student</a>
-						</div>
+					
 
 					<!-- {% if messages %}
 						{% for message in messages %}
@@ -64,16 +62,22 @@
 								</div>
 						{% endfor %}
 					{% endif %} -->
-				
-					</div>
 					<div style="text-align:center">
-					{% for message in messages %}
-						<p id="messages">{{message}}</p>
-					{% endfor %}
+						{% for message in messages %}
+							<p id="messages">{{message}}</p>
+						{% endfor %}
 					</div>
+					</div>
+					
 				</div>
+				
 			</div>
+			
 		</div>
 	</div>
+	<div class="mt-4">
+		<div class="d-flex justify-content-center links">
+			<a class="buttonDesignPositive" href="{% url 'sis_app:reg_student_form' id %}">Register a student</a>
+		</div>
 </body>
 </html>

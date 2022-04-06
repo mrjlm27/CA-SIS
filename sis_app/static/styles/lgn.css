@@ -1,0 +1,99 @@
+body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			/*background: #3EAEB8 !important;*/
+			background: #fff;
+            font-family: 'Rubik', sans-serif;
+		}
+		.user_card {
+			width: 400px;
+            height: 400px;
+			margin-top: auto;
+			margin-bottom: auto;
+			/*background: #fff;*/
+			background: #FBB023; /*change background color eventually*/
+			position: relative;
+			display: flex;
+			justify-content: space-evenly;
+			flex-direction: column;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 38px;
+
+		}
+
+		#form-title{
+			color: black;
+            font-weight: 800;
+            font-size: 28px;
+		}
+
+		.login_btn {
+			width: 100%;
+			/*background: #3EAEB8 !important;*/
+			background: #D0581C !important;
+			color: white !important;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #f7ba5b !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+
+		#messages{
+			background-color: grey;
+			color: #fff;
+		}
+        .pageTitle {
+            padding-top: 7.5px;
+            font-weight: 300;
+            color: #D0581C;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 48px;
+            /* background-color: black; */
+        }
+		
+		h1 {
+			font-family: 'M PLUS 1p', sans-serif;
+			font-weight: 800;
+			text-align: center; 
+			margin-top: 30px;
+			margin-bottom: 30px;
+		}
+
+		h2 {
+			padding-left: 86px;
+		
+			font-weight: 700;
+			font-size: 48px;
+		}
+
+		h5 {
+			font-family: 'M PLUS 1p', sans-serif;
+			font-weight: 800;
+			text-align: left; 
+		}
+
+		a {
+			font-family: 'Rubik', sans-serif;
+			font-weight: 700;
+			color:#D0581C;
+		}

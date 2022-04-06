@@ -133,3 +133,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'gmgtechdev@gmail.com'#change this to a camelean academy specific
 EMAIL_HOST_PASSWORD = 'gmgtechnologies2021'#change this to pass of email_host_user
+
+MEDIA_ROOT = '<your_path>/media'
+MEDIA_URL = '/media/'
