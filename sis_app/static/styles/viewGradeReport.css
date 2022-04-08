@@ -128,10 +128,10 @@ body{
   .cancelButton{
       align-items: center;
       background-color: initial;
-      background-image: linear-gradient(#464d55, #25292e);
+      background-image: linear-gradient(#808080, #808080);
       border-radius: 8px;
       border-width: 0;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);
+      box-shadow: 0 10px 20px #808080,0 3px 6px #FFFFFF;
       box-sizing: border-box;
       color: white;
       cursor: pointer;

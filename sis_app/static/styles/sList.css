@@ -112,9 +112,10 @@ h2 {
     border: 0;
     border-radius: 12px;
     cursor: pointer;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
     font-family: "Rubik", sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     height: 39px;
     line-height: 2.5;
@@ -123,8 +124,14 @@ h2 {
     text-align: center;
     text-decoration: none;
     white-space: nowrap;
-    width: 200px;
+    width: 145px;
+    height: 40px;
     margin-left: 10px;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: flex-start;
 }
 
 #deleteButton{
