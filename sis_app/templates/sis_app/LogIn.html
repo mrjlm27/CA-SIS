@@ -13,71 +13,81 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="{% static "styles/lgn.css" %}" type="text/css">
+	<link rel="stylesheet" href="{% static "styles/logintemplate.css" %}" type="text/css">
 </head>
 
 <body>
 	<h1>
 		Camelean Academy Student Information System
 	</h1>
-	<div class = box> 
-		<div class="container h-100">
-			<div class="d-flex justify-content-center h-100">
-				<div class="user_card">
-					<div class="test">
-						<h2 id="form-title">SIGN IN</h2>
-					</div>
-					<div class="d-flex justify-content-center form_container">
-						<form method="POST" action="">
-							<h5>Username</h5>
-							<div class="input-group mb-3 input-group-sm">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-user"></i></span>
-								</div>
-								<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="username" placeholder="Username...">
-							</div>
-							<h5>Password</h5>
-							<div class="input-group mb-3 input-group-sm">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-key"></i></span>
-								</div>
-									<input type="password" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="password" placeholder="Password...">
-							</div>
-
-								<div class="d-flex justify-content-center mt-3 login_container">
-									<input class="btn login_btn" type="submit" value="Login">
-								</div>
-							{% csrf_token %}
-						</form>
-						
-
-					</div>
-			
-					
-
-					<!-- {% if messages %}
-						{% for message in messages %}
-							<div class="text-success">
-								Student Registration Successful. Please wait for account details in your registered email.
-								</div>
-						{% endfor %}
-					{% endif %} -->
-					<div style="text-align:center">
-						{% for message in messages %}
-							<p id="messages">{{message}}</p>
-						{% endfor %}
-					</div>
-					</div>
-					
-				</div>
+	<div class = "layout">
+		<div class = box> 
+			<div class = "row">
 				
+				<div class="form-group col-md-6">
+					<div class="container h-100">
+						<div class="d-flex justify-content-center h-100">
+							<div class="user_card">
+								<div class="test">
+									<h2 id="form-title">SIGN IN</h2>
+								</div>
+									<div class="d-flex justify-content-center form_container">
+										<form method="POST" action="">
+											<h5>Username</h5>
+											<div class="input-group mb-3 input-group-sm">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-user"></i></span>
+												</div>
+												<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="username" placeholder="Username...">
+											</div>
+											<h5>Password</h5>
+											<div class="input-group mb-3 input-group-sm">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-key"></i></span>
+												</div>
+													<input type="password" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="password" placeholder="Password...">
+											</div>
+
+												<div class="d-flex justify-content-center mt-3 login_container">
+													<input class="btn login_btn" type="submit" value="Login">
+												</div>
+											{% csrf_token %}
+										</form>
+										
+
+									</div>
+						
+								
+
+								<!-- {% if messages %}
+									{% for message in messages %}
+										<div class="text-success">
+											Student Registration Successful. Please wait for account details in your registered email.
+											</div>
+									{% endfor %}
+								{% endif %} -->
+									<div style="text-align:center">
+										{% for message in messages %}
+											<p id="messages">{{message}}</p>
+										{% endfor %}
+									</div>
+								
+								
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					{% load static %} <img src="{% static "styles/images/logo.jpg" %}" alt="Camelean Academy Logo" />
+				</div>
 			</div>
-			
 		</div>
+		<div class="form-group col-md-6">
+			<div class="d-flex justify-content-center links">
+				<a class="buttonDesignPositive" href="{% url 'sis_app:reg_student_form' id %}">Register a student</a>
+			</div>
 	</div>
-	<div class="mt-4">
-		<div class="d-flex justify-content-center links">
-			<a class="buttonDesignPositive" href="{% url 'sis_app:reg_student_form' id %}">Register a student</a>
-		</div>
 </body>
 </html>

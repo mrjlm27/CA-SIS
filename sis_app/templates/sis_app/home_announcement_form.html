@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
-	<link rel="stylesheet" href="{% static "styles/homeadmintemplate.css" %}" type="text/css">
+	<link rel="stylesheet" href="{% static "styles/homeadmin.css" %}" type="text/css">
 </head>
 {% csrf_token %}
 
@@ -65,10 +65,11 @@
     </div>
 <div class = "elements">
     <h2 class="pageHeading">Make an Announcement</h2>
+    <hr id="homeHR">
+    <hr id="announcementsHR">
 
 
-
-    <div class="formContainer">
+    <div class="formContainer" id = "formID">
         <div class="formGroup">
             <form action="" method="post" autocomplete="off">
                     {% csrf_token %}
@@ -83,9 +84,9 @@
                     </div>
                     <div class="buttonContainer">
 
-                        <a class="buttonDesignNegative" href="{% url 'sis_app:home' %}">Cancel</a>
+                        <a class="cancelButton" href="{% url 'sis_app:home' %}">Cancel</a>
 
-                        <button type='submit' class='buttonDesignPositive'>Submit</button>
+                        <button type='submit' class='submitButton'>Submit</button>
 
                     </div>
             </form>

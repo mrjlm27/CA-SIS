@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
-	<link rel="stylesheet" href="{% static "styles/home.css" %}" type="text/css">
+	<link rel="stylesheet" href="{% static "styles/homeadmin.css" %}" type="text/css">
 </head>
 {% csrf_token %}
 
@@ -54,7 +54,7 @@
                         <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:grade_report_kinder2senior' %}">Generate Grade Reports<br> K2 Sr.</a></td>
                     </tr>
                     <tr class = "navbarTr">
-                    <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
+                        <td data-heading="Testing"><a class="buttonDesignNegative" href="{% url 'sis_app:log_out' %}">Logout</a></td>
                     </tr>
                 </tbody>
             
@@ -66,7 +66,8 @@
         <h2 class="pageHeading">{{announcement.header}}</h2>
         <hr id="homeHR">
         <hr id="announcementsHR">
-        <small class="pageHeading"> {{announcement.announcement}} <small>
+        <small class="pageHeading" id = "announcementText"> {{announcement.announcement}} <small>
+        {% load static %} <img src="{% static "styles/images/logo.jpg" %}" alt="Camelean Academy Logo" />
     </div>
 
 </body>

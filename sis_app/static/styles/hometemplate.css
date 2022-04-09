@@ -1,4 +1,5 @@
-h1 {
+/* NAVBAR */
+.navbarHeader {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +9,7 @@ h1 {
     /* padding:0; */
     color: #FFFFFF;
 
-    height: 25vh;
+    height: 20vh;
     width: 358px;
     
     font-weight: 200;
@@ -16,17 +17,16 @@ h1 {
     text-align: center;
 }
 
-table {
+.navbarTable {
     background-color: #FBB023;
-    height: 75vh;
+    height: 80vh;
     width: 358px;
 
     margin:0;
     padding:0;
-    position: relative;
 }
 
-tr {
+.navbarTr {
     text-align: center;
     font-size: 30px;
 }
@@ -44,14 +44,10 @@ a:hover {
 .navbar {
     margin:0;
     padding:0;
-}
-
-body {
-    display: flex;
+    position:fixed;
 }
 
 h2 {
-    padding-left: 86px;
     padding-top: 79px;
 
     font-weight: 700;
@@ -64,7 +60,7 @@ h2 {
     height:15px;
 
     margin-top: 27px;
-    margin-left: 86px;
+    margin-left: 0;
   }
 
 #announcementsHR {
@@ -73,11 +69,18 @@ h2 {
     height:15px;
 
     margin-top: 27px;
-    margin-left: 86px;
+    margin-left: 0;
 }
 
 img {
-    padding-left: 86px;
+    padding-left: 386px;
     padding-top: 79px;
     position: absolute;
   }
+
+.homepage {
+    margin-left: 444px;
+    margin-right: 200px;
+    font-family: "Rubik", sans-serif;
+    font-weight: 800;
+}
