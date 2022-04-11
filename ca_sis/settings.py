@@ -25,7 +25,7 @@ SECRET_KEY = 'n3v8o^^t5c%78=zs*r&%s&iobqpb1sh=ewq5&d#o9(a^#*mwgq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost']
+ALLOWED_HOSTS = ['127.0.0.1','localhost', '0.0.0.0']
 
 
 # Application definition
@@ -136,5 +136,5 @@ EMAIL_HOST_PASSWORD = 'gmgtechnologies2021'#change this to pass of email_host_us
 
 MEDIA_ROOT = '<your_path>/media'
 MEDIA_URL = '/media/'
-ALLOWED_HOSTS = ['0.0.0.0']
+# ALLOWED_HOSTS = ['0.0.0.0']
 STATIC_ROOT = os.pathjoin(BASE_DIR, 'staticfiles')
