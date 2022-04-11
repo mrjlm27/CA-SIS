@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'n3v8o^^t5c%78=zs*r&%s&iobqpb1sh=ewq5&d#o9(a^#*mwgq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost']
+ALLOWED_HOSTS = ['127.0.0.1','localhost', 'casis-deployment.herokuapp.com']
 
 
 # Application definition
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'bootstrap_toolkit',
     'crispy_forms',
     'django_filters',
-    'livereload',
 ]
 
 MIDDLEWARE = [
@@ -123,16 +122,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static')
-]
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_HOST = 'mail.google.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'gmgtechdev@gmail.com'#change this to a camelean academy specific
-EMAIL_HOST_PASSWORD = 'gmgtechnologies2021'#change this to pass of email_host_user
-
-MEDIA_ROOT = '<your_path>/media'
-MEDIA_URL = '/media/'
+EMAIL_HOST_USER = 'jah2plays@gmail.com'#change this to a camelean academy specific
+EMAIL_HOST_PASSWORD = 'JahJah123'#change this to pass of email_host_user
