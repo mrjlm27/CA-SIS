@@ -3,9 +3,9 @@ aiohttp==3.7.4.post0
 aiohttp-socks==0.6.0
 alabaster==0.7.12
 altgraph==0.17
-anaconda-client
-anaconda-navigator
-anaconda-project
+anaconda-client==1.7.2
+anaconda-navigator==1.9.7
+anaconda-project==0.8.3
 appnope==0.1.0
 appscript==1.0.1
 arabic-reshaper==2.1.3
@@ -19,7 +19,7 @@ attrs==19.2.0
 auto-py-to-exe==2.8.0
 Babel==2.7.0
 backcall==0.1.0
-backports.functools-lru-cache==1.6.1
+backports.functools-lru-cache==1.6.4
 backports.os==0.1.1
 backports.shutil-get-terminal-size==1.0.0
 backports.tempfile==1.0
@@ -42,9 +42,9 @@ Click==7.0
 cloudpickle==1.2.2
 clyent==1.2.2
 colorama==0.4.1
-conda==4.8.5
+conda==4.12.0
 conda-build==3.18.9
-conda-package-handling==1.7.0
+conda-package-handling==1.8.1
 conda-verify==3.4.2
 contextlib2==0.6.0
 cryptography==2.7
