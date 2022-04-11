@@ -3,9 +3,9 @@ aiohttp==3.7.4.post0
 aiohttp-socks==0.6.0
 alabaster==0.7.12
 altgraph==0.17
-anaconda-client
-# anaconda-navigator==1.9.7
-anaconda-project
+anaconda-client==1.7.2
+anaconda-navigator==1.9.7
+anaconda-project==0.8.3
 appnope==0.1.0
 appscript==1.0.1
 arabic-reshaper==2.1.3
