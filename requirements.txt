@@ -4,7 +4,7 @@ aiohttp-socks==0.6.0
 alabaster==0.7.12
 altgraph==0.17
 anaconda-client
-anaconda-navigator
+# anaconda-navigator==1.9.7
 anaconda-project==0.8.3
 appnope==0.1.0
 appscript==1.0.1
