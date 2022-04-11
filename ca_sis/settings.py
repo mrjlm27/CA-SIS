@@ -137,3 +137,4 @@ EMAIL_HOST_PASSWORD = 'gmgtechnologies2021'#change this to pass of email_host_us
 MEDIA_ROOT = '<your_path>/media'
 MEDIA_URL = '/media/'
 ALLOWED_HOSTS = ['0.0.0.0']
+STATIC_ROOT = os.pathjoin(BASE_DIR, 'staticfiles')
