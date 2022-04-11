@@ -25,7 +25,7 @@ SECRET_KEY = 'n3v8o^^t5c%78=zs*r&%s&iobqpb1sh=ewq5&d#o9(a^#*mwgq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost', 'casis-deployment.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost', 'casis-live.herokuapp.com']
 
 
 # Application definition
