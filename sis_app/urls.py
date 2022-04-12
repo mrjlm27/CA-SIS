@@ -6,6 +6,7 @@ from . import views
 app_name = 'sis_app'
 
 urlpatterns=[
+    path('', views.LogInScreen, name="main"),
     path('login', views.LogInScreen, name="log_in"),
     path('home',views.Home, name='home'),
     path('editAccount', views.EditAccountCred, name='edit_acc'),
