@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'n3v8o^^t5c%78=zs*r&%s&iobqpb1sh=ewq5&d#o9(a^#*mwgq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost', 'ca-sis-test.herokuapp.com']
 
@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'ca_sis.urls'
@@ -131,3 +131,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'jah2plays@gmail.com'#change this to a camelean academy specific
 EMAIL_HOST_PASSWORD = 'JahJah123'#change this to pass of email_host_user
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
