@@ -133,4 +133,5 @@ EMAIL_HOST_USER = 'jah2plays@gmail.com'#change this to a camelean academy specif
 EMAIL_HOST_PASSWORD = 'JahJah123'#change this to pass of email_host_user
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
