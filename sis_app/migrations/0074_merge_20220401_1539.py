@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sis_app', '0066_payment_enrollment_type'),
+        ('sis_app', '0066_auto_20220329_0031'),
         ('sis_app', '0073_auto_20220401_1338'),
         ('sis_app', '0062_auto_20220323_1728'),
     ]
