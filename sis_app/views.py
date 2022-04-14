@@ -404,7 +404,7 @@ def RegistrationList(request, pk = 0):
 def username_exists(username):
     return User.objects.filter(username=username).exists()
 
-@login_required(login_url='sis_app:log_in')
+# @login_required(login_url='sis_app:log_in')
 def GenerateAccount(request, id):
     # if request.user.is_superuser:
     if request.user.is_superuser:
