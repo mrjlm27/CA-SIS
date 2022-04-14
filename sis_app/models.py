@@ -128,7 +128,7 @@ class Payment(models.Model):
     payment_sy_end = 0
     outstandingbalance = models.IntegerField(default = 1000000)
     school_year_end=models.IntegerField(('year'), null = True)
-    enrollment_type = models.CharField(max_length=20, default='Annually')
+
 #
 
     # tuitionfee = models.IntegerField(default = 50000)
