@@ -35,6 +35,7 @@ class Student(Account):
     student_middlename = models.CharField(max_length=128, default=None)
     student_nickname = models.CharField(max_length=128, default=None)
     student_birthday = models.DateField(default=datetime.date.today())
+    student_account_generated = models.BooleanField(default = False)
 
     grade_levels = [
         ('Nursery','Nursery'),

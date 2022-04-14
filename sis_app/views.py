@@ -385,11 +385,14 @@ def studentForm(request,id=0):
 @login_required(login_url='sis_app:log_in')
 def RegistrationList(request, pk = 0):
     if request.user.is_superuser:
-        registrant_ids = list(Student.objects.values_list('pk', flat=True).order_by('pk'))
-        user_ids = list(User.objects.exclude(is_superuser=True).values_list('pk', flat=True).order_by('pk'))
-        view_registrant_ids = list(set(registrant_ids) - set(user_ids))
+        # registrant_ids = list(Student.objects.values_list('pk', flat=True).order_by('pk'))
+        # print(registrant_ids)
+        # user_ids = list(User.objects.exclude(is_superuser=True).values_list('pk', flat=True).order_by('pk'))
+        # user_ids = [x-5 for x in user_ids]
+        # print(user_ids)
+        # view_registrant_ids = list(set(registrant_ids) - set(user_ids))
 
-        students = Student.objects.filter(pk__in=view_registrant_ids)
+        students = Student.objects.filter(student_account_generated=False)
         myFilter = StudentFilter(request.GET, queryset=students)
         students = myFilter.qs
 
@@ -404,12 +407,15 @@ def RegistrationList(request, pk = 0):
 def username_exists(username):
     return User.objects.filter(username=username).exists()
 
-# @login_required(login_url='sis_app:log_in')
+@login_required(login_url='sis_app:log_in')
 def GenerateAccount(request, id):
-    # if request.user.is_superuser:
     if request.user.is_superuser:
-   
+        # print(id)
+        # print(request.user.id)
         test = Student.objects.get(pk=id)
+        # superusers_id = User.objects.filter.values_list('id')
+        # print(superusers_id)
+        # print(test.pk)
 
         while True:
             user_length = 10
@@ -418,8 +424,9 @@ def GenerateAccount(request, id):
             password = ''.join(random.choices(string.ascii_lowercase + string.digits, k = pass_length))
 
             if username_exists(username) == False:
-                user = User.objects.create_user(id = test.id, username = username, email = test.student_guardianemail, password = password, first_name = str(test.student_firstname), last_name = test.student_lastname)
-            
+                user = User.objects.create_user(username = username, email = test.student_guardianemail, password = password, first_name = str(test.student_firstname), last_name = test.student_lastname)
+                test.student_account_generated = True
+                test.save()
                 send_mail(
                     'CAMELEAN ACADEMY SIS username and pass',
                     "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON FIRST LOG-IN".format(username, password),
@@ -427,8 +434,8 @@ def GenerateAccount(request, id):
                     [str(test.student_guardianemail)],#this is the recipient(change this to email of student later)
                     fail_silently=False,
                 )
-
-                return redirect("/RegistrationList")
+                
+                return redirect("sis_app:registration_list")
                 False
             else:   
                 continue
@@ -1651,7 +1658,7 @@ def generateTable(object):
 
     #building the table structure
     #Table for Nursery
-    if object.gradelevel == 'Nursery':
+    if student_entity.student_grade_level == 'Nursery':
         gradeTableWidth = 250
 
 
