@@ -407,6 +407,10 @@ def RegistrationList(request, pk = 0):
 def username_exists(username):
     return User.objects.filter(username=username).exists()
 
+from mailjet_rest import Client
+API_KEY = 'e69e6a0492b407d3f78b29e52e6e94d8'
+API_SECRET = '0db8ccdce184d2f67e8beee3d02376a4'
+mailjet = Client(auth=(API_KEY, API_SECRET), version = 'v3.1')
 @login_required(login_url='sis_app:log_in')
 def GenerateAccount(request, id):
     if request.user.is_superuser:
@@ -427,14 +431,65 @@ def GenerateAccount(request, id):
                 user = User.objects.create_user(username = username, email = test.student_guardianemail, password = password, first_name = str(test.student_firstname), last_name = test.student_lastname)
                 test.student_account_generated = True
                 test.save()
-                send_mail(
-                    'CAMELEAN ACADEMY SIS username and pass',
-                    "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON FIRST LOG-IN".format(username, password),
-                    None,
-                    [str(test.student_guardianemail)],#this is the recipient(change this to email of student later)
-                    fail_silently=False,
-                )
-                
+                # send_mail(
+                #     'CAMELEAN ACADEMY SIS username and pass',
+                #     "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON FIRST LOG-IN".format(username, password),
+                #     None,
+                #     [str(test.student_guardianemail)],#this is the recipient(change this to email of student later)
+                #     fail_silently=False,
+                # )
+                data = { 
+
+		        "Messages":[
+				{
+						"From": {
+								"Email": "gmgtechdev@gmail.com",
+								"Name": "Camelean Academy"
+						},
+						"To": [
+								{
+										"Email": str(test.student_guardianemail),
+										"Name": "Client"
+								}
+						],
+						"Subject": "CAMELEAN ACADEMY STUDENT INFORMATION SYSTEM CREDENTIALS",
+						"TextPart": "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON FIRST LOG-IN".format(username, password),
+						"HTMLPart": "<h3>PLEASE CHANGE YOUR USERNAME AND PASSWORD UPON FIRST LOG-IN</h3><br />Username: {}\nPassword: {}\n".format(username, password),
+				        }
+		            ]
+	            }
+			
+                #     'FromEmail': 'gmgtechdev@gmail.com',
+                #     'FromName': 'Camelean Academy',
+                #     'Subject': 'Test',
+                #     'Text-part' : 'details',
+                #     'Html-part' : '<h3>Dear passenger, welcome to <a href=\"https://www.mailjet.com/\">Mailjet</a>!<br />May the delivery force be with you!',
+                #     'Recipients': [{'Email':'jahjahcallanta@gmail.com'}]
+                #     ]
+                # }
+
+                #     'Messages': [
+                #         {
+                #             "From": {
+                #                 "Email:": "gmgtechdev@gmail.com",
+                #                 'Name': 'Default'
+                #         },
+                #             "To": [
+                #                 {
+                #                 "Email:": "jahjahcallanta@gmail.com",
+                #                 "Name:": "Mr."
+                #                  },
+                #                 ],
+                #             "Subject:": "Camelean Academy Student Information System Account Details",
+                #             "TextPart:": str(username),
+                #             "HTMLPart": "<h3>Welcome to Camelean Academy Student Information System</h3>"
+                #             }
+                #         ]
+                #     }
+
+                result = mailjet.send.create(data=data)
+                print(result.status_code)
+                print(result.json())
                 return redirect("sis_app:registration_list")
                 False
             else:   
