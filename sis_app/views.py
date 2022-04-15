@@ -37,6 +37,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.password_validation import validate_password
 from django.db import IntegrityError
+import random
+
 
 
 # GLOBAL VARIABLES
@@ -106,6 +108,7 @@ def EditAccountCred(request):
     # if request.user.is_authenticated():
     if request.method == 'POST':
         old_u = request.user.username
+        print(old_u)
         old_p = request.user.password
         user = User.objects.get(username=old_u,password=old_p)
         new_username = request.POST.get('username')
@@ -116,8 +119,8 @@ def EditAccountCred(request):
         else:
             try:
                 validate_password(new_password)
-                # user.set_username(new_username)
                 user_id = request.user.id
+                # user.set_username(new_username)
                 student_entity = Student.objects.get(pk = user_id)
                 student_entity.username = new_username
                 student_entity.password = make_password(new_password)
@@ -388,7 +391,6 @@ def RegistrationList(request, pk = 0):
         # registrant_ids = list(Student.objects.values_list('pk', flat=True).order_by('pk'))
         # print(registrant_ids)
         # user_ids = list(User.objects.exclude(is_superuser=True).values_list('pk', flat=True).order_by('pk'))
-        # user_ids = [x-5 for x in user_ids]
         # print(user_ids)
         # view_registrant_ids = list(set(registrant_ids) - set(user_ids))
 
@@ -417,20 +419,39 @@ def GenerateAccount(request, id):
         # print(id)
         # print(request.user.id)
         test = Student.objects.get(pk=id)
+        # print(test.id)
         # superusers_id = User.objects.filter.values_list('id')
         # print(superusers_id)
         # print(test.pk)
+        user_ids = list(User.objects.exclude(is_superuser=True).values_list('pk', flat=True).order_by('pk'))
+        student_ids = list(Student.objects.values_list('pk', flat=True).order_by('pk'))
+
+        new_id = 0
+        bool = True
+        while bool == True:
+            x = random.choice(range(1,1000000))
+            
+            if x in user_ids or x in student_ids:
+                continue
+            else: 
+                new_id = x
+                bool = False
 
         while True:
             user_length = 10
             pass_length = 15
             username = ''.join(random.choices(string.ascii_uppercase + string.digits, k = user_length))
             password = ''.join(random.choices(string.ascii_lowercase + string.digits, k = pass_length))
+            
 
             if username_exists(username) == False:
-                user = User.objects.create_user(username = username, email = test.student_guardianemail, password = password, first_name = str(test.student_firstname), last_name = test.student_lastname)
+                user = User.objects.create_user(id = new_id, username = username, email = test.student_guardianemail, password = password, first_name = str(test.student_firstname), last_name = test.student_lastname)
+                test.id = new_id
                 test.student_account_generated = True
+                test.username = username
+                test.password = password
                 test.save()
+                Student.objects.filter(id=id).delete()
                 # send_mail(
                 #     'CAMELEAN ACADEMY SIS username and pass',
                 #     "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON FIRST LOG-IN".format(username, password),
@@ -488,8 +509,8 @@ def GenerateAccount(request, id):
                 #     }
 
                 result = mailjet.send.create(data=data)
-                print(result.status_code)
-                print(result.json())
+                # print(result.status_code)
+                # print(result.json())
                 return redirect("sis_app:registration_list")
                 False
             else:   
