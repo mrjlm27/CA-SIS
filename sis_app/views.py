@@ -261,6 +261,8 @@ def RegstudentForm(request,id = 0):
     else:
         if id == 0:
             form = StudentForm(request.POST)
+            messages.success(request, 'Account Successfully Created. Please wait for account details in your registered email')
+            return redirect('sis_app:log_in')   
         else:
             student = Student.objects.get(pk=id)
             form = StudentForm(request.POST,instance=student)
@@ -277,8 +279,7 @@ def RegstudentForm(request,id = 0):
             elif 'student_guardianemail' in a.keys():
                 messages.error(request, 'error', extra_tags='invalidemail')
                 return redirect(f'/RegstudentForm/{id}')  
-        messages.success(request, 'Account Successfully Created. Please wait for account details in your registered email')
-        return redirect('sis_app:log_in')   
+        return redirect('sis_app:home')   
     context = {'form': form_class}
     context = {'form':form_class, 'student':model}
     return render(request, 'sis_app/Student_Form.html', context)
@@ -2337,6 +2338,11 @@ def deleteStudents(request):
     else:
         return redirect('sis_app:home')
 
+@login_required(login_url='sis_app:log_in')
+def deleteRegistration(request,id):
+    student = Student.objects.get(pk=id)
+    student.delete()
+    return redirect('/RegistrationList')
 
 @login_required(login_url='sis_app:log_in')
 def logout(request):

@@ -19,6 +19,7 @@ urlpatterns=[
     path('RegstudentForm/<int:id>',views.RegstudentForm, name="reg_student_form"),
     # path('studentFormMidYr/<int:id>',views.disabledstudentForm, name="disabled_student_form"),
     path('RegistrationList',views.RegistrationList, name="registration_list"),
+    path('deleteRegistration/<int:id>',views.deleteRegistration, name="delete_registration"),
     path('GenerateAccount/<int:id>',views.GenerateAccount, name="generate_account"),
     path('paymentForm/<int:id>',views.paymentForm, name="payment_form"),
     path('paymentList',views.paymentList, name="payment_list"),

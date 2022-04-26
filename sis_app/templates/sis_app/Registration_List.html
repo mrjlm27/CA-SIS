@@ -78,7 +78,7 @@
                         <tr>
                             <th>First Name</th>
                             <th>Last Name</th>
-                            <th>Generate Account</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -91,6 +91,8 @@
                             -->
                             <!-- <td><a class="" href="{% url 'sis_app:generate_account' student.id %}"><i class="button" style="color:black"></i></a></td> -->
                             <td><a class="buttonDesignNegative" href="{% url 'sis_app:generate_account' student.id %}">Generate Account</a></td>
+                            <td><a class="buttonDesignNegative" href="{% url 'sis_app:delete_registration' student.id %}">Delete</a></td>
+
                         </tr>
                         {% endfor %}
                     </tbody>
