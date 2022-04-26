@@ -90,8 +90,8 @@
                             <!-- <td><a class="" href="{% url 'sis_app:generate_account' student.id %}"></a><button class="buttonDesignPositive" type="button">Generate User Account</button></td>
                             -->
                             <!-- <td><a class="" href="{% url 'sis_app:generate_account' student.id %}"><i class="button" style="color:black"></i></a></td> -->
-                            <td><a class="buttonDesignNegative" href="{% url 'sis_app:generate_account' student.id %}">Generate Account</a></td>
-                            <td><a class="buttonDesignNegative" href="{% url 'sis_app:delete_registration' student.id %}">Delete</a></td>
+                            <td><a class="submitButton" href="{% url 'sis_app:generate_account' student.id %}">Generate Account</a></td>
+                            <td><a class="cancelButton" href="{% url 'sis_app:delete_registration' student.id %}">Delete</a></td>
 
                         </tr>
                         {% endfor %}
