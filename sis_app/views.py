@@ -155,14 +155,37 @@ def EditAccountCred_admin(request,id):
                     student_entity.password = new_password
 
                     #sending new user and pass to student via email
-                    send_mail(
-                                'CAMELEAN ACADEMY SIS CHANGE OF USERNAME AND PASSWORD',
-                                "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON LOGGING IN".format(student_entity.username, student_entity.password),
-                                None,
-                                [student_entity.student_guardianemail],#this is the recipient(change this to email of student later)[student_entity.email]
-                                fail_silently=False,
-                            )
+                    # send_mail(
+                    #             'CAMELEAN ACADEMY SIS CHANGE OF USERNAME AND PASSWORD',
+                    #             "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON LOGGING IN".format(student_entity.username, student_entity.password),
+                    #             None,
+                    #             [student_entity.student_guardianemail],#this is the recipient(change this to email of student later)[student_entity.email]
+                    #             fail_silently=False,
+                    #         )
 
+                    data = { 
+
+                    "Messages":[
+                    {
+                            "From": {
+                                    "Email": "gmgtechdev@gmail.com",
+                                    "Name": "Camelean Academy"
+                            },
+                            "To": [
+                                    {
+                                            "Email": str(student_entity.student_guardianemail),
+                                            "Name": "Client"
+                                    }
+                            ],
+                            "Subject": "CREDENTIALS CHANGE FOR CAMELEAN ACADEMY STUDENT INFORMATION SYSTEM",
+                            "TextPart": "Username: {}\nPassword: {}\nPLEASE CHANGE YOUR USERNAME AND PASSWORD UPON FIRST LOG-IN".format(new_username, new_password),
+                            "HTMLPart": "<h3>PLEASE CHANGE YOUR USERNAME AND PASSWORD UPON LOG-IN</h3><br />Username: {}\nPassword: {}\n".format(new_username, new_password),
+                            }
+                        ]
+                    }
+                    
+                    result = mailjet.send.create(data=data)
+                    
                     student_entity.password = make_password(new_password)
                     student_entity.save()
                     user_entity.username = new_username
@@ -483,38 +506,9 @@ def GenerateAccount(request, id):
 				        }
 		            ]
 	            }
-			
-                #     'FromEmail': 'gmgtechdev@gmail.com',
-                #     'FromName': 'Camelean Academy',
-                #     'Subject': 'Test',
-                #     'Text-part' : 'details',
-                #     'Html-part' : '<h3>Dear passenger, welcome to <a href=\"https://www.mailjet.com/\">Mailjet</a>!<br />May the delivery force be with you!',
-                #     'Recipients': [{'Email':'jahjahcallanta@gmail.com'}]
-                #     ]
-                # }
-
-                #     'Messages': [
-                #         {
-                #             "From": {
-                #                 "Email:": "gmgtechdev@gmail.com",
-                #                 'Name': 'Default'
-                #         },
-                #             "To": [
-                #                 {
-                #                 "Email:": "jahjahcallanta@gmail.com",
-                #                 "Name:": "Mr."
-                #                  },
-                #                 ],
-                #             "Subject:": "Camelean Academy Student Information System Account Details",
-                #             "TextPart:": str(username),
-                #             "HTMLPart": "<h3>Welcome to Camelean Academy Student Information System</h3>"
-                #             }
-                #         ]
-                #     }
 
                 result = mailjet.send.create(data=data)
-                # print(result.status_code)
-                # print(result.json())
+              
                 return redirect("sis_app:registration_list")
                 False
             else:   
