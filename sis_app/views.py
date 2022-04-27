@@ -262,12 +262,14 @@ def RegstudentForm(request,id = 0):
         if id == 0:
             form = StudentForm(request.POST)
             messages.success(request, 'Account Successfully Created. Please wait for account details in your registered email')
-            return redirect('sis_app:log_in')   
         else:
             student = Student.objects.get(pk=id)
             form = StudentForm(request.POST,instance=student)
+        print(form)
         if form.is_valid():
+            print(form)
             form.save()
+            return redirect('sis_app:log_in')   
         else:
             a = form.errors.as_data()
             if 'student_sibling_age' and 'student_guardianemail' in a.keys():
@@ -325,7 +327,8 @@ def studentForm(request,id=0):
         form_class = StudentFormDisabled
         if request.method == "GET":
             if id == 0: 
-                form = StudentFormDisabled()
+                form = StudentForm()
+                return render(request,"sis_app/Student_Form.html",{'form':form})
             else:
                 student = Student.objects.get(pk=id)
                 f_name = student.student_firstname
@@ -333,10 +336,10 @@ def studentForm(request,id=0):
                 grade_level = student.student_grade_level
                 form = StudentFormDisabled(instance=student)
                 context = {'form':form, 'f_name':f_name, 'l_name':l_name, 'grade_level':grade_level}
-            return render(request,"sis_app/Student_Form_disabled.html",context)
+                return render(request,"sis_app/Student_Form_disabled.html",context)
         else:
             if id == 0:
-                form = StudentFormDisabled(request.POST)
+                form = StudentForm(request.POST)
             else:
                 student = Student.objects.get(pk=id)
                 form = StudentFormDisabled(request.POST,instance=student)
