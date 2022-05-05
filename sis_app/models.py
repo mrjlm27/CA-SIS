@@ -1,6 +1,7 @@
 from email.policy import default
 from time import timezone
 from django.db import models
+from datetime import datetime
 import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -59,7 +60,7 @@ class Student(Account):
     #     (2029,2029),
     #     (2030,2030),
     # ]
-    sy = [tuple([x,x]) for x in range(2022,2035)]
+    sy = [tuple([x,x]) for x in range(datetime.date.today().year,datetime.date.today().year+5)]
 
     enrollment_status = models.CharField(max_length=20, choices=status,default='Not Enrolled')#
     #student_schoolyear_start=models.IntegerField(('year'), validators=[MinValueValidator(2000), max_value_current_year], default=None)#
@@ -191,7 +192,7 @@ class GradeReport(models.Model):
     #General Fields For All Students
     tor_id = models.ForeignKey(TranscriptOfRecord, on_delete=models.CASCADE, null=True, blank = True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank = True)
-    sy = [tuple([x,x]) for x in range(2022,2035)]
+    sy = [tuple([x,x]) for x in range(datetime.date.today().year,datetime.date.today().year+5)]
     school_year = models.IntegerField(default=None, choices=sy)
     period =[
     ('1','1'),
