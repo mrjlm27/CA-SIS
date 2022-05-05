@@ -75,6 +75,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="text-danger">
+                            Student already has 3 grade reports for the school year
+                        </div>
+                    {% endfor %}
+                {% endif %}
                     {% for student in studentList %}
                     <tr>
                         <td data-heading="Student ID">{{student.pk}}</td>

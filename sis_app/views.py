@@ -772,7 +772,22 @@ def GradeReportFormNursery(request, id):
             else:
                 tor = TranscriptOfRecord.objects.create(tor_id=id, student = student)
                 form = GradeReportFormN(request.POST)
-            if form.is_valid():
+            x = GradeReport.objects.select_related().filter(student = id)
+            #Filter objects to specific student and school year
+            if datetime.date.today().month <= 5:
+                # sy = form.cleaned_data['school_year']
+                sy = datetime.date.today().year-1
+            else:
+                sy = datetime.date.today().year
+            grade_report_filteredsy = x.filter(school_year = sy)
+            number_gr = grade_report_filteredsy.count()
+            print(number_gr)
+            if number_gr == 3:
+                messages.error(request, 'error')
+                students = Student.objects.filter(student_grade_level = 'Nursery')
+                student = {'studentList' : students}
+                return render(request,"sis_app/GradeReportNursery_List.html", student)
+            elif form.is_valid():
                 form.save()
                 report = GradeReport.objects.latest('id')
                 tor_obj = TranscriptOfRecord.objects.get(tor_id=id)
@@ -1258,7 +1273,22 @@ def GradeReportFormKinder1Kinder2Junior(request, id):
             else:
                 tor = TranscriptOfRecord.objects.create(tor_id=id, student = student)
                 form = GradeReportForm(request.POST)
-            if form.is_valid():
+            x = GradeReport.objects.select_related().filter(student = id)
+            #Filter objects to specific student and school year
+            if datetime.date.today().month <= 5:
+                # sy = form.cleaned_data['school_year']
+                sy = datetime.date.today().year-1
+            else:
+                sy = datetime.date.today().year
+            grade_report_filteredsy = x.filter(school_year = sy)
+            number_gr = grade_report_filteredsy.count()
+            print(number_gr)
+            if number_gr == 3:
+                messages.error(request, 'error')
+                students = Student.objects.filter(student_grade_level__in = ['Kinder 1', 'Kinder 2 Junior'])
+                student = {'studentList' : students}
+                return render(request,"sis_app/GradeReportK1K2JR_List.html", student)
+            elif form.is_valid():
                 form.save()
                 report = GradeReport.objects.latest('id')
                 tor_obj = TranscriptOfRecord.objects.get(tor_id=id)
@@ -1475,7 +1505,23 @@ def GradeReportFormKinder2Senior(request, id):
             else:
                 tor = TranscriptOfRecord.objects.create(tor_id=id, student = student)
                 form = GradeReportForm(request.POST)
-            if form.is_valid():
+            # Filter objects to specific student 
+            x = GradeReport.objects.select_related().filter(student = id)
+            #Filter objects to specific student and school year
+            if datetime.date.today().month <= 5:
+                # sy = form.cleaned_data['school_year']
+                sy = datetime.date.today().year-1
+            else:
+                sy = datetime.date.today().year
+            grade_report_filteredsy = x.filter(school_year = sy)
+            number_gr = grade_report_filteredsy.count()
+            print(number_gr)
+            if number_gr == 3:
+                messages.error(request, 'error')
+                students = Student.objects.filter(student_grade_level = 'Kinder 2 Senior')
+                student = {'studentList' : students}
+                return render(request,"sis_app/GradeReportKinder2Senior_List.html", student)
+            elif form.is_valid():
                 form.save()
                 report = GradeReport.objects.latest('id')
                 tor_obj = TranscriptOfRecord.objects.get(tor_id=id)
