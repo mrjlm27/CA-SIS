@@ -78,7 +78,7 @@
                         <th>Last Name</th>
                         <th>Enrollment Status</th>
                         <th>Last Enrolled</th>
-                        <th></th>
+                        <th>Grade Level</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -91,6 +91,7 @@
                         <td data-heading="First Name">{{student.id}}</td>
                         <td data-heading="First Name">{{student.student_firstname}}</td>
                         <td data-heading="Last Name">{{student.student_lastname}}</td>
+                        <td data-heading="Last Name">{{student.student_grade_level}}</td>
                         <td data-heading="Enrollment Status">{{student.enrollment_status}}</td>
                         <td data-heading="Last Enrolled">{{student.student_schoolyear_start}}</td>
                         <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:generate_tor' student.id %}">Generate TOR</a></td>
