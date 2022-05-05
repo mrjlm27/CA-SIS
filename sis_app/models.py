@@ -192,7 +192,10 @@ class GradeReport(models.Model):
     #General Fields For All Students
     tor_id = models.ForeignKey(TranscriptOfRecord, on_delete=models.CASCADE, null=True, blank = True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank = True)
-    sy = [tuple([x,x]) for x in range(datetime.date.today().year,datetime.date.today().year+5)]
+    if datetime.date.today().month <= 5:
+        sy = [tuple([x,x]) for x in range(datetime.date.today().year-1,datetime.date.today().year)]
+    else:
+        sy = [tuple([x,x]) for x in range(datetime.date.today().year,datetime.date.today().year+1)]
     school_year = models.IntegerField(default=None, choices=sy)
     period =[
     ('1','1'),
