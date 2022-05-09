@@ -72,15 +72,15 @@ h2 {
     margin-left: 0;
 }
 
-img {
-    padding-left: 386px;
-    padding-top: 79px;
-    position: absolute;
-  }
-
 .homepage {
     margin-left: 444px;
     margin-right: 200px;
     font-family: "Rubik", sans-serif;
+    font-size:xx-large;
     font-weight: 800;
+}
+
+.camLogo {
+    display: flex;
+    justify-content: center;
 }

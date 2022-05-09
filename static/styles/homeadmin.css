@@ -1,173 +1,86 @@
-h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* NAVBAR */
+.navbarHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    background-color: #D0581C;
-    margin:0;
-    /* padding:0; */
-    color: #FFFFFF;
+  background-color: #D0581C;
+  margin:0;
+  /* padding:0; */
+  color: #FFFFFF;
 
-    height: 25vh;
-    width: 358px;
-    
-    font-weight: 200;
-    font-size: 48px;
-    text-align: center;
+  height: 20vh;
+  width: 358px;
+  
+  font-weight: 200;
+  font-size: 48px;
+  text-align: center;
 }
 
-table {
-    background-color: #FBB023;
-    height: 75vh;
-    width: 358px;
+.navbarTable {
+  background-color: #FBB023;
+  height: 80vh;
+  width: 358px;
 
-    margin:0;
-    padding:0;
-    position: relative;
+  margin:0;
+  padding:0;
 }
 
-tr {
-    text-align: center;
-    font-size: 30px;
+.navbarTr {
+  text-align: center;
+  font-size: 30px;
 }
 
 a:visited,
 a:link {
-    color: #434530;
+  color: #434530;
 }
 
 a:hover {
-    color:white;
-    text-decoration: none;
+  color:white;
+  text-decoration: none;
 }
 
 .navbar {
-    margin:0;
-    padding:0;
-}
-
-body {
-    display: flex;
+  margin:0;
+  padding:0;
+  position:fixed;
 }
 
 h2 {
-    padding-left: 86px;
-    padding-top: 79px;
+  padding-top: 79px;
 
-    font-weight: 700;
-    font-size: 48px;
+  font-weight: 700;
+  font-size: 48px;
 }
 
 #homeHR {
-    background-color:#D0581C;
-    width:196px;
-    height:15px;
+  background-color:#D0581C;
+  width:196px;
+  height:15px;
 
-    margin-top: 27px;
-    margin-left: 86px;
-  }
-
-#announcementsHR {
-    background-color:#F1AC88;
-    width:110px;
-    height:15px;
-
-    margin-top: 27px;
-    margin-left: 86px;
+  margin-top: 27px;
+  margin-left: 0;
 }
 
-img {
-    padding-left: 386px;
-    padding-top: 79px;
-    position: absolute;
-  }
+#announcementsHR {
+  background-color:#F1AC88;
+  width:110px;
+  height:15px;
 
-#announcementText, #formID {
-    padding-left: 86px;
+  margin-top: 27px;
+  margin-left: 0;
 }
 
 .homepage {
-    font-family: "Rubik", sans-serif;
-    font-weight: 800;
+  margin-left: 444px;
+  margin-right: 200px;
+  font-family: "Rubik", sans-serif;
+  font-size:xx-large;
+  font-weight: 800;
 }
 
-.submitButton {
-    background: linear-gradient(to bottom right, #D0581C, #FBB023);
-    border: 0;
-    border-radius: 12px;
-    color: #FFFFFF;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Rubik", sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    height: 45px;
-    line-height: 2.5;
-    outline: transparent;
-    padding: 0 1rem;
-    text-align: center;
-    text-decoration: none;
-    transition: box-shadow .2s ease-in-out;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    white-space: nowrap;
-    width: 100px;
+.camLogo {
+  display: flex;
+  justify-content: center;
 }
-
-  
-.submitButton:not([disabled]):focus {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
-}
-
-.submitButton:not([disabled]):hover {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
-}
-
-.cancelButton{
-    align-items: center;
-    background-color: initial;
-    background-image: linear-gradient(#808080, #808080);
-    border-radius: 8px;
-    border-width: 0;
-    box-sizing: border-box;
-    text-decoration-color: white;
-    cursor: pointer;
-    display: inline-flex;
-    flex-direction: column;
-    font-family: "Rubik", sans-serif;
-    font-size: 18px;
-    height: 45px;
-    justify-content: center;
-    line-height: 1;
-    margin: 0;
-    outline: none;
-    overflow: hidden;
-    padding: 0 32px;
-    text-align: center;
-    text-decoration: none;
-    transform: translate3d(0, 0, 0);
-    transition: all 150ms;
-    vertical-align: baseline;
-    white-space: nowrap;
-    width: 100px;
-  }
-  
-  .cancelButton:hover {
-    box-shadow: rgba(0, 1, 0, .2) 0 2px 8px;
-    opacity: .85;
-  }
-  
-  .cancelButton:active {
-    outline: 0;
-  }
-  
-  .cancelButton:focus {
-    box-shadow: rgba(0, 0, 0, .5) 0 0 0 3px;
-  }
-  
-  @media (max-width: 420px) {
-      .cancelButton {
-      height: 48px;
-    }
-  }
