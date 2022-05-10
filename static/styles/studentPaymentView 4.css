@@ -1,0 +1,88 @@
+/* NAVBAR */
+.navbarHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #D0581C;
+    margin:0;
+    /* padding:0; */
+    color: #FFFFFF;
+
+    height: 20vh;
+    width: 358px;
+    
+    font-weight: 200;
+    font-size: 48px;
+    text-align: center;
+}
+
+.navbarTable {
+    background-color: #FBB023;
+    height: 80vh;
+    width: 358px;
+
+    margin:0;
+    padding:0;
+}
+
+.navbarTr {
+    text-align: center;
+    font-size: 30px;
+}
+
+a:visited,
+a:link {
+    color: #434530;
+}
+
+a:hover {
+    color:white;
+    text-decoration: none;
+}
+
+.navbar {
+    margin:0;
+    padding:0;
+    position:fixed;
+}
+
+/* ---BODY--- */
+
+body {
+    display: flex;
+}
+
+.homepage {
+    margin-left: 444px;
+}
+
+h2 {
+    padding-top: 79px;
+
+    font-weight: 700;
+    font-size: 48px;
+}
+
+#PaymentsHR {
+    background-color:#D0581C;
+    width:196px;
+    height:15px;
+
+    margin-top: 27px;
+    margin-left: 0;
+}
+
+
+.table2{
+    margin-top: 150px;
+}
+
+.bodyHR{
+    background-color:#F1AC88;
+    width:110px;
+    height:15px;
+
+    margin-top: 27px;
+    margin-left: 0;
+}
