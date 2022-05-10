@@ -1,0 +1,48 @@
+html {
+	background-color: white;
+	font-family: 'Rubik', sans-serif;
+	margin-left: 20px;
+}
+
+.pageHeading {
+	font-family: 'M PLUS 1p', sans-serif;
+	font-weight: 800;
+}
+
+hr {
+	margin-left: 0px;
+	background-color: #D0581C;
+	height: 500px;
+	width: 196px;
+}
+
+h3, .Mother, .Siblings {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: 700;
+}
+
+#submitButton{
+	background-color: #D0581C;
+	width: 429px;
+	height: 39px;
+
+	text-align: center;
+	margin: auto;
+}
+
+#cancelButton, #submitButton {
+	border-radius: 13px;
+}
+
+.buttonContainer {
+	margin-top:20px;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+.formContainer {
+	font-family: "Rubik", sans-serif;
+	font-weight: 300;
+}
