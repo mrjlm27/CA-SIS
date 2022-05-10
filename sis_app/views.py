@@ -2388,6 +2388,12 @@ def deleteRegistration(request,id):
     return redirect('/RegistrationList')
 
 @login_required(login_url='sis_app:log_in')
+def deleteGradeReport(request,id):
+    grade_report = GradeReport.objects.get(pk=id)
+    grade_report.delete()
+    return redirect('/studentList')
+
+@login_required(login_url='sis_app:log_in')
 def logout(request):
     django_logout(request)
     return redirect('/login')

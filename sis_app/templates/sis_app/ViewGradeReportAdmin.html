@@ -69,7 +69,6 @@
                         <th>School Year</th>
                         <th>Grade Level</th>
                         <th>Period</th>
-                        <th>View GradeReport</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,6 +78,8 @@
                         <td data-heading="Last Name">{{gradereport.gradelevel}}</td>
                         <td data-heading="Enrollment Status">{{gradereport.grading_period}}</td>
                         <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:viewGradeReportAdmin2' gradereport.id %}">View GradeReport</a></td>
+                        <td><a class="buttonDesignNegative-elements" href="{% url 'sis_app:deleteGradeReport' gradereport.id %}">Delete GradeReport</a></td>
+
                     </tr>
                     {% endfor %}
                 </tbody>
